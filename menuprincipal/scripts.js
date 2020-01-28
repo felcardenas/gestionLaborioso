@@ -318,7 +318,7 @@ if(!empresaExiste){
     });  
 }
 
-function validarFormularioIngresarTrabajador(){s
+function validarFormularioIngresarTrabajador(){
     var valido = false;
     var nombreTrabajador = document.getElementById("nombreTrabajador").value;
     var apellidosTrabajador = document.getElementById("apellidosTrabajador").value;
@@ -515,6 +515,19 @@ function validarFormularioNuevoExamen(){
         return valido;
     }
 
+    var datos = $('#formNuevoExamen').serialize();
+    $.ajax({
+        type:"POST",
+        url:"../consultas/insert.php",
+        data:datos,
+        success:function(r){
+            if(r=='false'){
+                mensajeEnPantalla("Error","Trabajador no existe. Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador.","error");
+            }
+        }
+    });  
+
+    
     
     
 return valido;
@@ -572,8 +585,10 @@ function formulaRut(rut,dv){
 
     //SI DV Y CALCULO DV SON IGUALES SE RETORNA TRUE O FALSE Y SE PUEDE AVANZAR;
     if(calculodv == dv){
+        
         return true;
     }else{
+        
         return false;
     }
 
