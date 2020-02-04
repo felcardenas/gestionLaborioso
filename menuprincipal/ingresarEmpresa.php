@@ -13,7 +13,7 @@
                                 title="El campo puede contener solo letras, números y/o espacios" 
                                 onkeyup=""
                                 onchange=""
-                                
+                                required
                                 >
                             </div>    
                         </div>
@@ -29,7 +29,7 @@
                                 title="El campo puede contener solo números" 
                                 onkeyup="limpiarNumero(this)"
                                 onchange="limpiarNumero(this)"
-                                
+                                required
                                 >
                                 
                             </div>
@@ -60,7 +60,7 @@
                                 title="El campo puede contener solo letras y espacios" 
                                 onkeyup=""
                                 onchange=""
-                                
+                                required
                                 >
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                     title="El campo puede contener solo números" 
                                     onkeyup="limpiarNumero(this)"
                                     onchange="limpiarNumero(this)"
-                                    
+                                    required
                                     >
                             </div>
                         
@@ -101,6 +101,7 @@
                                     pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$"  
                                     title="El campo puede contener solo letras, números y/o espacios" 
                                     maxlength="64"
+                                    
                                     >
                             </div>
                         </div>
@@ -113,6 +114,7 @@
                                     maxlength="64"
                                     pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" 
                                     title="El campo debe tener formato de correo. Ej: 'correo@correo.cl'" 
+                                    
                                     >
                             </div>
                         </div>
@@ -127,6 +129,7 @@
                                     title="El campo puede contener solo números" 
                                     onkeyup=""
                                     onchange=""
+                                    
                                     >
                             </div>
                         </div>
