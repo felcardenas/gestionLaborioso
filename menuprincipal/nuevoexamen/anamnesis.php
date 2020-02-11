@@ -7,16 +7,11 @@
 <div class="row justify-content-center">
     <div class="col-8 my-5"> 
                             
-                                <?php include 'datostrabajador.php' ?>
+        <?php include 'datostrabajador.php' ?>
     </div>
 </div>
 
 
-
-
-
-    
-                
 <form action="" method="post">
 <div class="row justify-content-center">
     <div class="col-8">

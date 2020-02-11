@@ -51,6 +51,14 @@ $(document).ready(function () {
 
 
 
+
+
+
+    /*****************************************************************/
+
+
+
+
 });
 
 function confirmar(nombre, pagina) {
@@ -518,6 +526,66 @@ function validarFormularioNuevoExamen() {
 
 }
 
+
+function validarInterconsulta() {
+
+
+    valido = false;
+    var rutTrabajador = document.getElementById("rutTrabajador").value;
+    var especialidad = document.getElementById("especialidad").value;
+
+    //VALIDAR CAMPO
+    if (!validarBlanco(rutTrabajador)) {
+        mensajeEnPantalla("Error", "Debe completar campo RUT", "error");
+        return valido;
+    }
+
+    if (rutTrabajador.length > 13) {
+        mensajeEnPantalla("Error", "El campo no debe tener más de 12 caracteres contando puntos y guión", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(rutTrabajador, /^\d{1,3}\.\d{3}\.\d{3}[-][0-9kK]{1}$/)) {
+        mensajeEnPantalla("Error", "Formato no válido.", "error");
+        return valido;
+    }
+
+
+
+
+    var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+
+            } else if (r == 'false') {
+
+                mensajeEnPantalla("Trabajador no existe", "Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador", "error");
+                return false;
+            }
+        }
+    });
+
+
+    if (especialidad == 'Medicina interna' ||
+        especialidad == 'Medicina general') {
+        window.location.replace("informeinterconsulta.php");
+    } else {
+        mensajeEnPantalla("Error", "Debe ingresar una especialidad válida", "error");
+        return false;
+    }
+
+
+
+
+
+    //return valido;
+
+}
+
 function validarSignosVitales() {
     var valido = false;
 
@@ -631,7 +699,7 @@ function validarSignosVitales() {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            
+
             confirmacion = true;
 
         } else {
@@ -639,7 +707,7 @@ function validarSignosVitales() {
         }
 
         if (confirmacion) {
-            
+
             //mensajeEnPantalla("Se ingresaron los datos","","success");
 
             var datos = $('#formSignosVitales').serialize();
@@ -650,18 +718,18 @@ function validarSignosVitales() {
                 success: function (r) {
                     if (r == 'true') {
                         window.location.replace("seleccionexamenes.php");
-                    } else if(r == 'false') {
+                    } else if (r == 'false') {
                         mensajeEnPantalla("No se han ingresado los datos", "", "error");
                     }
                 }
             });
- 
 
-           
+
+
         } else {
             mensajeEnPantalla("No se han ingresado los datos", "", "error");
             return false;
-        } 
+        }
 
     })
 
@@ -695,6 +763,368 @@ function validarSignosVitales() {
 
 function validarAnamnesis() {
     window.location.replace("signosvitales.php");
+
+}
+
+function guardarPerfilLipidico() {
+    valido = false;
+
+    var colesterolTotal = document.getElementById("colesterolTotal").value;
+    var colesterolHDL = document.getElementById("colesterolHDL").value;
+    var colesterolLDL = document.getElementById("colesterolLDL").value;
+    var colesterolVLDL = document.getElementById("colesterolVLDL").value;
+    var indiceCol = document.getElementById("indiceCol").value;
+    var trigliceridos = document.getElementById("trigliceridos").value;
+    /* var observaciones = document.getElementById("observaciones").value;
+    var estado = document.getElementById("estado").value; */
+    var regexp = /^\d{1,3}\.{0,1}\d{1}$/;
+
+    //VALIDAR CAMPO
+
+    /*  if (estado != 'Sin Evaluar' && estado != 'Normal' && estado != 'Alterado') {
+         mensajeEnPantalla("Error", "No modifiques el select!", "error");
+         return valido;
+     } */
+
+    if (!validarBlanco(colesterolTotal) || !validarBlanco(colesterolHDL) || !validarBlanco(colesterolLDL) || !validarBlanco(colesterolVLDL) || !validarBlanco(indiceCol) || !validarBlanco(trigliceridos)) {
+        mensajeEnPantalla("Error", "Debe completar los campos. Observaciones puede quedar en blanco", "error");
+        return valido;
+    }
+
+    if (colesterolTotal.length > 5 || colesterolHDL.length > 5 || colesterolLDL.length > 5 || colesterolVLDL.length > 5 || indiceCol.length > 5 || trigliceridos.length > 5) {
+        mensajeEnPantalla("Error", "Los campos no pueden tener más de 5 caracteres.", "error");
+        return valido;
+    }
+
+    /*  if (observaciones.length > 315) {
+         mensajeEnPantalla("Error", "Campo observaciones no puede tener más de 215 caracteres", "error");
+         return valido;
+     } */
+
+
+    if (!validarRegExp(colesterolTotal, regexp) || !validarRegExp(colesterolHDL, regexp) || !validarRegExp(colesterolLDL, regexp) || !validarRegExp(colesterolVLDL, regexp) || !validarRegExp(indiceCol, regexp) || !validarRegExp(trigliceridos, regexp)) {
+        mensajeEnPantalla("Campo deben ser rellenado con un número entero o un número con un decimal separado por un punto. <br><br><br><br>Ej:'100.1'", "", "error");
+        return valido;
+    }
+
+
+    /* Swal.fire({
+        title: pregunta,
+        text: texto,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            
+            confirmacion = true;
+
+        } else {
+            confirmacion = false;
+        }
+
+        if (confirmacion) { */
+
+    //mensajeEnPantalla("Se ingresaron los datos","","success");
+
+
+
+    var datos = $('#formIngresarPerfilLipidico').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+
+                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                document.getElementById("btnPerfilLipidico").setAttribute("disabled", true);
+                document.getElementById("colesterolTotal").setAttribute("disabled", true);
+                document.getElementById("colesterolHDL").setAttribute("disabled", true);
+                document.getElementById("colesterolLDL").setAttribute("disabled", true);
+                document.getElementById("colesterolVLDL").setAttribute("disabled", true);
+                document.getElementById("indiceCol").setAttribute("disabled", true);
+                document.getElementById("trigliceridos").setAttribute("disabled", true);
+                document.getElementById("btnMostrarPerfilLipidico").setAttribute("disabled", true);
+                document.getElementById("btnGuardarPerfilLipidico").setAttribute("disabled", true);
+
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+
+
+
+    /* } else {
+        mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        return false;
+    } 
+
+}) */
+
+
+
+}
+
+function mostrarPerfilLipidico() {
+
+    var datos = $('#formIngresarPerfilLipidico').serialize();
+    $.ajax({
+        type: "POST",
+        url: "consultas/mostrardatos.php",
+        data: datos,
+        success: function (r) {
+            var js = JSON.parse(r);
+
+            document.getElementById("colesterolTotal").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("colesterolHDL").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("colesterolLDL").value = js[2].VALOR_PARAMETRO;
+            document.getElementById("colesterolVLDL").value = js[3].VALOR_PARAMETRO;
+            document.getElementById("indiceCol").value = js[4].VALOR_PARAMETRO;
+            document.getElementById("trigliceridos").value = js[5].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[6].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[7].VALOR_PARAMETRO;
+            //document.getElementById("colesterolTotal").value = "12345";
+        }
+    });
+    //document.getElementById("colesterolHDL").value = "12345";
+
+
+
+}
+
+function riesgoADiezAnios() {
+
+    var valor = document.getElementById('valorIndiceDeFramingham').value;
+    var texto;
+
+
+    //limpiarNumero(valor);
+
+    if (!isNumeric(valor)) {
+        texto = "INVÁLIDO";
+    } else if (valor < 1 || valor > 99) {
+        texto = 'INVÁLIDO';
+    } else if (valor >= 10) {
+        texto = "ALTO";
+    } else if (valor >= 5 && valor <= 9) {
+        texto = "MODERADO";
+    } else if (valor < 5) {
+        texto = "BAJO";
+    } else if (!isNumeric(valor)) {
+        texto = "INVÁLIDO";
+    } else if (valor = "") {
+        texto = " ";
+    }
+
+    document.getElementById("riesgoDiezAnios").value = texto;
+
+}
+
+function guardarIndiceDeFramingham() {
+
+    var valorIndiceDeFramingham = document.getElementById('valorIndiceDeFramingham').value;
+    var riesgoDiezAnios = document.getElementById('riesgoDiezAnios').value;
+
+    if (!validarBlanco(valorIndiceDeFramingham)) {
+        mensajeEnPantalla("Debe completar el campo valor", "", "error");
+        return false;
+    }
+
+    if (riesgoDiezAnios == 'INVÁLIDO') {
+        mensajeEnPantalla("Riesgo a 10 años no puede ser inválido", "", "error");
+        return false;
+    } else if (riesgoDiezAnios != 'ALTO' && riesgoDiezAnios != 'MODERADO' && riesgoDiezAnios != 'BAJO') {
+        mensajeEnPantalla("Campo riesgo a 10 años debe contener un texto válido", "", "error");
+        return false;
+    }
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            
+            var datos = $('#formIngresarIndiceDeFramingham').serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../consultas/insert.php",
+                data: datos,
+                success: function (r) {
+                    if (r == 'true') {
+                        document.getElementById("valorIndiceDeFramingham").setAttribute("disabled", true);
+                        document.getElementById("riesgoDiezAnios").setAttribute("disabled", true);
+                        document.getElementById("btnMostrarIndiceDeFramingham").setAttribute("disabled", true);
+                        document.getElementById("btnGuardarIndiceDeFramingham").setAttribute("disabled", true);
+                        document.getElementById("btnIndiceDeFramingham").setAttribute("disabled", true);
+                        mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                    } else if (r == 'false') {
+                        mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                    }
+                }
+            });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+
+
+
+    /*  
+      */
+
+}
+
+function obtenerIMC() {
+    peso = 0;
+    altura = 0;
+
+    peso = document.getElementById('peso').value;
+    altura = document.getElementById('altura').value;
+
+    imc = peso / ((altura * altura) / 10000);
+
+    if (peso == '' || altura == '') {
+        document.getElementById('imc').value = '0';
+    } else if (isNumeric(imc)) {
+        document.getElementById('imc').value = imc.toFixed(2);
+    }
+
+}
+
+function mostrarOptometria() {
+    $("#contenidoExamen").load("vistasexamenes/optometria.php");
+}
+
+function mostrarElectrocardiograma() {
+    $("#contenidoExamen").load("vistasexamenes/electrocardiograma.php");
+}
+
+function mostrarGlicemia() {
+    $("#contenidoExamen").load("vistasexamenes/glicemia.php");
+}
+
+function mostrarEspirometriaBasal() {
+    $("#contenidoExamen").load("vistasexamenes/espirometriabasal.php");
+}
+
+
+function mostrarAudiometria() {
+    $("#contenidoExamen").load("vistasexamenes/audiometria.php");
+}
+
+
+function mostrarCreatinina() {
+    $("#contenidoExamen").load("vistasexamenes/creatinina.php");
+}
+
+
+function mostrarPerfilLipidico() {
+    $("#contenidoExamen").load("vistasexamenes/perfilLipidico.php");
+}
+
+
+function mostrarHemoglobina() {
+    $("#contenidoExamen").load("vistasexamenes/hemoglobina.php");
+}
+
+
+function mostrarRxTorax() {
+    $("#contenidoExamen").load("vistasexamenes/rxtorax.php");
+}
+
+
+function mostrarIndiceDeFramingham() {
+    $("#contenidoExamen").load("vistasexamenes/indicedeframingham.php");
+}
+
+
+function mostrarEncuestaDeLakeLouis() {
+    $("#contenidoExamen").load("vistasexamenes/encuestadelakelouis.php");
+}
+
+
+function mostrarTestDeRuffier() {
+    $("#contenidoExamen").load("vistasexamenes/testderuffier.php");
+}
+
+
+function mostrarHemograma() {
+    $("#contenidoExamen").load("vistasexamenes/hemograma.php");
+}
+
+
+function mostrarCultivoNasal() {
+    $("#contenidoExamen").load("vistasexamenes/cultivoNasal.php");
+}
+
+
+function mostrarCultivoFaringeo() {
+    $("#contenidoExamen").load("vistasexamenes/cultivoFaringeo.php");
+}
+
+
+function mostrarCultivoLechoUngueal() {
+    $("#contenidoExamen").load("vistasexamenes/cultivolechoungueal.php");
+}
+
+
+function mostrarALTSGPT() {
+    $("#contenidoExamen").load("vistasexamenes/altsgpt.php");
+}
+
+
+function mostrarASTSGOT() {
+    $("#contenidoExamen").load("vistasexamenes/astsgot.php");
+}
+
+
+function mostrarProtrombina() {
+    $("#contenidoExamen").load("vistasexamenes/protrombina.php");
+}
+
+
+function mostrarTiempoDeProtrombina() {
+    $("#contenidoExamen").load("vistasexamenes/tiempoDeProtrombina.php");
+}
+
+
+function mostrarActividadDeAcetilcolinesterasa() {
+    $("#contenidoExamen").load("vistasexamenes/actividaddeacetilcolinesterasa.php");
+}
+
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function validarCheckBoxExamenes() {
+
+    var suma = 0;
+    var seleccionados = document.getElementsByName('seleccionado[]');
+    for (var i = 0, j = seleccionados.length; i < j; i++) {
+
+        if (seleccionados[i].checked == true) {
+            suma++;
+        }
+    }
+
+    if (suma == 0) {
+        mensajeEnPantalla("Error", "Debe seleccionar al menos una casilla", "error");
+        return false;
+    } else {
+        return true;
+    }
 
 }
 
@@ -774,9 +1204,7 @@ function mensajeEnPantalla(titulo, mensaje, icono) {
     )
 }
 
-function mensajeConfirmacion(tituloConfirmacion, textoConfirmacion) {
-    valido = false;
-
+/* function mensajeConfirmacion(tituloConfirmacion, textoConfirmacion) {
     Swal.fire({
         title: tituloConfirmacion,
         text: textoConfirmacion,
@@ -789,18 +1217,34 @@ function mensajeConfirmacion(tituloConfirmacion, textoConfirmacion) {
 
     }).then((result) => {
         if (result.value) {
-            valido = true;
-
+            return '0';
         } else {
-            valido = false
-
+            return '1';
         }
-
-        return valido;
-
     });
 
 
+
+} */
+
+function mensajeConfirmacion() {
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            return true;
+        } else {
+            return false;
+        }
+    })
 
 }
 

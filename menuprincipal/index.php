@@ -4,7 +4,12 @@ if(!isset($_SESSION['control'])){
   echo 'Usted no tiene autorización para ver esta página';
   die();
 }else{
+
 }
+
+$_SESSION['rutTrabajador'] = '';
+$_SESSION['nombreTrabajador'] = '';
+$_SESSION['apellidosTrabajador'] = '';
 
 
 ?>
@@ -28,9 +33,12 @@ if(!isset($_SESSION['control'])){
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <link rel="stylesheet" href="../plugins/sweetalert/dist/sweetalert2.min.css">
   
+  
+
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
   
 
   

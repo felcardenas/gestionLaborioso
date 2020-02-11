@@ -7,7 +7,7 @@
     <!-- SELECCIONE TRABAJADOR-->
     <div class="row justify-content-center">
 
-                            <div class="col-6">
+                            <div class="col-8">
                                 <label for="">Rut trabajador</label>
                                     <input type="text" name="rutTrabajador" id="rutTrabajador" class="form-control"
                                     onkeyup="formateaRut(this)"

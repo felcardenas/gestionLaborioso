@@ -1,15 +1,10 @@
 <?php include '../plantillas/header.php';
-session_start(); 
+//session_start(); 
 
  ?>
 
+<?php include 'signosvitales.php'?>
 
-
-<div class="container mt-5" id="contenido" name="contenido">
-
-<?php include 'anamnesis.php' ?>
-
-</div>
 
 <?php include '../plantillas/footer.php' ?>
 
