@@ -269,7 +269,7 @@ if(isset($_POST['submit'])) {
 <div class="row py-3">
     <div class="col-3"></div>
     <div class="col-9">
-        <button class="btn btn-primary btn-block" style="font-size:22px" onclick="window.location.replace('../index.php')">FINALIZAR</button>
+        <button class="btn btn-primary btn-block" style="font-size:22px" onclick="volverAInicio()">FINALIZAR</button>
     </div>
     
 </div>

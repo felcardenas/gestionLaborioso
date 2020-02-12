@@ -4,13 +4,13 @@
 
     <div class="row justify-content-center my-5">
         <div class="col-6">
-            <h1 class="text-center">Perfil lipidico</h1>
+            <h1 class="text-center">PERFIL LIPIDICO</h1>
         </div>
     </div>
 
 
 
-    <form action="" method="POST" class="" id="formIngresarPerfilLipidico">
+    <form action="" method="POST" class="" id="formIngresarPerfilLipidico" name="formIngresarPerfilLipidico">
 
     
         <?php //include 'estado.php' ?>
@@ -114,6 +114,15 @@
 
         </div>
 
+        <div class="row justify-content-center mb-3" style="margin-top:5px;">
+                <div class="col-12">
+                    <div class="form-group">
+                      <label for="observaciones">OBSERVACIONES</label>
+                      <textarea class="form-control" name="observaciones" id="observaciones" rows="8">Sin observaciones</textarea>
+                    </div>
+                </div>
+        </div> 
+
         <!-- <div class="row justify-content-center mb-3">
 
             <div class="col-8">
@@ -130,12 +139,12 @@
 
         <div class="row justify-content-center mb-3">
 
-            <div class="col-4">
+           <!--  <div class="col-4">
                 <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarPerfilLipidico">
-            </div>
+            </div> -->
 
-            <div class="col-2">
-                <input class="btn btn-primary" type="button" value="Guardar" onclick="guardarPerfilLipidico()" id="btnGuardarPerfilLipidico">
+            <div class="col-4">
+                <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarPerfilLipidico()" id="btnGuardarPerfilLipidico">
             </div>
 
         </div>

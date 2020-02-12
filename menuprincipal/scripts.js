@@ -49,16 +49,6 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
-
-    /*****************************************************************/
-
-
-
-
 });
 
 function confirmar(nombre, pagina) {
@@ -68,8 +58,6 @@ function confirmar(nombre, pagina) {
         $("#contenido").load(pagina);
     }
 }
-
-
 
 function validarFormularioIngresarEmpresa() {
     var valido = false;
@@ -775,8 +763,8 @@ function guardarPerfilLipidico() {
     var colesterolVLDL = document.getElementById("colesterolVLDL").value;
     var indiceCol = document.getElementById("indiceCol").value;
     var trigliceridos = document.getElementById("trigliceridos").value;
-    /* var observaciones = document.getElementById("observaciones").value;
-    var estado = document.getElementById("estado").value; */
+    var observaciones = document.getElementById("observaciones").value;
+    //var estado = document.getElementById("estado").value;
     var regexp = /^\d{1,3}\.{0,1}\d{1}$/;
 
     //VALIDAR CAMPO
@@ -808,9 +796,9 @@ function guardarPerfilLipidico() {
     }
 
 
-    /* Swal.fire({
-        title: pregunta,
-        text: texto,
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -819,43 +807,41 @@ function guardarPerfilLipidico() {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.value) {
-            
-            confirmacion = true;
+            var datos = $('#formIngresarPerfilLipidico').serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../consultas/insert.php",
+                data: datos,
+                success: function (r) {
+                    if (r == 'true') {
 
+                        mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                        document.getElementById("btnPerfilLipidico").setAttribute("disabled", true);
+                        document.getElementById("colesterolTotal").setAttribute("disabled", true);
+                        document.getElementById("colesterolHDL").setAttribute("disabled", true);
+                        document.getElementById("colesterolLDL").setAttribute("disabled", true);
+                        document.getElementById("colesterolVLDL").setAttribute("disabled", true);
+                        document.getElementById("indiceCol").setAttribute("disabled", true);
+                        document.getElementById("trigliceridos").setAttribute("disabled", true);
+                        document.getElementById("observaciones").setAttribute("disabled",true);
+
+                        //document.getElementById("btnMostrarPerfilLipidico").setAttribute("disabled", true);
+                        document.getElementById("btnGuardarPerfilLipidico").setAttribute("disabled", true);
+
+                    } else if (r == 'false') {
+                        mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                    }
+                }
+            });
         } else {
-            confirmacion = false;
+            return false;
         }
-
-        if (confirmacion) { */
-
-    //mensajeEnPantalla("Se ingresaron los datos","","success");
+    })
 
 
 
-    var datos = $('#formIngresarPerfilLipidico').serialize();
-    $.ajax({
-        type: "POST",
-        url: "../../consultas/insert.php",
-        data: datos,
-        success: function (r) {
-            if (r == 'true') {
 
-                mensajeEnPantalla("Se han ingresado los datos", "", "success");
-                document.getElementById("btnPerfilLipidico").setAttribute("disabled", true);
-                document.getElementById("colesterolTotal").setAttribute("disabled", true);
-                document.getElementById("colesterolHDL").setAttribute("disabled", true);
-                document.getElementById("colesterolLDL").setAttribute("disabled", true);
-                document.getElementById("colesterolVLDL").setAttribute("disabled", true);
-                document.getElementById("indiceCol").setAttribute("disabled", true);
-                document.getElementById("trigliceridos").setAttribute("disabled", true);
-                document.getElementById("btnMostrarPerfilLipidico").setAttribute("disabled", true);
-                document.getElementById("btnGuardarPerfilLipidico").setAttribute("disabled", true);
-
-            } else if (r == 'false') {
-                mensajeEnPantalla("No se han ingresado los datos", "", "error");
-            }
-        }
-    });
+    
 
 
 
@@ -929,6 +915,7 @@ function guardarIndiceDeFramingham() {
 
     var valorIndiceDeFramingham = document.getElementById('valorIndiceDeFramingham').value;
     var riesgoDiezAnios = document.getElementById('riesgoDiezAnios').value;
+    var observaciones = document.getElementById('observaciones').value;
 
     if (!validarBlanco(valorIndiceDeFramingham)) {
         mensajeEnPantalla("Debe completar el campo valor", "", "error");
@@ -962,9 +949,10 @@ function guardarIndiceDeFramingham() {
                 data: datos,
                 success: function (r) {
                     if (r == 'true') {
+                        document.getElementById("observaciones").setAttribute("disabled", true);
                         document.getElementById("valorIndiceDeFramingham").setAttribute("disabled", true);
                         document.getElementById("riesgoDiezAnios").setAttribute("disabled", true);
-                        document.getElementById("btnMostrarIndiceDeFramingham").setAttribute("disabled", true);
+                        //document.getElementById("btnMostrarIndiceDeFramingham").setAttribute("disabled", true);
                         document.getElementById("btnGuardarIndiceDeFramingham").setAttribute("disabled", true);
                         document.getElementById("btnIndiceDeFramingham").setAttribute("disabled", true);
                         mensajeEnPantalla("Se han ingresado los datos", "", "success");
@@ -984,6 +972,211 @@ function guardarIndiceDeFramingham() {
       */
 
 }
+
+function guardarTestDeRuffier(){
+    var P1 = document.getElementById('P1').value;
+    var P2 = document.getElementById('P2').value;
+    var P3 = document.getElementById('P3').value;
+    var valoracion = document.getElementById('valoracion').value;
+    var valoracionTexto = document.getElementById('valoracionTexto').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+    if(!validarBlanco(P1) || !validarBlanco(P2) || !validarBlanco(P3) || !validarBlanco(valoracion)){
+        mensajeEnPantalla("Campos no pueden estar en blanco","","error");
+        return false;
+    }
+
+    if(!isNumeric(P1) || !isNumeric(P2) || !isNumeric(P3) || !isNumeric(valoracion)){
+        mensajeEnPantalla("Campos deben ser numéricos","","error");
+        return false;
+    }
+
+    if(valoracionTexto == 'INVÁLIDO'){
+        mensajeEnPantalla("Valoración no puede ser inválida","","error");
+        return false;
+    }
+
+    if(valoracionTexto != 'MALO' && valoracionTexto != 'MEDIO' && valoracionTexto != 'BUENO' &&valoracionTexto != 'INSUFICIENTE' && valoracionTexto != 'EXCELENTE'){
+        mensajeEnPantalla("Valoración tiene texto distinto a lo preestablecido","","error");
+        return false;
+    }
+
+    
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarTestDeRuffier').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                document.getElementById("P1").setAttribute("disabled", true);
+                                document.getElementById("P2").setAttribute("disabled", true);
+                                document.getElementById("P3").setAttribute("disabled", true);
+                                document.getElementById("valoracion").setAttribute("disabled", true);
+                                document.getElementById("valoracionTexto").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnTestDeRuffier").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+      
+
+}
+
+function obtenerValorTestDeRuffier(){
+   
+    var P1 = document.getElementById('P1').value;
+    var P2 = document.getElementById('P2').value;
+    var P3 = document.getElementById('P3').value;
+
+    var valoracion = (parseInt(P1)+parseInt(P2)+parseInt(P3)-200)/10;
+
+  
+    if(!isNumeric(valoracion)){
+        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
+        return false;
+    }
+
+    if(P1 == '' || P2 == '' || P3 ==''){
+        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
+        return false;
+    }
+
+    if(valoracion <= 0){
+        texto = 'EXCELENTE';
+    }else if(valoracion >= 0.1 && valoracion <= 5){
+        texto = 'BUENO';
+    }else if(valoracion >= 5.1 && valoracion <= 10){
+        texto = 'MEDIO';
+    }else if(valoracion >= 10.1 && valoracion <= 15){
+        texto = 'INSUFICIENTE';
+    }else if(valoracion >= 15.1){
+        texto = 'MALO';
+    }
+
+    document.getElementById('valoracion').value = valoracion;
+    document.getElementById('valoracionTexto').value = texto;
+    
+
+} 
+
+
+
+function guardarEspirometriaBasal(){
+    var cvflPromedio = document.getElementById('cvflPromedio').value;
+    var cvflLimiteInferior = document.getElementById('cvflLimiteInferior').value;
+    var vef1lPromedio = document.getElementById('vef1lPromedio').value;
+    var vef1lLimiteInferior = document.getElementById('vef1lLimiteInferior').value;
+    var fef2575Promedio = document.getElementById('fef2575Promedio').value;
+    var fef2575LimiteInferior = document.getElementById('fef2575LimiteInferior').value;
+    var vef1cvfPromedio = document.getElementById('vef1cvfPromedio').value;
+    var vef1cvfLimiteInferior = document.getElementById('vef1cvfLimiteInferior').value;
+
+    var absoluto1 = document.getElementById('absoluto1').value;
+    var teorico1 = document.getElementById('teorico1').value;
+    var absoluto2 = document.getElementById('absoluto2').value;
+    var teorico2 = document.getElementById('teorico2').value;
+    var absoluto3 = document.getElementById('absoluto3').value;
+    var teorico3 = document.getElementById('teorico3').value;
+    var absoluto4 = document.getElementById('absoluto4').value;
+
+    var observaciones = document.getElementById('observaciones').value;
+
+    if(!validarBlanco(cvflPromedio) || !validarBlanco(cvflLimiteInferior) || !validarBlanco(vef1lPromedio) || !validarBlanco(vef1lLimiteInferior) || !validarBlanco(fef2575Promedio) || !validarBlanco(fef2575LimiteInferior) || !validarBlanco(vef1cvfPromedio) || !validarBlanco(vef1cvfLimiteInferior) || !validarBlanco(absoluto1) || !validarBlanco(absoluto2) || !validarBlanco(absoluto3) || !validarBlanco(absoluto4) || !validarBlanco(teorico1) || !validarBlanco(teorico2) || !validarBlanco(teorico3)){
+        mensajeEnPantalla("Debe rellenar los campos","","error");
+        return false;
+    }
+
+    if(!isNumeric(cvflPromedio) || !isNumeric(cvflLimiteInferior) || !isNumeric(vef1lPromedio) || !isNumeric(vef1lLimiteInferior) || !isNumeric(fef2575Promedio) || !isNumeric(fef2575LimiteInferior) || !isNumeric(vef1cvfPromedio) || !isNumeric(vef1cvfLimiteInferior) || !isNumeric(absoluto1) || !isNumeric(absoluto2) || !isNumeric(absoluto3) || !isNumeric(absoluto4) || !isNumeric(teorico1) || !isNumeric(teorico2) || !isNumeric(teorico3)){
+        mensajeEnPantalla("Campos deben ser numéricos","","error");
+        return false;
+    }
+
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            
+            var datos = $('#formIngresarEspirometriaBasal').serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../consultas/insert.php",
+                data: datos,
+                success: function (r) {
+                    if (r == 'true') {
+
+                            mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                            document.getElementById('cvflPromedio').setAttribute("disabled",true);
+                            document.getElementById('cvflLimiteInferior').setAttribute("disabled",true);
+                            document.getElementById('vef1lPromedio').setAttribute("disabled",true);
+                            document.getElementById('vef1lLimiteInferior').setAttribute("disabled",true);
+                            document.getElementById('fef2575Promedio').setAttribute("disabled",true);
+                            document.getElementById('fef2575LimiteInferior').setAttribute("disabled",true);
+                            document.getElementById('vef1cvfPromedio').setAttribute("disabled",true);
+                            document.getElementById('vef1cvfLimiteInferior').setAttribute("disabled",true);
+
+                            document.getElementById('absoluto1').setAttribute("disabled",true);
+                            document.getElementById('teorico1').setAttribute("disabled",true);
+                            document.getElementById('absoluto2').setAttribute("disabled",true);
+                            document.getElementById('teorico2').setAttribute("disabled",true);
+                            document.getElementById('absoluto3').setAttribute("disabled",true);
+                            document.getElementById('teorico3').setAttribute("disabled",true);
+                            document.getElementById('absoluto4').setAttribute("disabled",true);
+
+                            document.getElementById('observaciones').setAttribute("disabled",true);
+
+                            document.getElementById('btnGuardarEspirometriaBasal').setAttribute("disabled",true);
+                            document.getElementById('btnEspirometriaBasal').setAttribute("disabled",true);
+                        
+                    } else if (r == 'false') {
+                        mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                    }
+                    
+                }
+            });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+
+
+    
+    
+}
+
+
 
 function obtenerIMC() {
     peso = 0;
@@ -1127,6 +1320,29 @@ function validarCheckBoxExamenes() {
     }
 
 }
+
+function volverAInicio(){
+
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea volver al inicio? perderá los exámenes que no se hayan guardado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Volver al inicio',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            window.location.replace('../index.php')
+        }
+    })
+
+    
+    
+}
+
 
 //SE APLICA LA FÓRMULA DE RUT CHILENO
 function formulaRut(rut, dv) {

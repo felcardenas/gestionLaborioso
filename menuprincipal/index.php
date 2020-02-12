@@ -10,6 +10,9 @@ if(!isset($_SESSION['control'])){
 $_SESSION['rutTrabajador'] = '';
 $_SESSION['nombreTrabajador'] = '';
 $_SESSION['apellidosTrabajador'] = '';
+$_SESSION['horaActual'] = '';
+$_SESSION['fechaActual'] = '';
+$_SESSION['idEvaluacion'] = '';
 
 
 ?>
