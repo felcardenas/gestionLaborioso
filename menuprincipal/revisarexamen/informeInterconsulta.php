@@ -11,15 +11,15 @@
   <title>Bienvenid@</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-  <link rel="stylesheet" href="../plugins/sweetalert/dist/sweetalert2.min.css">
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../plugins/sweetalert/dist/sweetalert2.min.css">
   
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   
 
   
@@ -33,7 +33,7 @@
     
     <div class="row justify-content-center py-2">
         <div class="col-2">
-            <img src="../img/logosinfondo.png" alt="" height="200px" width="180px">
+            <img src="../../img/logosinfondo.png" alt="" height="200px" width="180px">
 
         </div>
         <div class="col-4">
@@ -66,7 +66,7 @@
         <div class="col-9">
 
         <p class="text-justify-center" style="font-size:25px;">
-        El/la sr/sra <?= "(NOMBRE TRABAJADOR)"//utf8_encode($_SESSION['nombreCompletoTrabajador'])?>, RUT: <?= "11.111.111-1"//$_SESSION['rutCompletoTrabajador']?> con fecha <?=$hoyEs?>, ha sido sometido a evaluación preventiva de salud, en relacion a la cual se solicita control por su sistema previsional de salud con especialidad <?= "(ESPECIALIDAD)"//$_SESSION['especialidad'] ?>, de acuerdo a los siguientes antecedentes:  
+        El/la sr/sra <?= utf8_encode($_SESSION['nombreCompletoTrabajador']) ?>, RUT: <?= $_SESSION['rutCompletoTrabajador']?> con fecha <?=$hoyEs?>, ha sido sometido a evaluación preventiva de salud, en relacion a la cual se solicita control por su sistema previsional de salud con especialidad <?= $_POST['especialidad'] ?>, de acuerdo a los siguientes antecedentes:  
         </p>
 
 
@@ -77,7 +77,7 @@
 
         <div class="col-9">
         <p class="text-justify-center " style="font-size:25px;">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio ea accusamus reiciendis fugiat aliquid delectus minima culpa totam, debitis, eligendi ex dolor ad rerum! Vel reprehenderit sunt laborum exercitationem ex. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio ea accusamus reiciendis fugiat aliquid delectus minima culpa totam, debitis, eligendi ex dolor ad rerum! Vel reprehenderit sunt laborum exercitationem ex. 
+            <?= $_POST['interconsulta']; ?>
         </p>
         </div>
     </div>
@@ -97,7 +97,7 @@
         </div>
         <div class="col-4">
             <p>_____________________________________________________</p>
-            <p style="font-size:20px;"><?= "Dr(a). NOMBRE DOCTOR"//$_SESSION['usuarioNombreCompleto']?></p>
+            <p style="font-size:20px;"><?= "Dr(a).". $_SESSION['usuarioNombreCompleto']?></p>
         </div>
     </div>
 
@@ -124,8 +124,8 @@
     
   <!-- Menu Toggle Script -->
   
-  <script src="../plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
-  <script src="scripts.js"></script>
+  <script src="../../plugins/sweetalert/dist/sweetalert2.all.min.js"></script>
+  <script src="../scripts.js"></script>
   
 
 </body>

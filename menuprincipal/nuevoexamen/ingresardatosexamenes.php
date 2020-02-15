@@ -86,7 +86,7 @@ if(isset($_POST['submit'])) {
                     {
                     case 'Optometria':
                         $idExamen = '1';
-                        ?><button onclick="mostrarOptometria()" class="btn btn-primary" style="font-size:20px;" id="btnOptometria">Optometría</button><?php
+                        ?><br><button onclick="mostrarOptometria()" class="btn btn-primary" style="font-size:20px;" id="btnOptometria">Optometría</button><?php
                         //include 'vistasexamenes/optometria.php';
                     break;
 

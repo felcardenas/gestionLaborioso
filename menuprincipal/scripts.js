@@ -503,7 +503,7 @@ function validarFormularioNuevoExamen() {
         data: datos,
         success: function (r) {
             if (r == 'true') {
-                window.location.replace("nuevoexamen/index.php");
+                window.location.replace("nuevoexamen");
             } else if (r == 'false') {
                 mensajeEnPantalla("Trabajador no existe", "Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador", "error");
             }
@@ -514,13 +514,9 @@ function validarFormularioNuevoExamen() {
 
 }
 
-
-function validarInterconsulta() {
-
-
+function validarFormularioRevisarExamen(){
     valido = false;
     var rutTrabajador = document.getElementById("rutTrabajador").value;
-    var especialidad = document.getElementById("especialidad").value;
 
     //VALIDAR CAMPO
     if (!validarBlanco(rutTrabajador)) {
@@ -530,7 +526,6 @@ function validarInterconsulta() {
 
     if (rutTrabajador.length > 13) {
         mensajeEnPantalla("Error", "El campo no debe tener más de 12 caracteres contando puntos y guión", "error");
-        return valido;
     }
 
     if (!validarRegExp(rutTrabajador, /^\d{1,3}\.\d{3}\.\d{3}[-][0-9kK]{1}$/)) {
@@ -538,41 +533,26 @@ function validarInterconsulta() {
         return valido;
     }
 
-
-
-
-    var datos = $('#formInterconsulta').serialize();
+    var datos = $('#formRevisarExamen').serialize();
     $.ajax({
         type: "POST",
         url: "../consultas/insert.php",
         data: datos,
         success: function (r) {
             if (r == 'true') {
-
+                window.location.replace("revisarexamen");
             } else if (r == 'false') {
-
-                mensajeEnPantalla("Trabajador no existe", "Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador", "error");
-                return false;
+                mensajeEnPantalla("Trabajador no existe", "Debe ingresar un nuevo trabajador (opción 'Nuevo trabajador') y realizar un examen (opción 'Nuevo exámen')", "error");
             }
         }
     });
 
-
-    if (especialidad == 'Medicina interna' ||
-        especialidad == 'Medicina general') {
-        window.location.replace("informeinterconsulta.php");
-    } else {
-        mensajeEnPantalla("Error", "Debe ingresar una especialidad válida", "error");
-        return false;
-    }
-
-
-
-
-
-    //return valido;
-
+    return valido;
 }
+
+
+
+
 
 function validarSignosVitales() {
     var valido = false;
@@ -659,7 +639,7 @@ function validarSignosVitales() {
 
     //VALIDACIONES CAMPO ALTURA
     if (!validarBlanco(altura)) {
-        mensajeEnPantalla("Debe rellenar el campo peso", "", "error");
+        mensajeEnPantalla("Debe rellenar el campo altura", "", "error");
         return valido;
     }
 
@@ -746,11 +726,6 @@ function validarSignosVitales() {
 
 
 
-
-}
-
-function validarAnamnesis() {
-    window.location.replace("signosvitales.php");
 
 }
 
@@ -1297,6 +1272,224 @@ function mostrarActividadDeAcetilcolinesterasa() {
 }
 
 
+
+/***********************************************/
+
+
+
+
+function mostrarAnamnesis(){
+    $("#contenido").load("anamnesis.php");
+}
+
+function mostrarExamenFisico(){
+    $("#contenido").load("examenfisico.php");
+}
+
+function mostrarExamenesDeApoyoClinico(){
+    $("#contenido").load("examenesdeapoyoclinico.php");
+}
+
+function mostrarConclusionMedica(){
+    $("#contenido").load("conclusionmedica.php");
+}
+
+function mostrarInterconsulta(){
+    $("#contenido").load("interconsulta.php");
+}
+
+function mostrarRecomendaciones(){
+    $("#contenido").load("recomendaciones.php");
+}
+
+
+function validarAnamnesis(){
+
+    var anamnesis = document.getElementById('anamnesis').value;
+    if(!validarBlanco(anamnesis)){
+        mensajeEnPantalla("Para ingresar la anamnesis escriba en el campo de texto y presione guardar","","error");
+        return false;
+    }
+    var datos = $('#formAnamnesis').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+}
+
+function desbloquearBotonAnamnesis(){
+    var anamnesis = document.getElementById('anamnesis').value;
+
+    if(validarBlanco(anamnesis)){
+        document.getElementById('btnGuardarAnamnesis').removeAttribute("disabled",true);
+    }else{
+        document.getElementById('btnGuardarAnamnesis').setAttribute("disabled",true);
+    }
+}
+
+
+function validarExamenFisico(){
+
+    var examenFisicoGeneral = document.getElementById('examenFisicoGeneral').value;
+    var cabeza = document.getElementById('cabeza').value;
+    var torax = document.getElementById('torax').value;
+    var abdomen = document.getElementById('abdomen').value;
+    var extremidadesSuperiores = document.getElementById('extremidadesSuperiores').value;
+    var extremidadesInferiores= document.getElementById('extremidadesInferiores').value;
+    var columnaGeneral = document.getElementById('columnaGeneral').value;
+    
+
+    if(!validarBlanco(examenFisicoGeneral) && !validarBlanco(cabeza) && !validarBlanco(torax) && !validarBlanco(abdomen) && !validarBlanco(extremidadesSuperiores) && !validarBlanco(extremidadesInferiores) && !validarBlanco(columnaGeneral)){
+        mensajeEnPantalla("Debe rellenar al menos un campo","","error");
+        return false;
+    }
+
+    var datos = $('#formExamenFisico').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+    
+}
+
+function validarConclusionMedica(){
+    var conclusionMedica = document.getElementById('conclusionMedica').value;
+
+    if(!validarBlanco(conclusionMedica)){
+        mensajeEnPantalla("Para ingresar la conclusión médica escriba en el campo de texto y presione guardar","","error");
+        return false;
+    }
+
+    var datos = $('#formConclusionMedica').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+
+
+}
+
+
+function validarInterconsulta() {
+
+
+    valido = false;
+    //var rutTrabajador = document.getElementById("rutTrabajador").value;
+    var especialidad = document.getElementById("especialidad").value;
+
+    /* //VALIDAR CAMPO
+    if (!validarBlanco(rutTrabajador)) {
+        mensajeEnPantalla("Error", "Debe completar campo RUT", "error");
+        return valido;
+    }
+ */
+    /* if (rutTrabajador.length > 13) {
+        mensajeEnPantalla("Error", "El campo no debe tener más de 12 caracteres contando puntos y guión", "error");
+        return valido;
+    } */
+
+    /* if (!validarRegExp(rutTrabajador, /^\d{1,3}\.\d{3}\.\d{3}[-][0-9kK]{1}$/)) {
+        mensajeEnPantalla("Error", "Formato no válido.", "error");
+        return valido;
+    } */
+
+
+
+
+    /* var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+
+            } else if (r == 'false') {
+
+                mensajeEnPantalla("Trabajador no existe", "Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador", "error");
+                return false;
+            }
+        }
+    });
+ */
+
+    if(especialidad == 'MEDICINA GENERAL' ||
+        especialidad == 'CARDIOLOGÍA' ||
+        especialidad == 'OFTALMOLOGÍA' ||
+        especialidad == 'TRAUMATOLOGÍA' ||
+        especialidad == 'PSIQUIATRÍA' ||
+        especialidad == 'NEUROLOGÍA' ||
+        especialidad == 'OTORRINOLARINGOLOGÍA' ||
+        especialidad == 'BRONCOPULMONAR' ||
+        especialidad == 'GASTROENTEROLOGÍA' ||
+        especialidad == 'ENDOCRINOLOGÍA') {
+        //window.location.replace("informeinterconsulta.php");
+        return true;
+    } else {
+        mensajeEnPantalla("Error", "Debe elegir una especialidad", "error");
+        return false;
+    }
+
+
+
+
+
+    //return valido;
+
+}
+
+
+function validarRecomendaciones(){
+    var recomendaciones = document.getElementById('recomendaciones').value;
+
+    if(!validarBlanco(recomendaciones)){
+        mensajeEnPantalla("Para ingresar la conclusión médica escriba en el campo de texto y presione guardar","","error");
+        return false;
+    }
+
+
+    var datos = $('#formRecomendaciones').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+
+
+}
+
+
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
@@ -1326,7 +1519,7 @@ function volverAInicio(){
 
     Swal.fire({
         title: "Confirmación",
-        text: "¿Desea volver al inicio? perderá los exámenes que no se hayan guardado",
+        text: "¿Desea volver al inicio? perderá la información que no se haya guardado",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

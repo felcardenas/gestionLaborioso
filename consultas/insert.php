@@ -21,6 +21,11 @@ if(isset($_POST)){
             nuevoExamen();
     break;
 
+    
+    case 'revisarExamen':
+      revisarExamen();
+    break;
+
     case 'interconsulta':
       interconsulta();
     break;  
@@ -44,6 +49,39 @@ if(isset($_POST)){
     case 'ingresarEspirometriaBasal':
           ingresarEspirometriaBasal();
     break;
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    case 'ingresarAnamnesis':
+        ingresarAnamnesis();
+    break;
+
+    case 'ingresarExamenFisico':
+      ingresarExamenFisico();
+    break;
+
+    case 'ingresarConclusionMedica':
+      ingresarConclusionMedica();
+    break;
+
+    case 'ingresarRecomendaciones':
+      ingresarRecomendaciones();
+    break;
+
+
+
 
     default:
       
@@ -234,7 +272,8 @@ function nuevoExamen(){
         $_SESSION['idTrabajador'] = $row['ID_TRABAJADOR'];
         $idTrabajador = $row['ID_TRABAJADOR'];
         $idUsuario = $_SESSION['idUsuario'];
-        $_SESSION['edadTrabajador'] = $edadAños . " años " . $edadMeses . " meses " . $edadDias . " dias ";
+        $_SESSION['edadTrabajador'] = $edadAños . " años ";
+        //$_SESSION['edadTrabajador'] = $edadAños . " años " . $edadMeses . " meses " . $edadDias . " dias ";
         $_SESSION['nombreCompletoTrabajador'] = $row['NOMBRE_TRABAJADOR'] . " " . $row['APELLIDO_TRABAJADOR'];
         $_SESSION['rutTrabajador'] = $rutTrabajador;
         $_SESSION['dvTrabajador'] = $dvTrabajador;
@@ -268,6 +307,73 @@ function nuevoExamen(){
         /* }else{
           $valido = 'false';
         } */
+      }else{
+        $valido = 'false';
+      }
+    }
+
+    echo $valido;
+  
+}
+
+function revisarExamen(){
+
+  include '../global/conexion.php';
+   
+    $valido = false;
+
+    $rutTrabajador = $_POST['rutTrabajador'];
+
+    list($rut,$dvTrabajador) = explode("-",$rutTrabajador);
+    $rut = explode(".",$rut);
+
+    $rutTrabajador = $rut[0].$rut[1].$rut[2];
+
+    $sql = "SELECT ID_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, FECHA_NACIMIENTO_TRABAJADOR FROM TRABAJADOR WHERE RUT_TRABAJADOR = '$rutTrabajador' AND DV_TRABAJADOR='$dvTrabajador'";
+  
+    if($resultado = mysqli_query($conexion, $sql)){
+      if(mysqli_num_rows($resultado) > 0){
+        
+        session_start();
+        date_default_timezone_set("America/Santiago");  
+        
+        $row = mysqli_fetch_assoc($resultado);
+        
+        $fechaNacimiento = new DateTime($row['FECHA_NACIMIENTO_TRABAJADOR']);
+        $hoy = new DateTime();
+        $edad = date_diff($hoy,$fechaNacimiento);
+        $edadAños = $edad->y;
+        $edadMeses = $edad->m;
+        $edadDias = $edad->d;
+        
+
+        $_SESSION['idTrabajador'] = $row['ID_TRABAJADOR'];
+        $idTrabajador = $row['ID_TRABAJADOR'];
+        $idUsuario = $_SESSION['idUsuario'];
+        $_SESSION['edadTrabajador'] = $edadAños . " años";
+        $_SESSION['nombreCompletoTrabajador'] = $row['NOMBRE_TRABAJADOR'] . " " . $row['APELLIDO_TRABAJADOR'];
+        $_SESSION['rutTrabajador'] = $rutTrabajador;
+        $_SESSION['dvTrabajador'] = $dvTrabajador;
+        $_SESSION['rutCompletoTrabajador'] = $rutTrabajador . "-" . $dvTrabajador;
+
+        $dia = date("d");
+        $mes = date("m");
+        $anio = date("Y");
+        $fechaActual = $anio. "-" . $mes . "-" . $dia;
+        $_SESSION['fechaActual'] = $fechaActual;
+
+        $hora = date("H");
+        $minutos = date("i");
+        $segundos = date("s");
+        $horaActual = $hora . ":" . $minutos . ":" . $segundos;
+        $_SESSION['horaActual'] = $horaActual;   
+
+        $valido = 'true';
+          
+
+        
+        
+      
       }else{
         $valido = 'false';
       }
@@ -530,6 +636,139 @@ function ingresarEspirometriaBasal(){
     //echo $sql;
 
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ingresarAnamnesis(){
+
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $anamnesis = $_POST['anamnesis'];
+    
+   
+
+    $sql = "UPDATE EVALUACION SET ANAMNESIS = '$anamnesis' WHERE ID_EVALUACION = '$idEvaluacion'";
+    //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
+    $sql = utf8_decode($sql);
+    
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+
+
+}
+
+
+function ingresarExamenFisico(){
+
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $examenFisicoGeneral = $_POST['examenFisicoGeneral'];
+    $cabeza = $_POST['cabeza'];
+    $torax = $_POST['torax'];
+    $abdomen = $_POST['abdomen'];
+    $extremidadesSuperiores = $_POST['extremidadesSuperiores'];
+    $extremidadesInferiores = $_POST['extremidadesInferiores'];
+    $columnaGeneral = $_POST['columnaGeneral'];
+    
+    //UPDATE tabla SET campo = ‘valor’, campo2 = ‘valor2’ WHERE condición
+   
+
+    $sql = "UPDATE EVALUACION 
+    SET 
+    EXAMEN_FISICO_GENERAL = '$examenFisicoGeneral', 
+    CABEZA = '$cabeza', 
+    TORAX = '$torax',
+    ABDOMEN = '$abdomen',
+    EXTREMIDADES_SUPERIORES = '$extremidadesSuperiores',
+    EXTREMIDADES_INFERIORES = '$extremidadesInferiores',
+    COLUMNA_GENERAL = '$columnaGeneral'   
+    WHERE 
+    ID_EVALUACION = '$idEvaluacion'";
+    //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
+    $sql = utf8_decode($sql);
+    
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+
+
+}
+
+function ingresarConclusionMedica(){
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $conclusionMedica = $_POST['conclusionMedica'];
+    
+   
+
+    $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$conclusionMedica' WHERE ID_EVALUACION = '$idEvaluacion'";
+    //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
+    $sql = utf8_decode($sql);
+    
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+
+}
+
+function ingresarRecomendaciones(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  $recomendaciones = $_POST['recomendaciones'];
+  
+ 
+
+  $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$conclusionMedica' WHERE ID_EVALUACION = '$idEvaluacion'";
+  //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
+  $sql = utf8_decode($sql);
+  
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
 }
 
 function interconsulta(){
