@@ -38,7 +38,7 @@ $resultado = mysqli_query($conexion,$sql);
             <?php 
             while($row = mysqli_fetch_assoc($resultado)){
                 ?>
-                <button onclick="" class="btn btn-primary" style="font-size:20px; border:1px solid;" id="btnAnamnesis"><?=$row['NOMBRE_EXAMEN']?></button>
+                <button onclick="revisarExamenesDeApoyoClinico()" class="btn btn-primary" style="font-size:20px; border:1px solid;" id="<?=$row['NOMBRE_EXAMEN']?>"><?=$row['NOMBRE_EXAMEN']?></button>
             <?php 
             }
             ?>

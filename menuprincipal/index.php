@@ -14,6 +14,14 @@ $_SESSION['horaActual'] = '';
 $_SESSION['fechaActual'] = '';
 $_SESSION['idEvaluacion'] = '';
 
+$_SESSION['peso'] = '';
+$_SESSION['altura'] = '';
+$_SESSION['imc'] = '';
+$_SESSION['pulso'] = '';
+$_SESSION['tensionDiastolica'] = '';
+$_SESSION['tensionSistolica'] = '';
+
+
 
 ?>
 
@@ -60,11 +68,14 @@ $_SESSION['idEvaluacion'] = '';
     <div class="bg-light inverse border-right" id="sidebar-wrapper">
       <div class="sidebar-heading">MENU</div>
       <div class="list-group list-group-flush">
+      
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarEmpresa">Ingresar empresa</a>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarTrabajador">Ingresar trabajador</a>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="nuevoExamen">Nuevo exámen</a>
+        <?php if($_SESSION['tipoUsuario'] != 'Estándar'){ ?>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="revisarExamen">Revisar exámenes</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="interconsulta">Interconsulta</a>
+        <?php } ?>
+        <!-- <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="interconsulta">Interconsulta</a> -->
       </div>
     </div>
     <!-- /#sidebar-wrapper -->

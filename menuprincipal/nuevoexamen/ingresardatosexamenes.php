@@ -15,10 +15,39 @@ session_start();
     
     <div class="row separacion"></div>
     
+
+
+
     <div class="row py-3 fondo">
-        <div class="col-4"></div>
-        <div class="col-8"><?php include 'datostrabajador.php' ?></div>
+        
+        <div class="col-4"><?php include 'datostrabajador.php'?></div>
+        <div class="col-8">
+
+            <div class="row py-3 fondo justify-content-center">
+        
+                <div class="col-2"><?= "PULSO: "?></div>
+                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: " ?></div>
+                <div class="col-2"><?= "TENSIÓN SISTÓLICA: "?></div>        
+                <div class="col-2"><?= "PESO: "?></div>
+                <div class="col-2"><?= "ALTURA: "?></div>
+                <div class="col-2"><?= "IMC: "?></div>
+            
+            </div>
+
+            <div class="row fondo justify-content-center">
+                <div class="col-2"><?=$_SESSION['pulso']." X'"?></div>
+                <div class="col-2"><?= $_SESSION['tensionDiastolica'] ." mm/HG" ?></div>
+                <div class="col-2"><?= $_SESSION['tensionSistolica']." mm/HG" ?></div>        
+                <div class="col-2"><?= $_SESSION['peso'] . " kg" ?></div>
+                <div class="col-2"><?= $_SESSION['altura']." cm" ?></div>
+                <div class="col-2"><?= substr($_SESSION['imc'],0,5)." %"?></div>
+            </div>
+
+        </div>
     </div>
+
+
+    
 
     <div class="row separacion"></div>
 
@@ -38,19 +67,40 @@ if(isset($_POST['submit'])) {
     }
 
 
-    $sql = "SELECT DISTINCT examen.NOMBRE_EXAMEN 
+    $sql = "SELECT DISTINCT examen.NOMBRE_EXAMEN, examen.ID_EXAMEN 
     FROM examen
     INNER JOIN examenes_bateria_de_examenes 
     ON examen.ID_EXAMEN = examenes_bateria_de_examenes.ID_EXAMEN
     INNER JOIN bateria_de_examenes
     ON examenes_bateria_de_examenes.ID_BATERIA_DE_EXAMENES = bateria_de_examenes.ID_BATERIA_DE_EXAMENES WHERE ";
 
+
+   
     
     if (isset($_POST['seleccionado'])){
         foreach ($_POST['seleccionado'] as $selected) {
-            //echo $selected."</br>";// Imprime resultados
+            
+            //SE GUARDAN LOS DATOS DE LAS BATERIAS CORRESPONDIENTES
+            
+            $sqlBateriaDeExamenes = "SELECT ID_BATERIA_DE_EXAMENES FROM `bateria_de_examenes` WHERE NOMBRE_BATERIA_DE_EXAMENES = '$selected'";
+
+            $resultado = mysqli_query($conexion,$sqlBateriaDeExamenes);
+            
+            $row = mysqli_fetch_assoc($resultado);
+            $idBateriaDeExamenes =  $row['ID_BATERIA_DE_EXAMENES'];
+
+            $sqlBateriaDeExamenes = "INSERT INTO EVALUACION_BATERIA_DE_EXAMENES (`ID_EVALUACION`, `ID_BATERIA_DE_EXAMENES`, `FECHA`, `HORA`) VALUES ('$idEvaluacion','$idBateriaDeExamenes','$fechaExamen','$horaExamen')";
+
+            
+
+            mysqli_query($conexion,$sqlBateriaDeExamenes);
+
+
+
+
             $examenes[] = utf8_decode($selected);
             $sql .= "bateria_de_examenes.ID_BATERIA_DE_EXAMENES = (SELECT bateria_de_examenes.ID_BATERIA_DE_EXAMENES FROM bateria_de_examenes where bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES = '$selected') OR ";
+            //echo $selected;
         }
     } else {
         echo "No seleccionó ningún exámen";
@@ -59,14 +109,20 @@ if(isset($_POST['submit'])) {
     $sql = substr($sql, 0, -4);
 
     //echo $sql . "<br>";
+    
 
     if($resultado = mysqli_query($conexion, $sql)){
+        
+       
+        
         
         //print_r(mysqli_query($conexion,$sql));
         
         if(mysqli_num_rows($resultado) > 0){
             // output data of each row
             
+            
+
             $sql = "INSERT INTO EVALUACION_EXAMEN (ID_EVALUACION, ID_EXAMEN, FECHA, HORA) VALUES ";
             
             ?>
@@ -78,6 +134,7 @@ if(isset($_POST['submit'])) {
 
 
             while($row = mysqli_fetch_assoc($resultado)){
+                
                 
                 $examen = utf8_encode($row['NOMBRE_EXAMEN']);
 
@@ -147,7 +204,7 @@ if(isset($_POST['submit'])) {
 
                     case 'Encuesta de Lake Louis':
                         $idExamen = '11';
-                        ?><br><button onclick="mostrarEncuestaDeLakeLouis()" class="btn btn-primary" style="font-size:20px;" id="btnEncuestaLakeLouis">Encuesta Lake Louis</button><?php
+                        ?><br><button onclick="mostrarEncuestaDeLakeLouis()" class="btn btn-primary" style="font-size:20px;" id="btnEncuestaDeLakeLouis">Encuesta Lake Louis</button><?php
                         //include 'vistasexamenes/encuestadelakelouis.php';
                     break;
 
@@ -183,13 +240,13 @@ if(isset($_POST['submit'])) {
 
                     case 'ALT/SGPT':
                         $idExamen = '17';
-                        ?><br><button onclick="mostrarALTSGPT()" class="btn btn-primary" style="font-size:20px;" id="btnALTSGPT">ALT/SGPT</button><?php
+                        ?><br><button onclick="mostrarALTSGPT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgpt">ALT/SGPT</button><?php
                         //include 'vistasexamenes/altsgpt.php';
                     break;
 
                     case 'AST/SGOT':
                         $idExamen = '18';
-                        ?><br><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnALTSGOT">ALT/SGOT</button><?php
+                        ?><br><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgot">ALT/SGOT</button><?php
                         //include 'vistasexamenes/astsgot.php';
                     break;
 
@@ -214,6 +271,7 @@ if(isset($_POST['submit'])) {
                     default:
                     break;
                     }
+                    
                     
                     $sql .= "('$idEvaluacion','$idExamen','$fechaExamen','$horaExamen'), ";
 

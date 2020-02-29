@@ -2,7 +2,7 @@
 
 include '../../global/conexion.php';
 
-$sql = 'select bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES from bateria_de_examenes';
+$sql = 'select bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES from bateria_de_examenes ORDER BY NOMBRE_BATERIA_DE_EXAMENES';
 
 $resultado = mysqli_query($conexion, $sql);
 

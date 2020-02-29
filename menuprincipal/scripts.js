@@ -51,6 +51,11 @@ $(document).ready(function () {
 
 });
 
+
+function nuevoExamen(){
+        $("#contenido").load("nuevoExamen.php");
+}
+
 function confirmar(nombre, pagina) {
     r = true;
     //r = confirm("¿Desea ir a "+nombre+"? Podría perder la información que está ingresando");
@@ -511,7 +516,6 @@ function validarFormularioNuevoExamen() {
     });
 
     return valido;
-
 }
 
 function validarFormularioRevisarExamen(){
@@ -549,10 +553,6 @@ function validarFormularioRevisarExamen(){
 
     return valido;
 }
-
-
-
-
 
 function validarSignosVitales() {
     var valido = false;
@@ -739,15 +739,15 @@ function guardarPerfilLipidico() {
     var indiceCol = document.getElementById("indiceCol").value;
     var trigliceridos = document.getElementById("trigliceridos").value;
     var observaciones = document.getElementById("observaciones").value;
-    //var estado = document.getElementById("estado").value;
+    var estado = document.getElementById("estado").value;
     var regexp = /^\d{1,3}\.{0,1}\d{1}$/;
 
     //VALIDAR CAMPO
 
-    /*  if (estado != 'Sin Evaluar' && estado != 'Normal' && estado != 'Alterado') {
+     if (estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado') {
          mensajeEnPantalla("Error", "No modifiques el select!", "error");
          return valido;
-     } */
+     } 
 
     if (!validarBlanco(colesterolTotal) || !validarBlanco(colesterolHDL) || !validarBlanco(colesterolLDL) || !validarBlanco(colesterolVLDL) || !validarBlanco(indiceCol) || !validarBlanco(trigliceridos)) {
         mensajeEnPantalla("Error", "Debe completar los campos. Observaciones puede quedar en blanco", "error");
@@ -791,6 +791,7 @@ function guardarPerfilLipidico() {
                     if (r == 'true') {
 
                         mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                        document.getElementById('estado').setAttribute("disabled",true);
                         document.getElementById("btnPerfilLipidico").setAttribute("disabled", true);
                         document.getElementById("colesterolTotal").setAttribute("disabled", true);
                         document.getElementById("colesterolHDL").setAttribute("disabled", true);
@@ -1022,6 +1023,842 @@ function guardarTestDeRuffier(){
 
 }
 
+function guardarElectrocardiograma(){
+    
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+    
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarElectrocardiograma').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarElectrocardiograma").setAttribute("disabled", true);
+                                document.getElementById("btnElectrocardiograma").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+ 
+
+
+}
+
+function guardarGlicemia(){
+    var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+    if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    }
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarGlicemia').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarGlicemia").setAttribute("disabled", true);
+                                document.getElementById("btnGlicemia").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+
+
+
+
+}
+
+
+function guardarCreatinina(){
+    var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+    if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    }
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarCreatinina').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarCreatinina").setAttribute("disabled", true);
+                                document.getElementById("btnCreatinina").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarHemoglobina(){
+    var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+    if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    }
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarHemoglobina').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarHemoglobina").setAttribute("disabled", true);
+                                document.getElementById("btnHemoglobina").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarRxTorax(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarRxTorax').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarRxTorax").setAttribute("disabled", true);
+                                document.getElementById("btnRxTorax").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+
+}
+
+function guardarEncuestaDeLakeLouis(){
+    
+    //var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+   /*  if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    } */
+
+    
+
+     Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarEncuestaDeLakeLouis').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                //document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarEncuestaDeLakeLouis").setAttribute("disabled", true);
+                                document.getElementById("btnEncuestaDeLakeLouis").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    }) 
+}
+
+function guardarCultivoNasal(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarCultivoNasal').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarCultivoNasal").setAttribute("disabled", true);
+                                document.getElementById("btnCultivoNasal").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarCultivoFaringeo(){
+     //var valor = document.getElementById('valor').value;
+     var estado = document.getElementById('estado').value;
+     var observaciones = document.getElementById('observaciones').value;
+ 
+    /*  if(!isNumeric(valor)){
+         mensajeEnPantalla("Valor debe ser numérico","","error");
+         return false;
+     } */
+ 
+     if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+         mensajeEnPantalla("No se puede modificar","","error");
+         return false;
+     }
+ 
+     
+ 
+     Swal.fire({
+         title: "Confirmación",
+         text: "¿Desea ingresar los datos?",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Avanzar',
+         cancelButtonText: 'Cancelar'
+     }).then((result) => {
+         if (result.value) {
+     
+                 var datos = $('#formIngresarCultivoFaringeo').serialize();
+                     $.ajax({
+                         type: "POST",
+                         url: "../../consultas/insert.php",
+                         data: datos,
+                         success: function (r) {
+                             if (r == 'true'){
+                                 mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                 //document.getElementById("valor").setAttribute("disabled", true);
+                                 document.getElementById("estado").setAttribute("disabled", true);
+                                 document.getElementById("observaciones").setAttribute("disabled", true);
+                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                 document.getElementById("btnGuardarCultivoFaringeo").setAttribute("disabled", true);
+                                 document.getElementById("btnCultivoFaringeo").setAttribute("disabled", true);
+                             }
+                             if (r == 'false') {
+                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                 
+                             }
+                             
+                             
+                             
+                             
+                         }
+                     });
+         } else {
+             mensajeEnPantalla("No se han ingresado los datos", "", "error");
+         }
+     })
+}
+
+function guardarCultivoLechoUngueal(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarCultivoLechoUngueal').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarCultivoLechoUngueal").setAttribute("disabled", true);
+                                document.getElementById("btnCultivoLechoUngueal").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarAltSgpt(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarAltSgpt').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarAltSgpt").setAttribute("disabled", true);
+                                document.getElementById("btnAltSgpt").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarAltSgot(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarAltSgot').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarAltSgot").setAttribute("disabled", true);
+                                document.getElementById("btnAltSgot").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+
+function guardarProtrombina(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarProtrombina').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarProtrombina").setAttribute("disabled", true);
+                                document.getElementById("btnProtrombina").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarTiempoDeProtrombina(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarTiempoDeProtrombina').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarTiempoDeProtrombina").setAttribute("disabled", true);
+                                document.getElementById("btnTiempoDeProtrombina").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+function guardarActividadDeAcetilcolinesterasa(){
+    //var valor = document.getElementById('valor').value;
+    var estado = document.getElementById('estado').value;
+    var observaciones = document.getElementById('observaciones').value;
+
+   /*  if(!isNumeric(valor)){
+        mensajeEnPantalla("Valor debe ser numérico","","error");
+        return false;
+    } */
+
+    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+        mensajeEnPantalla("No se puede modificar","","error");
+        return false;
+    }
+
+    
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+    
+                var datos = $('#formIngresarActividadDeAcetilcolinesterasa').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true'){
+                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                                //document.getElementById("valor").setAttribute("disabled", true);
+                                document.getElementById("estado").setAttribute("disabled", true);
+                                document.getElementById("observaciones").setAttribute("disabled", true);
+                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
+                                document.getElementById("btnGuardarActividadDeAcetilcolinesterasa").setAttribute("disabled", true);
+                                document.getElementById("btnActividadDeAcetilcolinesterasa").setAttribute("disabled", true);
+                            }
+                            if (r == 'false') {
+                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                
+                            }
+                            
+                            
+                            
+                            
+                        }
+                    });
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+    })
+}
+
+
+
 function obtenerValorTestDeRuffier(){
    
     var P1 = document.getElementById('P1').value;
@@ -1058,6 +1895,8 @@ function obtenerValorTestDeRuffier(){
     
 
 } 
+
+
 
 
 
@@ -1464,10 +2303,64 @@ function validarInterconsulta() {
 
 
 function validarRecomendaciones(){
-    var recomendaciones = document.getElementById('recomendaciones').value;
+    
+    var recomendacion1 = document.getElementById('recomendacion1').value;
+    var recomendacion2 = document.getElementById('recomendacion2').value;
+    var recomendacion3 = document.getElementById('recomendacion3').value;
+    var recomendacion4 = document.getElementById('recomendacion4').value;
+    var recomendacion5 = document.getElementById('recomendacion5').value;
+    var recomendacion6 = document.getElementById('recomendacion6').value;
+    var recomendacion7 = document.getElementById('recomendacion7').value;
+     
+    //mensajeEnPantalla(recomendacion1)
+    var validarCheckBoxRecomendacion1 = document.getElementById("recomendacion1").checked;
+    var validarCheckBoxRecomendacion2 = document.getElementById("recomendacion2").checked;
+    var validarCheckBoxRecomendacion3 = document.getElementById("recomendacion3").checked;
+    var validarCheckBoxRecomendacion4 = document.getElementById("recomendacion4").checked;
+    var validarCheckBoxRecomendacion5 = document.getElementById("recomendacion5").checked;
+    var validarCheckBoxRecomendacion6 = document.getElementById("recomendacion6").checked;
+    var validarCheckBoxRecomendacion7 = document.getElementById("recomendacion7").checked;
+    
+    var recomendaciones = "";
 
-    if(!validarBlanco(recomendaciones)){
-        mensajeEnPantalla("Para ingresar la conclusión médica escriba en el campo de texto y presione guardar","","error");
+    if(validarCheckBoxRecomendacion1){
+       recomendaciones += recomendacion1 + " / ";
+    }
+
+    if(validarCheckBoxRecomendacion2){
+        recomendaciones += recomendacion2 + " / ";
+     }
+
+     if(validarCheckBoxRecomendacion3){
+        recomendaciones += recomendacion3 + " / ";
+     }
+
+     if(validarCheckBoxRecomendacion4){
+        recomendaciones += recomendacion4 + " / ";
+     }
+
+     if(validarCheckBoxRecomendacion5){
+        recomendaciones += recomendacion5 + " / ";
+     }
+
+     if(validarCheckBoxRecomendacion6){
+        recomendaciones += recomendacion6 + " / ";
+     }
+
+     if(validarCheckBoxRecomendacion7){
+        recomendaciones += recomendacion7 + " / ";
+     }
+     
+     recomendaciones = recomendaciones.substring(0,recomendaciones.length -3)
+     
+     document.getElementById("cadenaRecomendaciones").value = recomendaciones;
+
+    
+
+
+
+    if(!validarBlanco(cadenaRecomendaciones)){
+        mensajeEnPantalla("No hay recomendaciones");
         return false;
     }
 
