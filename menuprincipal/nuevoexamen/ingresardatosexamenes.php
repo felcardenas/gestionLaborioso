@@ -74,7 +74,9 @@ if(isset($_POST['submit'])) {
     INNER JOIN bateria_de_examenes
     ON examenes_bateria_de_examenes.ID_BATERIA_DE_EXAMENES = bateria_de_examenes.ID_BATERIA_DE_EXAMENES WHERE ";
 
+    $sqlBorrarBateriaDeExamenes = "DELETE FROM EVALUACION_BATERIA_DE_EXAMENES WHERE ID_EVALUACION = '$idEvaluacion'";   
 
+            mysqli_query($conexion,$sqlBorrarBateriaDeExamenes);
    
     
     if (isset($_POST['seleccionado'])){
@@ -82,6 +84,8 @@ if(isset($_POST['submit'])) {
             
             //SE GUARDAN LOS DATOS DE LAS BATERIAS CORRESPONDIENTES
             
+            
+
             $sqlBateriaDeExamenes = "SELECT ID_BATERIA_DE_EXAMENES FROM `bateria_de_examenes` WHERE NOMBRE_BATERIA_DE_EXAMENES = '$selected'";
 
             $resultado = mysqli_query($conexion,$sqlBateriaDeExamenes);
@@ -94,9 +98,6 @@ if(isset($_POST['submit'])) {
             
 
             mysqli_query($conexion,$sqlBateriaDeExamenes);
-
-
-
 
             $examenes[] = utf8_decode($selected);
             $sql .= "bateria_de_examenes.ID_BATERIA_DE_EXAMENES = (SELECT bateria_de_examenes.ID_BATERIA_DE_EXAMENES FROM bateria_de_examenes where bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES = '$selected') OR ";
@@ -137,7 +138,6 @@ if(isset($_POST['submit'])) {
                 
                 
                 $examen = utf8_encode($row['NOMBRE_EXAMEN']);
-
 
                 switch($examen)
                     {

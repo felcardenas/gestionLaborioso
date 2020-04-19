@@ -1,3 +1,44 @@
+<?php 
+
+session_start();
+include '../../../global/conexion.php';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+FROM EVALUACION_PARAMETRO 
+INNER JOIN PARAMETRO 
+ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
+INNER JOIN EXAMEN 
+ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
+WHERE ID_EVALUACION = '$idEvaluacion'";
+
+//$valor = '';
+$estado = 'Sin evaluar';
+$observaciones = 'Sin observaciones';
+
+$resultado = mysqli_query($conexion,$sql);
+
+
+while($row = mysqli_fetch_assoc($resultado)){
+    
+    $idParametro = $row['ID_PARAMETRO'];
+    
+    switch($idParametro){
+        
+
+       
+
+        case '59':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $observaciones = $valorParametro;
+        break;   
+            
+    }
+   
+}
+
+?>
+
 <div class="container" >
 
 <div class="row justify-content-center my-5">
@@ -11,18 +52,13 @@
 <form action="" method="POST" class="" id="formIngresarEncuestaDeLakeLouis" name="formIngresarEncuestaDeLakeLouis">
 
 
-    <?php //include 'estado.php' ?>
+    <?php //include 'estado.php';
+    include 'observaciones.php';
+     ?>
 
     
 
-    <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-12">
-                    <div class="form-group">
-                      <label for="observaciones">OBSERVACIONES</label>
-                      <textarea class="form-control" name="observaciones" id="observaciones" rows="8">Sin observaciones</textarea>
-                    </div>
-                </div>
-        </div> 
+    
 
 
     

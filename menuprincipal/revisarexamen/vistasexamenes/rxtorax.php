@@ -1,3 +1,45 @@
+<?php 
+
+session_start();
+include '../../../global/conexion.php';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+FROM EVALUACION_PARAMETRO 
+INNER JOIN PARAMETRO 
+ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
+INNER JOIN EXAMEN 
+ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
+WHERE ID_EVALUACION = '$idEvaluacion'";
+
+$valor = '';
+$estado = 'Sin evaluar';
+$observaciones = 'Sin observaciones';
+
+$resultado = mysqli_query($conexion,$sql);
+
+
+while($row = mysqli_fetch_assoc($resultado)){
+    
+    $idParametro = $row['ID_PARAMETRO'];
+    
+    switch($idParametro){
+        
+        case '56':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $observaciones = $valorParametro;
+        break;   
+            
+        case '57':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $estado = $valorParametro;
+        break;
+    }
+   
+}
+
+?>
+
 <div class="container" >
 
 <div class="row justify-content-center my-5">
@@ -11,40 +53,9 @@
 <form action="" method="POST" class="" id="formIngresarRxTorax" name="formIngresarRxTorax">
 
 
-    <?php //include 'estado.php' ?>
-
-    
-
-
-    <div class="row justify-content-center mb-3">
-        <div class="col-1 mt-2">
-            Estado
-        </div>
-        <div class="col-4">
-            <select class="form-control" name="estado" id="estado">
-
-                <option value="Sin evaluar">Sin evaluar</option>
-                <option value="Normal">Normal</option>
-                <option value="Alterado">Alterado</option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-    <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-12">
-                    <div class="form-group">
-                      <label for="observaciones">OBSERVACIONES</label>
-                      <textarea class="form-control" name="observaciones" id="observaciones" rows="8">Sin observaciones</textarea>
-                    </div>
-                </div>
-        </div> 
-
-
-    
-
+    <?php include 'estado.php';
+    include 'observaciones.php';
+    ?>
     
     <input type="text" name="consulta" id="consulta" value="ingresarRxTorax" hidden>
     <!-- <input type="text" name="select" id="select" value="ingresarIngresarElectrocardiograma" hidden> -->

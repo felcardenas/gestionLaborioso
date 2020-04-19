@@ -1,4 +1,20 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include '../../global/conexion.php';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT ANAMNESIS FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
+
+$anamnesis = '';
+
+$resultado = mysqli_query($conexion, $sql); 
+    
+if($row = mysqli_fetch_assoc($resultado)){
+    $anamnesis = $row['ANAMNESIS'];
+}
+
+?>
+
 
 <div class="row justify-content-center">
               <h1><div class="col-12 mt-5">Anamnesis</div></h1>
@@ -13,7 +29,7 @@
 
                             <div class="col-8">
                                 <label for=""></label>
-                                <textarea class="form-control" id="anamnesis" name="anamnesis" rows="15" maxlength="500" onchange="desbloquearBoton()" onkeyup="desbloquearBoton()"><?= $_SESSION['anamnesis']?></textarea>
+                                <textarea class="form-control" id="anamnesis" name="anamnesis" rows="15" maxlength="500" onchange="desbloquearBoton()" onkeyup="desbloquearBoton()"><?= $anamnesis?></textarea>
                             </div>
     </div>
 

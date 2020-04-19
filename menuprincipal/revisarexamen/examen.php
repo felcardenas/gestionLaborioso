@@ -40,6 +40,7 @@ $imc = $row['IMC'];
     <div class="row fondo py-5">
         <div class="col-12">
             <h1 class="text-center titulo text-uppercase">EXAMEN DE <?= utf8_encode($_SESSION['nombreCompletoTrabajador']) ?></h1>
+            
         </div>
     </div>
 
@@ -93,13 +94,15 @@ $imc = $row['IMC'];
             <br>
             <button onclick="mostrarRecomendaciones()" class="btn btn-primary" style="font-size:20px;" id="btnRecomendaciones">Recomendaciones</button>
             <br>
+            <button onclick="mostrarInformes()" class="btn btn-primary" style="font-size:20px;" id="btnInformes">Informes</button>
+            <br>
 
         </div>
         
         <div class="col-9">
-            <div class="row justify-content-center sticky-top">
+            <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="container-fluid sticky-top" id="contenido"></div>
+                    <div class="container-fluid" id="contenido"></div>
                 </div>
                 <div class="col-12">
                     <div class="container-fluid sticky-top" id="contenido2"></div>
@@ -125,6 +128,7 @@ $imc = $row['IMC'];
 </div>
 
 </div>
+
 
 
 <?php include '../plantillas/footer.php' ?>

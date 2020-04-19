@@ -7,4 +7,3 @@ session_start();
 
 
 <?php include '../plantillas/footer.php' ?>
-

@@ -1,3 +1,71 @@
+<?php
+session_start();
+include '../../../global/conexion.php';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+FROM EVALUACION_PARAMETRO 
+INNER JOIN PARAMETRO 
+ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
+INNER JOIN EXAMEN 
+ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
+WHERE ID_EVALUACION = '$idEvaluacion'";
+
+
+$valor = '';
+$estado = 'Sin evaluar';
+$observaciones = 'Sin observaciones';
+
+$resultado = mysqli_query($conexion,$sql);
+
+
+while($row = mysqli_fetch_assoc($resultado)){
+    
+    $idParametro = $row['ID_PARAMETRO'];
+    
+    switch($idParametro){
+        case '40':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $valor= $valorParametro;
+        break;   
+
+        case '41':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $observaciones = $valorParametro;
+        break;   
+
+        case '42':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $estado = $valorParametro;
+        break;
+
+        
+            
+        
+    }
+
+
+    if (!is_numeric($valor)) {
+        $texto = "INVÁLIDO";
+    } else if ($valor < 1 || $valor > 99) {
+        $texto = 'INVÁLIDO';
+    } else if ($valor >= 10) {
+        $texto = "ALTO";
+    } else if ($valor >= 5 && $valor <= 9) {
+        $texto = "MODERADO";
+    } else if ($valor < 5) {
+        $texto = "BAJO";
+    } else if (!$is_numeric($valor)) {
+        $texto = "INVÁLIDO";
+    } else if ($valor = "") {
+        $texto = " ";
+    }
+   
+}
+
+
+?>
+
 <div class="container" >
 
     <div class="row justify-content-center my-5">
@@ -50,6 +118,8 @@
                 <input type="text" class="form-control" name="valorIndiceDeFramingham" id="valorIndiceDeFramingham" maxlength="2"
                 onkeyup="riesgoADiezAnios()" 
                 onchange="riesgoADiezAnios()"
+                
+                value="<?=$valor?>"
                 >
             </div>
 
@@ -62,19 +132,12 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="riesgoDiezAnios" id="riesgoDiezAnios" maxlength="" disabled>
+                <input type="text" class="form-control" name="riesgoDiezAnios" id="riesgoDiezAnios" maxlength="" disabled value="<?=$texto?>">
             </div>
 
         </div>
 
-        <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-12">
-                    <div class="form-group">
-                      <label for="observaciones">OBSERVACIONES</label>
-                      <textarea class="form-control" name="observaciones" id="observaciones" rows="8">Sin observaciones</textarea>
-                    </div>
-                </div>
-        </div> 
+        <?php include 'observaciones.php' ?>
 
         <!-- <div class="row justify-content-center mb-3">
 

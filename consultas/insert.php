@@ -30,6 +30,10 @@ if(isset($_POST)){
       interconsulta();
     break;  
 
+    case 'informes':
+        revisarExamen();
+    break;  
+
     case 'signosVitales':
             signosVitales();
     break;
@@ -105,6 +109,93 @@ if(isset($_POST)){
     case 'ingresarActividadDeAcetilcolinesterasa':
       ingresarActividadDeAcetilcolinesterasa();
     break;
+
+    case 'ingresarAudiometria':
+      ingresarAudiometria();
+    break;
+
+
+
+
+
+
+
+    
+    case 'actualizarPerfilLipidico':
+      actualizarPerfilLipidico();
+break;
+
+case 'actualizarIndiceDeFramingham':
+  actualizarIndiceDeFramingham();
+break;
+
+case 'actualizarTestDeRuffier':
+  actualizarTestDeRuffier();
+break;
+
+case 'actualizarEspirometriaBasal':
+  actualizarEspirometriaBasal();
+break;
+
+case 'actualizarElectrocardiograma':
+  actualizarElectrocardiograma();
+break;
+
+case 'actualizarGlicemia':
+  actualizarGlicemia();
+break;
+
+case 'actualizarCreatinina':
+  actualizarCreatinina();
+break;
+
+case 'actualizarHemoglobina':
+  actualizarHemoglobina();
+break;
+
+case 'actualizarRxTorax':
+  actualizarRxTorax();
+break;
+
+case 'actualizarEncuestaDeLakeLouis':
+  ingresarEncuestaDeLakeLouis();
+break;
+
+case 'actualizarCultivoNasal':
+  actualizarCultivoNasal();
+break;
+
+case 'actualizarCultivoFaringeo':
+  actualizarCultivoFaringeo();
+break;
+
+case 'actualizarCultivoLechoUngueal':
+  actualizarCultivoLechoUngueal();
+break;
+
+case 'actualizarAltSgpt':
+  actualizarAltSgpt();
+break;
+
+case 'actualizarAltSgot':
+  actualizarAltSgot();
+break;
+
+case 'actualizarProtrombina':
+  actualizarProtrombina();
+break;
+
+case 'actualizarTiempoDeProtrombina':
+  actualizarTiempoDeProtrombina();
+break;
+
+case 'actualizarActividadDeAcetilcolinesterasa':
+  ingresarActividadDeAcetilcolinesterasa();
+break;
+
+case 'ingresarOptometria':
+  ingresarOptometria();
+break;
 
 
 
@@ -481,7 +572,9 @@ function signosVitales(){
     }
 
 }
-  
+
+
+
 function ingresarPerfilLipidico(){
 
   include '../global/conexion.php';
@@ -514,7 +607,9 @@ function ingresarPerfilLipidico(){
 
   $sql .= "('$idEvaluacion','34','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','35','$fechaActual','$horaActual','$estado')";
+  $sql .= "('$idEvaluacion','35','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   $sql = utf8_decode($sql);
 
@@ -548,7 +643,9 @@ function ingresarIndiceDeFramingham(){
 
   $sql .= "('$idEvaluacion','41','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','42','$fechaActual','$horaActual','$estado')";
+  $sql .= "('$idEvaluacion','42','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   $sql = utf8_decode($sql);
 
@@ -592,6 +689,8 @@ function ingresarTestDeRuffier(){
 
     $sql .= "('$idEvaluacion','48','$fechaActual','$horaActual','$estado')";
 
+    $sql .= " ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
     $sql = utf8_decode($sql);
     if(mysqli_query($conexion, $sql)){
         echo 'true';
@@ -603,6 +702,799 @@ function ingresarTestDeRuffier(){
 }
 
 function ingresarEspirometriaBasal(){
+  include '../global/conexion.php';
+    session_start();
+
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+
+    $cvflPromedio = $_POST['cvflPromedio'];
+    $cvflLimiteInferior = $_POST['cvflLimiteInferior'];
+    $vef1lPromedio = $_POST['vef1lPromedio'];
+    $vef1lLimiteInferior = $_POST['vef1lLimiteInferior'];
+    $fef2575Promedio = $_POST['fef2575Promedio'];
+    $fef2575LimiteInferior = $_POST['fef2575LimiteInferior'];
+    $vef1cvfPromedio = $_POST['vef1cvfPromedio'];
+    $vef1cvfLimiteInferior = $_POST['vef1cvfLimiteInferior'];
+
+    $absoluto1 = $_POST['absoluto1'];    
+    $teorico1 = $_POST['teorico1'];
+    $absoluto2 = $_POST['absoluto2'];
+    $teorico2 = $_POST['teorico2'];
+    $absoluto3 = $_POST['absoluto3'];
+    $teorico3 = $_POST['teorico3'];
+    $absoluto4 = $_POST['absoluto4'];
+        
+    $observaciones = $_POST['observaciones'];
+    $estado = 'Sin evaluar';
+
+    
+    //$estado = $_POST['estado'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','6','$fechaActual','$horaActual','$cvflPromedio'), ";
+
+    $sql .= "('$idEvaluacion','7','$fechaActual','$horaActual','$cvflLimiteInferior'), ";
+
+    $sql .= "('$idEvaluacion','8','$fechaActual','$horaActual','$vef1lPromedio'), ";
+
+    $sql .= "('$idEvaluacion','9','$fechaActual','$horaActual','$vef1lLimiteInferior'), ";
+
+    $sql .= "('$idEvaluacion','10','$fechaActual','$horaActual','$fef2575Promedio'), ";
+
+    $sql .= "('$idEvaluacion','11','$fechaActual','$horaActual','$fef2575LimiteInferior'), ";
+
+    $sql .= "('$idEvaluacion','12','$fechaActual','$horaActual','$vef1cvfPromedio'), ";
+
+    $sql .= "('$idEvaluacion','13','$fechaActual','$horaActual','$vef1cvfLimiteInferior'), ";
+
+    $sql .= "('$idEvaluacion','14','$fechaActual','$horaActual','$absoluto1'), ";
+
+    $sql .= "('$idEvaluacion','15','$fechaActual','$horaActual','$teorico1'), ";
+
+    $sql .= "('$idEvaluacion','16','$fechaActual','$horaActual','$absoluto2'), ";
+
+    $sql .= "('$idEvaluacion','17','$fechaActual','$horaActual','$teorico2'), ";
+
+    $sql .= "('$idEvaluacion','18','$fechaActual','$horaActual','$absoluto3'), ";
+
+    $sql .= "('$idEvaluacion','19','$fechaActual','$horaActual','$teorico3'), ";
+
+    $sql .= "('$idEvaluacion','20','$fechaActual','$horaActual','$absoluto4'), ";
+
+    $sql .= "('$idEvaluacion','22','$fechaActual','$horaActual','$observaciones'), ";
+
+    $sql .= "('$idEvaluacion','23','$fechaActual','$horaActual','$estado') ";
+
+    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+  
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+    //echo $sql;
+
+
+}
+
+function ingresarElectrocardiograma(){
+
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $estado = $_POST['estado'];
+    $observaciones = $_POST['observaciones'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','4','$fechaActual','$horaActual','$observaciones'), ";
+
+    $sql .= "('$idEvaluacion','5','$fechaActual','$horaActual','$estado') ";
+
+    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+
+}
+
+function ingresarGlicemia(){
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $valor = $_POST['valor'];
+    $estado = $_POST['estado'];
+    $observaciones = $_POST['observaciones'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','49','$fechaActual','$horaActual','$valor'), ";
+
+    $sql .= "('$idEvaluacion','50','$fechaActual','$horaActual','$estado'), ";
+
+    $sql .= "('$idEvaluacion','51','$fechaActual','$horaActual','$observaciones') ";
+
+    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+  
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+}
+
+function ingresarCreatinina(){
+
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  $valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','24','$fechaActual','$horaActual','$valor'), ";
+
+  $sql .= "('$idEvaluacion','26','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','27','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+
+}
+
+function ingresarHemoglobina(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  $valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','36','$fechaActual','$horaActual','$valor'), ";
+
+  $sql .= "('$idEvaluacion','38','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','39','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarRxTorax(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','56','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','57','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarEncuestaDeLakeLouis(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  //$estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','59','$fechaActual','$horaActual','$observaciones') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+  $sql = utf8_decode($sql);
+
+  
+   if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+   
+  mysqli_close($conexion);
+}
+
+function ingresarCultivoNasal(){
+    include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    //$valor = $_POST['valor'];
+    $estado = $_POST['estado'];
+    $observaciones = $_POST['observaciones'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','62','$fechaActual','$horaActual','$observaciones'), ";
+
+    $sql .= "('$idEvaluacion','63','$fechaActual','$horaActual','$estado') ";
+
+    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+}
+
+function ingresarCultivoFaringeo(){
+  include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    //$valor = $_POST['valor'];
+    $estado = $_POST['estado'];
+    $observaciones = $_POST['observaciones'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','65','$fechaActual','$horaActual','$observaciones'), ";
+
+    $sql .= "('$idEvaluacion','66','$fechaActual','$horaActual','$estado' )";
+
+    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+}
+
+function ingresarCultivoLechoUngueal(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','68','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','69','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarAltSgpt(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','71','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','72','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarAltSgot(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','74','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','75','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarProtrombina(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','77','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','78','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarTiempoDeProtrombina(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','80','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','81','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarActividadDeAcetilcolinesterasa(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','83','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','84','$fechaActual','$horaActual','$estado') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarOptometria(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  //$valor = $_POST['valor'];
+
+  $ojoDerechoLejos =$_POST['ojoDerechoLejos'];
+  $ojoIzquierdoLejos = $_POST['ojoIzquierdoLejos'];
+  $ambosOjosLejos = $_POST['ambosOjosLejos'];
+  $ojoDerechoCerca = $_POST['ojoDerechoCerca'];
+  $ojoIzquierdoCerca = $_POST['ojoIzquierdoCerca'];
+  $ambosOjosCerca = $_POST['ambosOjosCerca'];
+  $figuras = $_POST['figuras'];
+  $animalesA = $_POST['animalesA'];
+  $animalesB = $_POST['animalesB'];
+  $animalesC = $_POST['animalesC'];
+  $coloresPrimarios = $_POST['coloresPrimarios'];
+  $encandilamiento = $_POST['encandilamiento'];
+  $recuperacionEncandilamiento = $_POST['recuperacionEncandilamiento'];
+  $visionNocturna = $_POST['visionNocturna'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES"; 
+  $sql .= "('$idEvaluacion','85','$fechaActual','$horaActual','$ojoDerechoLejos'), 
+('$idEvaluacion','86','$fechaActual','$horaActual','$ojoIzquierdoLejos'), 
+('$idEvaluacion','87','$fechaActual','$horaActual','$ambosOjosLejos'), 
+('$idEvaluacion','88','$fechaActual','$horaActual','$ojoDerechoCerca'), 
+('$idEvaluacion','89','$fechaActual','$horaActual','$ojoIzquierdoCerca'), 
+('$idEvaluacion','90','$fechaActual','$horaActual','$ambosOjosCerca'), 
+('$idEvaluacion','91','$fechaActual','$horaActual','$figuras'), 
+('$idEvaluacion','92','$fechaActual','$horaActual','$animalesA'), 
+('$idEvaluacion','93','$fechaActual','$horaActual','$animalesB'), 
+('$idEvaluacion','94','$fechaActual','$horaActual','$animalesC'), 
+('$idEvaluacion','95','$fechaActual','$horaActual','$coloresPrimarios'), 
+('$idEvaluacion','96','$fechaActual','$horaActual','$encandilamiento'), 
+('$idEvaluacion','97','$fechaActual','$horaActual','$recuperacionEncandilamiento'), 
+('$idEvaluacion','98','$fechaActual','$horaActual','$visionNocturna'), 
+('$idEvaluacion','99','$fechaActual','$horaActual','$estado '), 
+('$idEvaluacion','100','$fechaActual','$horaActual','$observaciones') ";
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+function ingresarAudiometria(){
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+
+
+  $VAOD125 = $_POST['VAOD125'];
+  $VAOD250 = $_POST['VAOD250'];
+  $VAOD500 = $_POST['VAOD500'];
+  $VAOD1000 = $_POST['VAOD1000'];
+  $VAOD2000 = $_POST['VAOD2000'];
+  $VAOD3000 = $_POST['VAOD3000'];
+  $VAOD4000 = $_POST['VAOD4000'];
+  $VAOD6000 = $_POST['VAOD6000'];
+  $VAOD8000 = $_POST['VAOD8000'];
+  $VAOI125 = $_POST['VAOI125'];
+  $VAOI250 = $_POST['VAOI250'];
+  $VAOI500 = $_POST['VAOI500'];
+  $VAOI1000 = $_POST['VAOI1000'];
+  $VAOI2000 = $_POST['VAOI2000'];
+  $VAOI3000 = $_POST['VAOI3000'];
+  $VAOI4000 = $_POST['VAOI4000'];
+  $VAOI6000 = $_POST['VAOI6000'];
+  $VAOI8000 = $_POST['VAOI8000'];
+  $VOOD125 = $_POST['VOOD125'];
+  $VOOD250 = $_POST['VOOD250'];
+  $VOOD500 = $_POST['VOOD500'];
+  $VOOD1000 = $_POST['VOOD1000'];
+  $VOOD2000 = $_POST['VOOD2000'];
+  $VOOD3000 = $_POST['VOOD3000'];
+  $VOOD4000 = $_POST['VOOD4000'];
+  $VOOD6000 = $_POST['VOOD6000'];
+  $VOOD8000 = $_POST['VOOD8000'];
+  $VOOI125 = $_POST['VOOI125'];
+  $VOOI250 = $_POST['VOOI250'];
+  $VOOI500 = $_POST['VOOI500'];
+  $VOOI1000 = $_POST['VOOI1000'];
+  $VOOI2000 = $_POST['VOOI2000'];
+  $VOOI3000 = $_POST['VOOI3000'];
+  $VOOI4000 = $_POST['VOOI4000'];
+  $VOOI6000 = $_POST['VOOI6000'];
+  $VOOI8000 = $_POST['VOOI8000'];
+  $estado = $_POST['estado'];
+  $observaciones = $_POST['observaciones'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES
+('$idEvaluacion','101','$fechaActual','$horaActual','$VAOD125'),
+('$idEvaluacion','102','$fechaActual','$horaActual','$VAOD250'),
+('$idEvaluacion','103','$fechaActual','$horaActual','$VAOD500'),
+('$idEvaluacion','104','$fechaActual','$horaActual','$VAOD1000'),
+('$idEvaluacion','105','$fechaActual','$horaActual','$VAOD2000'),
+('$idEvaluacion','106','$fechaActual','$horaActual','$VAOD3000'),
+('$idEvaluacion','107','$fechaActual','$horaActual','$VAOD4000'),
+('$idEvaluacion','108','$fechaActual','$horaActual','$VAOD6000'),
+('$idEvaluacion','109','$fechaActual','$horaActual','$VAOD8000'),
+('$idEvaluacion','110','$fechaActual','$horaActual','$VAOI125'),
+('$idEvaluacion','111','$fechaActual','$horaActual','$VAOI250'),
+('$idEvaluacion','112','$fechaActual','$horaActual','$VAOI500'),
+('$idEvaluacion','113','$fechaActual','$horaActual','$VAOI1000'),
+('$idEvaluacion','114','$fechaActual','$horaActual','$VAOI2000'),
+('$idEvaluacion','115','$fechaActual','$horaActual','$VAOI3000'),
+('$idEvaluacion','116','$fechaActual','$horaActual','$VAOI4000'),
+('$idEvaluacion','117','$fechaActual','$horaActual','$VAOI6000'),
+('$idEvaluacion','118','$fechaActual','$horaActual','$VAOI8000'),
+('$idEvaluacion','119','$fechaActual','$horaActual','$VOOD125'),
+('$idEvaluacion','120','$fechaActual','$horaActual','$VOOD250'),
+('$idEvaluacion','121','$fechaActual','$horaActual','$VOOD500'),
+('$idEvaluacion','122','$fechaActual','$horaActual','$VOOD1000'),
+('$idEvaluacion','123','$fechaActual','$horaActual','$VOOD2000'),
+('$idEvaluacion','124','$fechaActual','$horaActual','$VOOD3000'),
+('$idEvaluacion','125','$fechaActual','$horaActual','$VOOD4000'),
+('$idEvaluacion','126','$fechaActual','$horaActual','$VOOD6000'),
+('$idEvaluacion','127','$fechaActual','$horaActual','$VOOD8000'),
+('$idEvaluacion','128','$fechaActual','$horaActual','$VOOI125'),
+('$idEvaluacion','129','$fechaActual','$horaActual','$VOOI250'),
+('$idEvaluacion','130','$fechaActual','$horaActual','$VOOI500'),
+('$idEvaluacion','131','$fechaActual','$horaActual','$VOOI1000'),
+('$idEvaluacion','132','$fechaActual','$horaActual','$VOOI2000'),
+('$idEvaluacion','133','$fechaActual','$horaActual','$VOOI3000'),
+('$idEvaluacion','134','$fechaActual','$horaActual','$VOOI4000'),
+('$idEvaluacion','135','$fechaActual','$horaActual','$VOOI6000'),
+('$idEvaluacion','136','$fechaActual','$horaActual','$VOOI8000'),
+('$idEvaluacion','137','$fechaActual','$horaActual','$observaciones'),
+('$idEvaluacion','138','$fechaActual','$horaActual','$estado')";
+
+
+  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+  
+
+  $sql = utf8_decode($sql);
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+}
+
+
+
+
+
+
+
+
+/* MODIFICAR */
+
+function actualizarPerfilLipidico(){
+
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  
+  $colesterolTotal = $_POST['colesterolTotal'];
+  $colesterolHDL = $_POST['colesterolHDL'];
+  $colesterolLDL = $_POST['colesterolLDL'];
+  $colesterolVLDL = $_POST['colesterolVLDL'];
+  $indiceCol = $_POST['indiceCol'];
+  $trigliceridos = $_POST['trigliceridos'];
+  $observaciones = $_POST['observaciones'];
+  $estado = $_POST['estado'];
+  
+
+  $sql = "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$colesterolTotal' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '28'; "; 
+
+  $sql = "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$colesterolHDL' WHERE ID_EVALUACION '$idEvaluacion' AND ID_PARAMETRO = '29'; "; 
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$colesterolLDL' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '30'; "; 
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$colesterolVLDL' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '31'; "; 
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$indiceCol' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '32'; ";
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$trigliceridos' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '33'; "; 
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$observaciones' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '34'; "; 
+
+  $sql .= "UPDATE EVALUACION_PARAMETRO SET VALOR_PARAMETRO = '$estado' WHERE ID_EVALUACION = '$idEvaluacion' AND ID_PARAMETRO = '35';"; 
+
+  $sql = utf8_decode($sql);
+
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  
+
+
+  /* $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','28','$fechaActual','$horaActual','$colesterolTotal'), ";
+
+  $sql .= "('$idEvaluacion','29','$fechaActual','$horaActual','$colesterolHDL'), ";
+
+  $sql .= "('$idEvaluacion','30','$fechaActual','$horaActual','$colesterolLDL'), ";
+
+  $sql .= "('$idEvaluacion','31','$fechaActual','$horaActual','$colesterolVLDL'), ";
+
+  $sql .= "('$idEvaluacion','32','$fechaActual','$horaActual','$indiceCol'), "; */
+
+  /* $sql .= "('$idEvaluacion','33','$fechaActual','$horaActual','$trigliceridos'),";
+
+  $sql .= "('$idEvaluacion','34','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','35','$fechaActual','$horaActual','$estado')";
+ */
+ 
+  
+  mysqli_close($conexion);
+
+}
+
+function actualizarIndiceDeFramingham(){
+
+  include '../global/conexion.php';
+  session_start();
+
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+  $horaActual = $_SESSION['horaActual'];
+  $fechaActual = $_SESSION['fechaActual'];
+  $valorIndiceDeFramingham = $_POST['valorIndiceDeFramingham'];
+  //$observaciones = 'Sin observaciones';
+  $estado = 'Sin evaluar';
+  
+
+  $observaciones = $_POST['observaciones'];
+  //$estado = $_POST['estado'];
+  
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','40','$fechaActual','$horaActual','$valorIndiceDeFramingham'), ";
+
+  $sql .= "('$idEvaluacion','41','$fechaActual','$horaActual','$observaciones'), ";
+
+  $sql .= "('$idEvaluacion','42','$fechaActual','$horaActual','$estado')";
+
+  $sql = utf8_decode($sql);
+
+  if(mysqli_query($conexion, $sql)){
+      echo 'true';
+  }else{
+      echo 'false';
+  }
+  
+  mysqli_close($conexion);
+
+}
+
+function actualizarTestDeRuffier(){
+    include '../global/conexion.php';
+    session_start();
+
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $horaActual = $_SESSION['horaActual'];
+    $fechaActual = $_SESSION['fechaActual'];
+    $P1 = $_POST['P1'];
+    $P2 = $_POST['P2'];
+    $P3 = $_POST['P3'];
+    $valoracion = ($P1+$P2+$P3-200)/10;
+    //$valoracion = $_POST['valoracion'];
+    //$observaciones = 'Sin observaciones';
+    $estado = 'Sin evaluar';
+
+    $observaciones = $_POST['observaciones'];
+    //$estado = $_POST['estado'];
+    
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','43','$fechaActual','$horaActual','$P1'), ";
+
+    $sql .= "('$idEvaluacion','44','$fechaActual','$horaActual','$P2'), ";
+
+    $sql .= "('$idEvaluacion','45','$fechaActual','$horaActual','$P3'), ";
+
+    $sql .= "('$idEvaluacion','46','$fechaActual','$horaActual','$valoracion'), ";
+
+    $sql .= "('$idEvaluacion','47','$fechaActual','$horaActual','$observaciones'), ";
+
+    $sql .= "('$idEvaluacion','48','$fechaActual','$horaActual','$estado')";
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
+}
+
+function actualizarEspirometriaBasal(){
   include '../global/conexion.php';
     session_start();
 
@@ -701,7 +1593,7 @@ function ingresarEspirometriaBasal(){
 
 }
 
-function ingresarElectrocardiograma(){
+function actualizarElectrocardiograma(){
 
   include '../global/conexion.php';
     session_start();
@@ -727,7 +1619,7 @@ function ingresarElectrocardiograma(){
 
 }
 
-function ingresarGlicemia(){
+function actualizarGlicemia(){
   include '../global/conexion.php';
     session_start();
 
@@ -755,7 +1647,7 @@ function ingresarGlicemia(){
     mysqli_close($conexion);
 }
 
-function ingresarCreatinina(){
+function actualizarCreatinina(){
 
   include '../global/conexion.php';
   session_start();
@@ -785,7 +1677,7 @@ function ingresarCreatinina(){
 
 }
 
-function ingresarHemoglobina(){
+function actualizarHemoglobina(){
   include '../global/conexion.php';
   session_start();
 
@@ -813,7 +1705,7 @@ function ingresarHemoglobina(){
   mysqli_close($conexion);
 }
 
-function ingresarRxTorax(){
+function actualizarRxTorax(){
   include '../global/conexion.php';
   session_start();
 
@@ -839,7 +1731,7 @@ function ingresarRxTorax(){
   mysqli_close($conexion);
 }
 
-function ingresarEncuestaDeLakeLouis(){
+function actualizarEncuestaDeLakeLouis(){
   include '../global/conexion.php';
   session_start();
 
@@ -864,7 +1756,7 @@ function ingresarEncuestaDeLakeLouis(){
   mysqli_close($conexion);
 }
 
-function ingresarCultivoNasal(){
+function actualizarCultivoNasal(){
     include '../global/conexion.php';
     session_start();
 
@@ -890,7 +1782,7 @@ function ingresarCultivoNasal(){
     mysqli_close($conexion);
 }
 
-function ingresarCultivoFaringeo(){
+function actualizarCultivoFaringeo(){
   include '../global/conexion.php';
     session_start();
 
@@ -916,7 +1808,7 @@ function ingresarCultivoFaringeo(){
     mysqli_close($conexion);
 }
 
-function ingresarCultivoLechoUngueal(){
+function actualizarCultivoLechoUngueal(){
   include '../global/conexion.php';
   session_start();
 
@@ -942,7 +1834,7 @@ function ingresarCultivoLechoUngueal(){
   mysqli_close($conexion);
 }
 
-function ingresarAltSgpt(){
+function actualizarAltSgpt(){
   include '../global/conexion.php';
   session_start();
 
@@ -968,7 +1860,7 @@ function ingresarAltSgpt(){
   mysqli_close($conexion);
 }
 
-function ingresarAltSgot(){
+function actualizarAltSgot(){
   include '../global/conexion.php';
   session_start();
 
@@ -994,7 +1886,7 @@ function ingresarAltSgot(){
   mysqli_close($conexion);
 }
 
-function ingresarProtrombina(){
+function actualizarProtrombina(){
   include '../global/conexion.php';
   session_start();
 
@@ -1020,7 +1912,7 @@ function ingresarProtrombina(){
   mysqli_close($conexion);
 }
 
-function ingresarTiempoDeProtrombina(){
+function actualizarTiempoDeProtrombina(){
   include '../global/conexion.php';
   session_start();
 
@@ -1046,7 +1938,7 @@ function ingresarTiempoDeProtrombina(){
   mysqli_close($conexion);
 }
 
-function ingresarActividadDeAcetilcolinesterasa(){
+function actualizarActividadDeAcetilcolinesterasa(){
   include '../global/conexion.php';
   session_start();
 
@@ -1057,9 +1949,15 @@ function ingresarActividadDeAcetilcolinesterasa(){
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
+  /* INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('126','83','2020-03-05','13:49:36','OBSERVACIONCITAS'), ('126','84','2020-03-05','13:49:36','ESTADITO') ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO); */
+ 
+
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','83','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','84','$fechaActual','$horaActual','$estado')";
+  $sql .= "('$idEvaluacion','84','$fechaActual','$horaActual','$estado') ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+  
+
 
 
   $sql = utf8_decode($sql);
@@ -1157,9 +2055,48 @@ function ingresarConclusionMedica(){
     $fechaActual = $_SESSION['fechaActual'];
     $conclusionMedica = $_POST['conclusionMedica'];
     
-   
+    $texto = '';
 
-    $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$conclusionMedica' WHERE ID_EVALUACION = '$idEvaluacion'";
+
+ /*                              a1.- SALUD COMPATIBLE ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS NO DEMUESTRAN ALTERACIONES QUE CONTRAINDIQUEN EL TRABAJO EN GRAN ALTURA GEOGRAFICA, DESDE 3.000 A 5.5000 MSNM.
+a2.- SALUD NO COMPATIBLE EN ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS DEMUESTRAN ALTERACIONES TEMPORALES  QUE CONTRAINDICAN  EL TRABAJO EN GRAN ALTURA GEOGRAFICA.
+a3.- SALUD COMPATIBLE. EL EXAMEN DE SALUD REALIZADO NO DEMUESTRA ALTERACIONES QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS.
+b.-SALUD NO COMPATIBLE TEMPORAL.- EL EXAMEN DE SALUD REALIZADO DEMUESTRA ALTERACIONES TEMPORALES  QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS
+c.- CONCLUSION PENDIENTE.- SE REQUIERE EXAMENES ADICIONALES EN PROCESO PARA CONCLUIR INFORME.
+d.- NO ASISTE A CONTROL.
+e.- SALUD NO COMPATIBLE PERMANENTE.- CON LOS EXAMENES PRACTICADOS SE A CONCLUIDO QUE EL TRABAJADOR PRESENTA CONDICIONES DE SALUD, QUE NO ES APTO DE MANERA PERMANENTE PARA TRABAJAR EN LOS RIESGOS INDICADOS.
+  */
+    switch($conclusionMedica){
+      case 'A1':
+          $texto = 'A1.-SALUD COMPATIBLE ALTURA GEOGRAFICA. LOS EXÁMENES PRACTICADOS NO DEMUESTRAN ALTERACIONES QUE CONTRAINDIQUEN EL TRABAJO EN GRAN ALTURA GEOGRAFICA, DESDE 3.000 A 5.500 MSNM.';
+      break;
+    
+      case 'A2':
+        $texto = 'A2.-SALUD NO COMPATIBLE EN ALTURA GEOGRAFICA. LOS EXÁMENES PRACTICADOS DEMUESTRAN ALTERACIONES TEMPORALES  QUE CONTRAINDICAN  EL TRABAJO EN GRAN ALTURA GEOGRAFICA.';
+      break;
+
+      case 'A3':
+        $texto = 'A3.-SALUD COMPATIBLE. EL EXAMEN DE SALUD REALIZADO NO DEMUESTRA ALTERACIONES QUE IMPIDAN SU DESEMPEÑO PARA LOS RIESGOS INDICADOS.';
+      break;
+
+      case 'B':
+        $texto = 'B.-SALUD NO COMPATIBLE TEMPORAL. EL EXAMEN DE SALUD REALIZADO DEMUESTRA ALTERACIONES TEMPORALES  QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS';
+      break;
+
+      case 'C':
+        $texto = 'C.-CONCLUSION PENDIENTE. SE REQUIEREN EXAMENES ADICIONALES EN PROCESO PARA CONCLUIR INFORME.';
+      break;
+
+      case 'D':
+        $texto = 'D.-NO ASISTE A CONTROL.';
+      break;
+
+      case 'E':
+        $texto = 'E.-SALUD NO COMPATIBLE PERMANENTE. CON LOS EXAMENES PRACTICADOS SE HA CONCLUIDO QUE EL TRABAJADOR PRESENTA CONDICIONES DE SALUD. NO ES APTO DE MANERA PERMANENTE PARA TRABAJAR EN LOS RIESGOS INDICADOS.';
+      break;
+    }
+
+    $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$texto' WHERE ID_EVALUACION = '$idEvaluacion'";
     //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
     $sql = utf8_decode($sql);
     

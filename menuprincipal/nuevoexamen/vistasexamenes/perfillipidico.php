@@ -1,4 +1,88 @@
-<!-- style="border-style:solid; border-width:1px; border-radius:10px 10px 10px 10px;" -->
+<?php
+session_start();
+include '../../../global/conexion.php';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+FROM EVALUACION_PARAMETRO 
+INNER JOIN PARAMETRO 
+ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
+INNER JOIN EXAMEN 
+ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
+WHERE ID_EVALUACION = '$idEvaluacion'";
+
+$valor = '';
+$colesterolTotal ='';
+$colesterolHDL='';
+$colesterolLDL='';
+$colesterolVLDL='';
+$indiceCol='';
+$trigliceridos='';
+
+
+$estado = 'Sin evaluar';
+$observaciones = 'Sin observaciones';
+
+$resultado = mysqli_query($conexion,$sql);
+
+
+
+
+while($row = mysqli_fetch_assoc($resultado)){
+    
+    $idParametro = $row['ID_PARAMETRO'];
+    
+    switch($idParametro){
+
+        case '28':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $colesterolTotal= $valorParametro;
+        break;   
+
+        case '29':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $colesterolHDL= $valorParametro;
+        break;   
+
+        case '30':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $colesterolLDL = $valorParametro;
+        break;   
+
+        case '31':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $colesterolVLDL = $valorParametro;
+        break;
+
+        case '32':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $indiceCol= $valorParametro;
+        break;   
+
+        case '33':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $trigliceridos = $valorParametro;
+        break;   
+
+        case '34':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $observaciones = $valorParametro;
+        break;   
+
+        case '35':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $estado = $valorParametro;
+        break;
+
+        
+            
+        
+    }
+   
+}
+
+
+?>
 
 <div class="container" >
 
@@ -13,25 +97,9 @@
     <form action="" method="POST" class="" id="formIngresarPerfilLipidico" name="formIngresarPerfilLipidico">
 
     
-        <?php //include 'estado.php' ?>
+        <?php include 'estado.php' ?>
 
-        <div class="row justify-content-center mb-4">
-        <div class="col-2" style="margin-top:5px;">
-                Estado
-            </div>
-            <div class="col-4">
-                <select class="form-control" name="estado" id="estado">
-
-                    <option value="Sin evaluar">Sin evaluar</option>
-                    <option value="Normal">Normal</option>
-                    <option value="Alterado">Alterado</option>
-
-                </select>
-
-            </div>
-
-            <div class="col-2"></div>
-        </div>
+        
 
         <div class="row justify-content-center mb-3">
             <div class="col-2" style="margin-top:5px;">
@@ -39,7 +107,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="colesterolTotal" id="colesterolTotal" maxlength="5">
+                <input type="text" class="form-control" name="colesterolTotal" id="colesterolTotal" maxlength="5" value="<?=$colesterolTotal?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -56,7 +124,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="colesterolHDL" id="colesterolHDL" maxlength="5">
+                <input type="text" class="form-control" name="colesterolHDL" id="colesterolHDL" maxlength="5" value="<?=$colesterolHDL?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -73,7 +141,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="colesterolLDL" id="colesterolLDL" maxlength="5">
+                <input type="text" class="form-control" name="colesterolLDL" id="colesterolLDL" maxlength="5" value="<?=$colesterolLDL?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -90,7 +158,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="colesterolVLDL" id="colesterolVLDL" maxlength="5">
+                <input type="text" class="form-control" name="colesterolVLDL" id="colesterolVLDL" maxlength="5" value="<?=$colesterolVLDL?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -108,7 +176,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="indiceCol" id="indiceCol" maxlength="5">
+                <input type="text" class="form-control" name="indiceCol" id="indiceCol" maxlength="5" value="<?=$indiceCol?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -123,7 +191,7 @@
             </div>
 
             <div class="col-4">
-                <input type="text" class="form-control" name="trigliceridos" id="trigliceridos" maxlength="5">
+                <input type="text" class="form-control" name="trigliceridos" id="trigliceridos" maxlength="5" value="<?=$trigliceridos?>">
             </div>
 
             <div class="col-2" style="margin-top:5px;">
@@ -132,23 +200,7 @@
 
         </div>
 
-        <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-12">
-                    <div class="form-group">
-                      <label for="observaciones">OBSERVACIONES</label>
-                      <textarea class="form-control" name="observaciones" id="observaciones" rows="8">Sin observaciones</textarea>
-                    </div>
-                </div>
-        </div> 
-
-        <!-- <div class="row justify-content-center mb-3">
-
-            <div class="col-8">
-                <label for="">Observaciones</label>
-                <textarea class="form-control" name="observaciones" id="observaciones" cols="30" rows="4" maxlength="315" ></textarea>
-            </div>
-
-        </div> -->
+        <?php include 'observaciones.php' ?>
 
         
         <input type="text" name="consulta" id="consulta" value="ingresarPerfilLipidico" hidden>
