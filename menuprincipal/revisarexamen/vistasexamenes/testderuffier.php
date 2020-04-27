@@ -2,6 +2,7 @@
 
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '12';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -12,9 +13,9 @@ INNER JOIN EXAMEN
 ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
 WHERE ID_EVALUACION = '$idEvaluacion'";
 
-$P1 = '';
-$P2 = '';
-$P3 = '';
+$P1 = 0;
+$P2 = 0;
+$P3 = 0;
 $valor = 0;
 $texto = '';
 
@@ -57,6 +58,8 @@ while($row = mysqli_fetch_assoc($resultado)){
     }
    
 }
+
+
 
 $valor = ($P1 + $P2 + $P3-200)/10; 
 
@@ -178,7 +181,7 @@ if($valor <= 0){
 
     
     <input type="text" name="consulta" id="consulta" value="ingresarTestDeRuffier" hidden>
-    <input type="text" name="select" id="select" value="ingresarTestDeRuffier" hidden>
+    <input type="text" name="select" id="select" value="selectTestDeRuffier" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -190,6 +193,13 @@ if($valor <= 0){
         <div class="col-4">
             <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarTestDeRuffier()" id="btnGuardarTestDeRuffier" name="btnGuardarTestDeRuffier">
         </div>
+
+        <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosTestDeRuffier()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
+        </div>
+        
 
     </div>
 

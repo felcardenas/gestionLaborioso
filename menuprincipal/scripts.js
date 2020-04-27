@@ -636,9 +636,6 @@ function validarFormularioInformes(){
 }
 
 
-
-
-
 function validarSignosVitales() {
     var valido = false;
 
@@ -888,7 +885,7 @@ function guardarPerfilLipidico() {
 
                         //document.getElementById("btnMostrarPerfilLipidico").setAttribute("disabled", true);
                         //document.getElementById("btnGuardarPerfilLipidico").setAttribute("disabled", true);
-
+                        mostrarPerfilLipidico();
                     } else if (r == 'false') {
                         mensajeEnPantalla("No se han ingresado los datos", "", "error");
                     }
@@ -916,6 +913,7 @@ function guardarPerfilLipidico() {
 
 
 }
+/*
 
 function mostrarPerfilLipidico() {
 
@@ -942,7 +940,7 @@ function mostrarPerfilLipidico() {
 
 
 
-}
+}*/
 
 function riesgoADiezAnios() {
 
@@ -976,7 +974,7 @@ function guardarIndiceDeFramingham() {
 
     var valorIndiceDeFramingham = document.getElementById('valorIndiceDeFramingham').value;
     var riesgoDiezAnios = document.getElementById('riesgoDiezAnios').value;
-    var observaciones = document.getElementById('observaciones').value;
+    //var observaciones = document.getElementById('observaciones').value;
 
     if (!validarBlanco(valorIndiceDeFramingham)) {
         mensajeEnPantalla("Debe completar el campo valor", "", "error");
@@ -1017,6 +1015,9 @@ function guardarIndiceDeFramingham() {
                         document.getElementById("btnGuardarIndiceDeFramingham").setAttribute("disabled", true);
                         document.getElementById("btnIndiceDeFramingham").setAttribute("disabled", true); */
                         mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                        mostrarIndiceDeFramingham();
+                        
+                        
                     } else if (r == 'false') {
                         mensajeEnPantalla("No se han ingresado los datos", "", "error");
                     }
@@ -1092,6 +1093,7 @@ function guardarTestDeRuffier(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnTestDeRuffier").setAttribute("disabled", true); */
+                                mostrarTestDeRuffier();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1145,6 +1147,7 @@ function guardarElectrocardiograma(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarElectrocardiograma").setAttribute("disabled", true);
                                 document.getElementById("btnElectrocardiograma").setAttribute("disabled", true); */
+                                mostrarElectrocardiograma();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1203,12 +1206,13 @@ function guardarGlicemia(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarGlicemia").setAttribute("disabled", true);
                                 document.getElementById("btnGlicemia").setAttribute("disabled", true); */
+                                mostrarGlicemia();
                             }
                             if (r == 'false') {
-                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                                mensajeEnPantalla("No se han ingresado los datos"+" "+r, "", "error");
                                 
                             }
-
+                            
                             
                             
                         }
@@ -1267,6 +1271,7 @@ function guardarCreatinina(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarCreatinina").setAttribute("disabled", true);
                                 document.getElementById("btnCreatinina").setAttribute("disabled", true); */
+                                mostrarCreatinina();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1327,6 +1332,7 @@ function guardarHemoglobina(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarHemoglobina").setAttribute("disabled", true);
                                 document.getElementById("btnHemoglobina").setAttribute("disabled", true); */
+                                mostrarHemoglobina();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1387,6 +1393,7 @@ function guardarRxTorax(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarRxTorax").setAttribute("disabled", true);
                                 document.getElementById("btnRxTorax").setAttribute("disabled", true); */
+                                mostrarRxTorax();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1447,6 +1454,7 @@ function guardarEncuestaDeLakeLouis(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 //document.getElementById("btnGuardarEncuestaDeLakeLouis").setAttribute("disabled", true);
                                 //document.getElementById("btnEncuestaDeLakeLouis").setAttribute("disabled", true);
+                                mostrarEncuestaDeLakeLouis();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1504,6 +1512,7 @@ function guardarCultivoNasal(){
                                 document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarCultivoNasal").setAttribute("disabled", true);
                                 document.getElementById("btnCultivoNasal").setAttribute("disabled", true); */
+                                mostrarCultivoNasal();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1564,6 +1573,7 @@ function guardarCultivoFaringeo(){
                                  //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                  document.getElementById("btnGuardarCultivoFaringeo").setAttribute("disabled", true);
                                  document.getElementById("btnCultivoFaringeo").setAttribute("disabled", true); */
+                                 mostrarCultivoFaringeo();
                              }
                              if (r == 'false') {
                                  mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1624,6 +1634,7 @@ function guardarCultivoLechoUngueal(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarCultivoLechoUngueal").setAttribute("disabled", true);
                                 document.getElementById("btnCultivoLechoUngueal").setAttribute("disabled", true); */
+                                mostrarCultivoLechoUngueal();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1684,6 +1695,7 @@ function guardarAltSgpt(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarAltSgpt").setAttribute("disabled", true);
                                 document.getElementById("btnAltSgpt").setAttribute("disabled", true); */
+                                mostrarALTSGPT();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1701,15 +1713,15 @@ function guardarAltSgpt(){
     })
 }
 
-function guardarAltSgot(){
+//function guardarAstSgot(){
     //var valor = document.getElementById('valor').value;
-    var estado = document.getElementById('estado').value;
-    var observaciones = document.getElementById('observaciones').value;
+    //var estado = document.getElementById('estado').value;
+    //var observaciones = document.getElementById('observaciones').value;
 
    /*  if(!isNumeric(valor)){
         mensajeEnPantalla("Valor debe ser numérico","","error");
         return false;
-    } */
+    } **
 
     if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
         mensajeEnPantalla("No se puede modificar","","error");
@@ -1744,6 +1756,7 @@ function guardarAltSgot(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarAltSgot").setAttribute("disabled", true);
                                 document.getElementById("btnAltSgot").setAttribute("disabled", true); */
+                  /*               mostrarASTSGOT();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1759,9 +1772,11 @@ function guardarAltSgot(){
             mensajeEnPantalla("No se han ingresado los datos", "", "error");
         }
     })
-}
+}  */
 
-function guardarAltSgot(){
+function guardarAstSgot(){
+    
+    
     //var valor = document.getElementById('valor').value;
     var estado = document.getElementById('estado').value;
     var observaciones = document.getElementById('observaciones').value;
@@ -1790,7 +1805,7 @@ function guardarAltSgot(){
     }).then((result) => {
         if (result.value) {
     
-                var datos = $('#formIngresarAltSgot').serialize();
+                var datos = $('#formIngresarAstSgot').serialize();
                     $.ajax({
                         type: "POST",
                         url: "../../consultas/insert.php",
@@ -1798,12 +1813,7 @@ function guardarAltSgot(){
                         success: function (r) {
                             if (r == 'true'){
                                 mensajeEnPantalla("Se han ingresado los datos", "", "success");
-                                /* //document.getElementById("valor").setAttribute("disabled", true);
-                                document.getElementById("estado").setAttribute("disabled", true);
-                                document.getElementById("observaciones").setAttribute("disabled", true);
-                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
-                                document.getElementById("btnGuardarAltSgot").setAttribute("disabled", true);
-                                document.getElementById("btnAltSgot").setAttribute("disabled", true); */
+                                mostrarASTSGOT();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -1842,6 +1852,14 @@ function guardarOptometria(){
     var estado = document.getElementById('estado').value;
     var observaciones = document.getElementById('observaciones').value;
 
+    alert(ojoDerechoLejos + ojoIzquierdoLejos + ambosOjosLejos);
+    alert(ojoDerechoCerca + ojoIzquierdoCerca + ambosOjosCerca);
+    return false;
+/* 
+    if(!validarBlanco(OjoDerechoLejos) || !validarBlanco(ojoIzquierdoLejos) || !validarBlanco(ambosOjosLejos) || !validarBlanco(ojoDerechoCerca) || !validarBlanco(ojoIzquierdoCerca) || !validarBlanco(ambosOjosCerca) ||!validarBlanco(animalesA) || !validarBlanco(animalesB) || !validarBlanco(animalesC){
+
+        
+    } */
    /*  if(!isNumeric(valor)){
         mensajeEnPantalla("Valor debe ser numérico","","error");
         return false;
@@ -1871,19 +1889,14 @@ function guardarOptometria(){
                         success: function (r) {
                             if (r == 'true'){
                                 mensajeEnPantalla("Se han ingresado los datos", "", "success");
-                                /* //document.getElementById("valor").setAttribute("disabled", true);
-                                document.getElementById("estado").setAttribute("disabled", true);
-                                document.getElementById("observaciones").setAttribute("disabled", true);
-                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
-                                document.getElementById("btnGuardarAltSgot").setAttribute("disabled", true);
-                                document.getElementById("btnAltSgot").setAttribute("disabled", true); */
+                                
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
                                 
                             }
                             
-                        alert(r);    
+                        //alert(r);    
                             
                             
                         }
@@ -1891,7 +1904,7 @@ function guardarOptometria(){
         } else {
             mensajeEnPantalla("No se han ingresado los datos", "", "error");
         }
-    })
+    }) 
 }
 
 
@@ -1994,13 +2007,6 @@ function guardarAudiometria(){
 
 }
 
-function prueba(){
-    
-
-    //window.open('https://google.cl',"Informe","width=500,height=500,scrollbars=NO"); 
-      //  return false;
-}
-
 function guardarProtrombina(){
     //var valor = document.getElementById('valor').value;
     var estado = document.getElementById('estado').value;
@@ -2044,6 +2050,7 @@ function guardarProtrombina(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarProtrombina").setAttribute("disabled", true);
                                 document.getElementById("btnProtrombina").setAttribute("disabled", true); */
+                                mostrarProtrombina();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -2104,6 +2111,7 @@ function guardarTiempoDeProtrombina(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarTiempoDeProtrombina").setAttribute("disabled", true);
                                 document.getElementById("btnTiempoDeProtrombina").setAttribute("disabled", true); */
+                                mostrarTiempoDeProtrombina();
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -2164,6 +2172,8 @@ function guardarActividadDeAcetilcolinesterasa(){
                                 //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
                                 document.getElementById("btnGuardarActividadDeAcetilcolinesterasa").setAttribute("disabled", true);
                                 document.getElementById("btnActividadDeAcetilcolinesterasa").setAttribute("disabled", true); */
+                                mostrarActividadDeAcetilcolinesterasa();
+
                             }
                             if (r == 'false') {
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
@@ -2180,47 +2190,6 @@ function guardarActividadDeAcetilcolinesterasa(){
         }
     })
 }
-
-
-
-function obtenerValorTestDeRuffier(){
-   
-    var P1 = document.getElementById('P1').value;
-    var P2 = document.getElementById('P2').value;
-    var P3 = document.getElementById('P3').value;
-
-    var valoracion = (parseInt(P1)+parseInt(P2)+parseInt(P3)-200)/10;
-
-  
-    if(!isNumeric(valoracion)){
-        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
-        return false;
-    }
-
-    if(P1 == '' || P2 == '' || P3 ==''){
-        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
-        return false;
-    }
-
-    if(valoracion <= 0){
-        texto = 'EXCELENTE';
-    }else if(valoracion >= 0.1 && valoracion <= 5){
-        texto = 'BUENO';
-    }else if(valoracion >= 5.1 && valoracion <= 10){
-        texto = 'MEDIO';
-    }else if(valoracion >= 10.1 && valoracion <= 15){
-        texto = 'INSUFICIENTE';
-    }else if(valoracion >= 15.1){
-        texto = 'MALO';
-    }
-
-    document.getElementById('valoracion').value = valoracion;
-    document.getElementById('valoracionTexto').value = texto;
-    
-
-} 
-
-
 
 function guardarEspirometriaBasal(){
     var cvflPromedio = document.getElementById('cvflPromedio').value;
@@ -2311,6 +2280,424 @@ function guardarEspirometriaBasal(){
     
     
 }
+
+
+
+
+
+function prueba(){
+    
+
+    //window.open('https://google.cl',"Informe","width=500,height=500,scrollbars=NO"); 
+      //  return false;
+}
+
+
+
+
+function obtenerParametrosGlicemia(){
+
+    //var fechahora = document.getElementById('fechaHora').value;
+    //var subCadena = fechaHora.split(' ',2);
+
+
+    //mensajeEnPantalla(subCadena[0] + " " + subCadena[1]);
+    //mostrarGlicemia();
+
+    
+    var datos = $('#formIngresarGlicemia').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("valor").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[2].VALOR_PARAMETRO; 
+            
+            
+        }
+        
+    });
+
+    
+    
+    //document.getElementById("colesterolHDL").value = "12345";
+}
+
+function obtenerParametrosActividadDeAcetilcolinesterasa(){
+    
+    var datos = $('#formIngresarActividadDeAcetilcolinesterasa').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO; 
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            
+            
+            
+            
+        }
+        
+    });
+
+}
+
+function obtenerParametrosElectrocardiograma(){
+    var datos = $('#formIngresarElectrocardiograma').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO; 
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            
+            
+        }
+        
+    });
+}
+
+function obtenerParametrosCreatinina(){
+    var datos = $('#formIngresarCreatinina').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("valor").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[2].VALOR_PARAMETRO; 
+            
+            
+        }
+        
+    });
+
+}
+
+function obtenerParametrosPerfilLipidico(){
+
+    var datos = $('#formIngresarPerfilLipidico').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("colesterolTotal").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("colesterolHDL").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("colesterolLDL").value = js[2].VALOR_PARAMETRO;
+            document.getElementById("colesterolVLDL").value = js[3].VALOR_PARAMETRO;
+            document.getElementById("indiceCol").value = js[4].VALOR_PARAMETRO;
+            document.getElementById("trigliceridos").value = js[5].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[6].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[7].VALOR_PARAMETRO;
+            
+            
+        }
+        
+    });
+
+}
+
+function obtenerParametrosHemoglobina(){
+    var datos = $('#formIngresarHemoglobina').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("valor").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[2].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[1].VALOR_PARAMETRO;
+            
+            
+        }
+        
+    });
+}
+
+function obtenerParametrosRxTorax(){
+    var datos = $('#formIngresarRxTorax').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            
+            
+            
+        }
+        
+    });
+}
+
+function obtenerParametrosIndiceDeFramingham(){
+    var datos = $('#formIngresarIndiceDeFramingham').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("observaciones").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("valorIndiceDeFramingham").value = js[0].VALOR_PARAMETRO;
+            
+            riesgoADiezAnios();
+            
+        }
+        
+    });
+}
+
+function obtenerParametrosEncuestaDeLakeLouis(){
+    var datos = $('#formIngresarEncuestaDeLakeLouis').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+            
+        }
+        
+    });
+}
+
+function obtenerParametrosTestDeRuffier(){
+    var datos = $('#formIngresarTestDeRuffier').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("P1").value = js[0].VALOR_PARAMETRO;
+            document.getElementById("P2").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("P3").value = js[2].VALOR_PARAMETRO;
+            
+            document.getElementById("valoracion").value = js[3].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[4].VALOR_PARAMETRO;
+            obtenerValorTestDeRuffier();
+            
+        }
+        
+    });    
+}
+
+function obtenerParametrosCultivoNasal(){
+    var datos = $('#formIngresarCultivoNasal').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });    
+}
+
+function obtenerParametrosCultivoFaringeo(){
+    var datos = $('#formIngresarCultivoFaringeo').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+}
+
+function obtenerParametrosCultivoLechoUngueal(){
+    var datos = $('#formIngresarCultivoLechoUngueal').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+}
+
+function obtenerParametrosAltSgpt(){
+    var datos = $('#formIngresarAltSgpt').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+}
+
+function obtenerParametrosAstSgot(){
+    
+    var datos = $('#formIngresarAstSgot').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+
+}
+
+function obtenerParametrosProtrombina(){
+    var datos = $('#formIngresarProtrombina').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+}
+
+function obtenerParametrosTiempoDeProtrombina(){
+    var datos = $('#formIngresarTiempoDeProtrombina').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatos.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            
+        }
+        
+    });  
+
+}
+
+
+
+function obtenerValorTestDeRuffier(){
+    
+   
+    var P1 = document.getElementById('P1').value;
+    var P2 = document.getElementById('P2').value;
+    var P3 = document.getElementById('P3').value;
+
+    var valoracion = (parseInt(P1)+parseInt(P2)+parseInt(P3)-200)/10;
+
+  
+    if(!isNumeric(valoracion)){
+        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
+        return false;
+    }
+
+    if(P1 == '' || P2 == '' || P3 ==''){
+        document.getElementById('valoracionTexto').value = 'INVÁLIDO';
+        return false;
+    }
+
+    if(valoracion <= 0){
+        texto = 'EXCELENTE';
+    }else if(valoracion >= 0.1 && valoracion <= 5){
+        texto = 'BUENO';
+    }else if(valoracion >= 5.1 && valoracion <= 10){
+        texto = 'MEDIO';
+    }else if(valoracion >= 10.1 && valoracion <= 15){
+        texto = 'INSUFICIENTE';
+    }else if(valoracion >= 15.1){
+        texto = 'MALO';
+    }
+
+    document.getElementById('valoracion').value = valoracion;
+    document.getElementById('valoracionTexto').value = texto;
+    
+
+} 
+
+
 
 
 
@@ -2465,6 +2852,14 @@ function mostrarRecomendaciones(){
 
 function mostrarInformes(){
     $("#contenido").load("previoInformes.php");
+}
+
+
+
+
+
+function generarInforme(){
+    
 }
 
 function generarInformeEmpresa(){

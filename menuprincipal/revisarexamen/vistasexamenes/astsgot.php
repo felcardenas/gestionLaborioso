@@ -3,6 +3,7 @@
 
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '18';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -51,7 +52,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 
 
-<form action="" method="POST" class="" id="formIngresarAltSgot" name="formIngresarAltSgot">
+<form action="" method="POST" class="" id="formIngresarAstSgot" name="formIngresarAstSgot">
 
 
 <?php include 'estado.php';
@@ -62,8 +63,8 @@ while($row = mysqli_fetch_assoc($resultado)){
     
 
     
-    <input type="text" name="consulta" id="consulta" value="ingresarAltSgot" hidden>
-    <!-- <input type="text" name="select" id="select" value="ingresarIngresarElectrocardiograma" hidden> -->
+    <input type="text" name="consulta" id="consulta" value="ingresarAstSgot" hidden>
+    <input type="text" name="select" id="select" value="selectAstSgot" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -73,7 +74,12 @@ while($row = mysqli_fetch_assoc($resultado)){
         </div> -->
 
         <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarAltSgot()" id="btnGuardarAltSgot" name="btnGuardarAltSgot">
+            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarAstSgot()" id="btnGuardarAltSgot" name="btnGuardarAltSgot">
+        </div>
+        <div class="col-4">
+            <select class="form-control" onchange="obtenerParametrosAstSgot()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
         </div>
 
     </div>

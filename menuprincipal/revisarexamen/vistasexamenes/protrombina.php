@@ -2,6 +2,7 @@
 
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '19';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -62,7 +63,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
     
     <input type="text" name="consulta" id="consulta" value="ingresarProtrombina" hidden>
-    <!-- <input type="text" name="select" id="select" value="ingresarIngresarElectrocardiograma" hidden> -->
+    <input type="text" name="select" id="select" value="selectProtrombina" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -73,6 +74,12 @@ while($row = mysqli_fetch_assoc($resultado)){
 
         <div class="col-4">
             <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarProtrombina()" id="btnGuardarProtrombina" name="btnGuardarProtrombina">
+        </div>
+
+        <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosProtrombina()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
         </div>
 
     </div>

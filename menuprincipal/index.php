@@ -72,10 +72,10 @@ $_SESSION['tensionSistolica'] = '';
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarEmpresa">Ingresar empresa</a>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarTrabajador">Ingresar trabajador</a>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="nuevoExamen">Nuevo exámen</a>
-        <?php if($_SESSION['tipoUsuario'] != 'Estándar'){ ?>
+        
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="revisarExamen">Revisar exámenes</a>
 
-        <?php } ?>
+        
         <!-- <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="informes">Informes</a> -->
         <!-- <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="interconsulta">Interconsulta</a> -->
       </div>

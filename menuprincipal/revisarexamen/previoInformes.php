@@ -30,7 +30,6 @@ $idEvaluacion = $_SESSION["idEvaluacion"];
                     $resultado = mysqli_query($conexion,$sql);
                     while($row = mysqli_fetch_assoc($resultado)){
                         $nombreEmpresa = utf8_encode($row['NOMBRE_EMPRESA']);
-                        
                     ?>
                     <option value="<?=$nombreEmpresa?>"><?=$nombreEmpresa?></option>
                         <?php
@@ -66,6 +65,9 @@ $idEvaluacion = $_SESSION["idEvaluacion"];
             </select>
             </div>
 
+            <div class="col-8 my-3">
+                <button type="submit" class="btn btn-primary btn-block" onclick="generarInformes()">GENERAR INFORMES</button>
+            </div>
 
 
             <div class="col-8 my-3">

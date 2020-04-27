@@ -2,6 +2,7 @@
 session_start();
 include '../../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
+$idExamen = '21';
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
 FROM EVALUACION_PARAMETRO 
@@ -59,7 +60,7 @@ $resultado = mysqli_query($conexion, $sql);
 
     
     <input type="text" name="consulta" id="consulta" value="ingresarActividadDeAcetilcolinesterasa" hidden>
-    <!-- <input type="text" name="select" id="select" value="ingresarIngresarElectrocardiograma" hidden> -->
+    <input type="text" name="select" id="select" value="selectActividadDeAcetilcolinesterasa" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -70,6 +71,12 @@ $resultado = mysqli_query($conexion, $sql);
 
         <div class="col-4">
             <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarActividadDeAcetilcolinesterasa()" id="btnGuardarActividadDeAcetilcolinesterasa" name="btnGuardarActividadDeAcetilcolinesterasa">
+        </div>
+
+        <div class="col-4">
+            <select class="form-control" onchange="obtenerParametrosActividadDeAcetilcolinesterasa()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
         </div>
 
     </div>

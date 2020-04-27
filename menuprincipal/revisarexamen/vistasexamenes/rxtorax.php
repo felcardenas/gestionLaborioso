@@ -2,6 +2,7 @@
 
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '9';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -12,7 +13,7 @@ INNER JOIN EXAMEN
 ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
 WHERE ID_EVALUACION = '$idEvaluacion'";
 
-$valor = '';
+//$valor = '';
 $estado = 'Sin evaluar';
 $observaciones = 'Sin observaciones';
 
@@ -58,7 +59,7 @@ while($row = mysqli_fetch_assoc($resultado)){
     ?>
     
     <input type="text" name="consulta" id="consulta" value="ingresarRxTorax" hidden>
-    <!-- <input type="text" name="select" id="select" value="ingresarIngresarElectrocardiograma" hidden> -->
+    <input type="text" name="select" id="select" value="selectRxTorax" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -70,6 +71,12 @@ while($row = mysqli_fetch_assoc($resultado)){
         <div class="col-4">
             <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarRxTorax()" id="btnGuardarRxTorax" name="btnGuardarRxTorax">
         </div>
+
+        <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosRxTorax()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
+            </div>
 
     </div>
 

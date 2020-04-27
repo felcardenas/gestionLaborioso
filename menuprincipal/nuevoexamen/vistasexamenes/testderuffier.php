@@ -2,6 +2,7 @@
 
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '12';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -180,7 +181,7 @@ if($valor <= 0){
 
     
     <input type="text" name="consulta" id="consulta" value="ingresarTestDeRuffier" hidden>
-    <input type="text" name="select" id="select" value="ingresarTestDeRuffier" hidden>
+    <input type="text" name="select" id="select" value="selectTestDeRuffier" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -192,6 +193,13 @@ if($valor <= 0){
         <div class="col-4">
             <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarTestDeRuffier()" id="btnGuardarTestDeRuffier" name="btnGuardarTestDeRuffier">
         </div>
+
+        <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosTestDeRuffier()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
+        </div>
+        
 
     </div>
 

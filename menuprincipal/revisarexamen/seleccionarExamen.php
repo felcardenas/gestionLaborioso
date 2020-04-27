@@ -66,7 +66,7 @@ if ($resultado = mysqli_query($conexion, $sql)) {
     while ($row = mysqli_fetch_assoc($resultado)) {?>
     
 
-    <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;';?>">
+    <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;'; ?>">
 
     <!-- <div class="col-1">
          //$contador++ ?>

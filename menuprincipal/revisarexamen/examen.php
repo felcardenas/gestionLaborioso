@@ -19,6 +19,9 @@ $_SESSION['conclusionMedica'] = '';
 $_SESSION['recomendaciones'] = '';
 
 
+
+
+
 $sql = "SELECT PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, PULSO,IMC FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
 
 $resultado = mysqli_query($conexion,$sql);
@@ -82,18 +85,39 @@ $imc = $row['IMC'];
     <div class="row justify-content-center">
         <div class="col-3 fondo">
 
+            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarAnamnesis()" class="btn btn-primary" style="font-size:20px;" id="btnAnamnesis">Anamnesis</button>
+            <?php } ?>
+
             <br>
+            
+            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarExamenFisico()" class="btn btn-primary" style="font-size:20px;" id="btnExamenFisico">Examen Físico</button>
+            <?php } ?>
+
             <br>
+
             <button onclick="mostrarExamenesDeApoyoClinico()" class="btn btn-primary" style="font-size:20px;" id="btnExamenesDeApoyoClinico">Exámenes de apoyo clínico</button>
             <br>
+
+            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarConclusionMedica()" class="btn btn-primary" style="font-size:20px;" id="btnConclusionMedica">Conclusión médica</button>
+            <?php } ?>
+
             <br>
+            
+            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarInterconsulta()" class="btn btn-primary" style="font-size:20px;" id="btnInterconsulta">Interconsulta</button>
+            <?php } ?>
+
             <br>
+            
+            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?>
             <button onclick="mostrarRecomendaciones()" class="btn btn-primary" style="font-size:20px;" id="btnRecomendaciones">Recomendaciones</button>
+            <?php } ?>
+
             <br>
+
             <button onclick="mostrarInformes()" class="btn btn-primary" style="font-size:20px;" id="btnInformes">Informes</button>
             <br>
 

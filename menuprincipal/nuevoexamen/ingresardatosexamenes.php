@@ -123,7 +123,6 @@ if(isset($_POST['submit'])) {
             // output data of each row
             
             
-
             $sql = "INSERT INTO EVALUACION_EXAMEN (ID_EVALUACION, ID_EXAMEN, FECHA, HORA) VALUES ";
             
             ?>

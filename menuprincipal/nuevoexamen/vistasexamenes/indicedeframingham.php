@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../../../global/conexion.php';
+$idExamen = '10';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 $sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
@@ -106,7 +107,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
         </div>
 
-    <form action="" method="POST" class="" id="formIngresarIndiceDeFramingham" name="ingresarIndiceDeFramingham">
+    <form action="" method="POST" class="" id="formIngresarIndiceDeFramingham" name="formIngresarIndiceDeFramingham">
 
         <div class="row justify-content-center mb-3">
            
@@ -150,7 +151,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
         
         <input type="text" name="consulta" id="consulta" value="ingresarIndiceDeFramingham" hidden>
-        <input type="text" name="select" id="select" value="mostrarIndiceDeFramingham" hidden>
+        <input type="text" name="select" id="select" value="selectIndiceDeFramingham" hidden>
         
 
         <div class="row justify-content-center mb-3">
@@ -162,6 +163,13 @@ while($row = mysqli_fetch_assoc($resultado)){
             <div class="col-4">
                 <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarIndiceDeFramingham()" id="btnGuardarIndiceDeFramingham">
             </div>
+
+            <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosIndiceDeFramingham()" name="fechaHora" id="fechaHora">
+               <?php include 'selectDatosAnteriores.php' ?>
+                </select>
+            </div>
+
 
         </div>
 

@@ -20,7 +20,6 @@ if(isset($_POST)){
     case 'nuevoExamen':
             nuevoExamen();
     break;
-
     
     case 'revisarExamen':
       revisarExamen();
@@ -38,32 +37,36 @@ if(isset($_POST)){
             signosVitales();
     break;
     
-    case 'ingresarPerfilLipidico':
-          ingresarPerfilLipidico();
-    break;
 
-    case 'ingresarIndiceDeFramingham':
-          ingresarIndiceDeFramingham();
-    break;
 
-    case 'ingresarTestDeRuffier':
-          ingresarTestDeRuffier();
-    break;
-    
-    case 'ingresarEspirometriaBasal':
-          ingresarEspirometriaBasal();
+
+
+    case 'ingresarOptometria':
+      ingresarOptometria();
     break;
 
     case 'ingresarElectrocardiograma':
-          ingresarElectrocardiograma();
+      ingresarElectrocardiograma();
     break;
 
     case 'ingresarGlicemia':
       ingresarGlicemia();
     break;
+
+    case 'ingresarEspirometriaBasal':
+      ingresarEspirometriaBasal();
+    break;
+
+    case 'ingresarAudiometria':
+      ingresarAudiometria();
+    break;
     
     case 'ingresarCreatinina':
       ingresarCreatinina();
+    break;
+
+    case 'ingresarPerfilLipidico':
+          ingresarPerfilLipidico();
     break;
 
     case 'ingresarHemoglobina':
@@ -74,10 +77,22 @@ if(isset($_POST)){
       ingresarRxTorax();
     break;
 
+    case 'ingresarIndiceDeFramingham':
+          ingresarIndiceDeFramingham();
+    break;
+
     case 'ingresarEncuestaDeLakeLouis':
       ingresarEncuestaDeLakeLouis();
     break;
 
+    case 'ingresarTestDeRuffier':
+          ingresarTestDeRuffier();
+    break;
+
+    case 'ingresarHemograma':
+          ingresarHemograma();
+    break;
+    
     case 'ingresarCultivoNasal':
       ingresarCultivoNasal();
     break;
@@ -94,10 +109,10 @@ if(isset($_POST)){
       ingresarAltSgpt();
     break;
 
-    case 'ingresarAltSgot':
-      ingresarAltSgot();
+    case 'ingresarAstSgot':
+      ingresarAstSgot();
     break;
-
+    
     case 'ingresarProtrombina':
       ingresarProtrombina();
     break;
@@ -109,11 +124,9 @@ if(isset($_POST)){
     case 'ingresarActividadDeAcetilcolinesterasa':
       ingresarActividadDeAcetilcolinesterasa();
     break;
+        
 
-    case 'ingresarAudiometria':
-      ingresarAudiometria();
-    break;
-
+    
 
 
 
@@ -123,79 +136,76 @@ if(isset($_POST)){
     
     case 'actualizarPerfilLipidico':
       actualizarPerfilLipidico();
-break;
+    break;
 
-case 'actualizarIndiceDeFramingham':
-  actualizarIndiceDeFramingham();
-break;
+    case 'actualizarIndiceDeFramingham':
+      actualizarIndiceDeFramingham();
+    break;
 
-case 'actualizarTestDeRuffier':
-  actualizarTestDeRuffier();
-break;
+    case 'actualizarTestDeRuffier':
+      actualizarTestDeRuffier();
+    break;
 
-case 'actualizarEspirometriaBasal':
-  actualizarEspirometriaBasal();
-break;
+    case 'actualizarEspirometriaBasal':
+      actualizarEspirometriaBasal();
+    break;
 
-case 'actualizarElectrocardiograma':
-  actualizarElectrocardiograma();
-break;
+    case 'actualizarElectrocardiograma':
+      actualizarElectrocardiograma();
+    break;
 
-case 'actualizarGlicemia':
-  actualizarGlicemia();
-break;
+    case 'actualizarGlicemia':
+      actualizarGlicemia();
+    break;
 
-case 'actualizarCreatinina':
-  actualizarCreatinina();
-break;
+    case 'actualizarCreatinina':
+      actualizarCreatinina();
+    break;
 
-case 'actualizarHemoglobina':
-  actualizarHemoglobina();
-break;
+    case 'actualizarHemoglobina':
+      actualizarHemoglobina();
+    break;
 
-case 'actualizarRxTorax':
-  actualizarRxTorax();
-break;
+    case 'actualizarRxTorax':
+      actualizarRxTorax();
+    break;
 
-case 'actualizarEncuestaDeLakeLouis':
-  ingresarEncuestaDeLakeLouis();
-break;
+    case 'actualizarEncuestaDeLakeLouis':
+      ingresarEncuestaDeLakeLouis();
+    break;
 
-case 'actualizarCultivoNasal':
-  actualizarCultivoNasal();
-break;
+    case 'actualizarCultivoNasal':
+      actualizarCultivoNasal();
+    break;
 
-case 'actualizarCultivoFaringeo':
-  actualizarCultivoFaringeo();
-break;
+    case 'actualizarCultivoFaringeo':
+      actualizarCultivoFaringeo();
+    break;
 
-case 'actualizarCultivoLechoUngueal':
-  actualizarCultivoLechoUngueal();
-break;
+    case 'actualizarCultivoLechoUngueal':
+      actualizarCultivoLechoUngueal();
+    break;
 
-case 'actualizarAltSgpt':
-  actualizarAltSgpt();
-break;
+    case 'actualizarAltSgpt':
+      actualizarAltSgpt();
+    break;
 
-case 'actualizarAltSgot':
-  actualizarAltSgot();
-break;
+    case 'actualizarAstSgot':
+      actualizarAstSgot();
+    break;
 
-case 'actualizarProtrombina':
-  actualizarProtrombina();
-break;
+    case 'actualizarProtrombina':
+      actualizarProtrombina();
+    break;
 
-case 'actualizarTiempoDeProtrombina':
-  actualizarTiempoDeProtrombina();
-break;
+    case 'actualizarTiempoDeProtrombina':
+      actualizarTiempoDeProtrombina();
+    break;
 
-case 'actualizarActividadDeAcetilcolinesterasa':
-  ingresarActividadDeAcetilcolinesterasa();
-break;
+    case 'actualizarActividadDeAcetilcolinesterasa':
+      ingresarActividadDeAcetilcolinesterasa();
+    break;
 
-case 'ingresarOptometria':
-  ingresarOptometria();
-break;
 
 
 
@@ -421,8 +431,6 @@ function nuevoExamen(){
         $_SESSION['dvTrabajador'] = $dvTrabajador;
         $_SESSION['rutCompletoTrabajador'] = $rutTrabajador . "-" . $dvTrabajador;
 
-
-
         $dia = date("d");
         $mes = date("m");
         $anio = date("Y");
@@ -442,7 +450,9 @@ function nuevoExamen(){
           
             $valido = 'true';
           
-        }
+        } 
+
+        $valido = 'true';
         
         
         //$row = mysqli_fetch_row($resultado);
@@ -532,6 +542,8 @@ function signosVitales(){
     
     $valido = false;
 
+
+
     $pulso = $_POST['pulso'];
     $tensionDiastolica = $_POST['tensionDiastolica'];
     $tensionSistolica = $_POST['tensionSistolica'];
@@ -542,13 +554,14 @@ function signosVitales(){
 
     session_start();
 
+    $_SESSION['ID_EVALUACION'];
+
     $_SESSION['pulso'] = $pulso;
     $_SESSION['tensionDiastolica']=$tensionDiastolica;
     $_SESSION['tensionSistolica']=$tensionSistolica;
     $_SESSION['peso']=$peso;
     $_SESSION['altura']=$altura;
     $_SESSION['imc']=$imc;
-
 
 
     $horaExamen = $_SESSION['horaActual'];
@@ -580,10 +593,15 @@ function ingresarPerfilLipidico(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
-  
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
+
+
   $colesterolTotal = $_POST['colesterolTotal'];
   $colesterolHDL = $_POST['colesterolHDL'];
   $colesterolLDL = $_POST['colesterolLDL'];
@@ -628,9 +646,13 @@ function ingresarIndiceDeFramingham(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   $valorIndiceDeFramingham = $_POST['valorIndiceDeFramingham'];
   //$observaciones = 'Sin observaciones';
   $estado = 'Sin evaluar';
@@ -662,10 +684,13 @@ function ingresarIndiceDeFramingham(){
 function ingresarTestDeRuffier(){
     include '../global/conexion.php';
     session_start();
+    date_default_timezone_set("America/Santiago");  
 
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
     $P1 = $_POST['P1'];
     $P2 = $_POST['P2'];
     $P3 = $_POST['P3'];
@@ -701,14 +726,22 @@ function ingresarTestDeRuffier(){
     mysqli_close($conexion);
 }
 
+function ingresarHemograma(){
+
+}
+
 function ingresarEspirometriaBasal(){
-  include '../global/conexion.php';
+   include '../global/conexion.php';
     session_start();
 
 
+    date_default_timezone_set("America/Santiago");  
+
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
 
     $cvflPromedio = $_POST['cvflPromedio'];
     $cvflLimiteInferior = $_POST['cvflLimiteInferior'];
@@ -765,9 +798,9 @@ function ingresarEspirometriaBasal(){
 
     $sql .= "('$idEvaluacion','22','$fechaActual','$horaActual','$observaciones'), ";
 
-    $sql .= "('$idEvaluacion','23','$fechaActual','$horaActual','$estado') ";
+    $sql .= "('$idEvaluacion','23','$fechaActual','$horaActual','$estado')";
 
-    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   
 
@@ -786,20 +819,24 @@ function ingresarEspirometriaBasal(){
 
 function ingresarElectrocardiograma(){
 
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     session_start();
 
+    date_default_timezone_set("America/Santiago");  
+
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
     $estado = $_POST['estado'];
     $observaciones = $_POST['observaciones'];
     
     $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','4','$fechaActual','$horaActual','$observaciones'), ";
 
-    $sql .= "('$idEvaluacion','5','$fechaActual','$horaActual','$estado') ";
+    $sql .= "('$idEvaluacion','5','$fechaActual','$horaActual','$estado')";
 
-    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
     $sql = utf8_decode($sql);
     if(mysqli_query($conexion, $sql)){
@@ -813,12 +850,18 @@ function ingresarElectrocardiograma(){
 }
 
 function ingresarGlicemia(){
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     session_start();
+    date_default_timezone_set("America/Santiago");  
 
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
+
+    //$_SESSION['fechaActual'] = $fechaActual;
+    //$_SESSION['horaActual'] = $horaActual;
     $valor = $_POST['valor'];
     $estado = $_POST['estado'];
     $observaciones = $_POST['observaciones'];
@@ -827,9 +870,9 @@ function ingresarGlicemia(){
 
     $sql .= "('$idEvaluacion','50','$fechaActual','$horaActual','$estado'), ";
 
-    $sql .= "('$idEvaluacion','51','$fechaActual','$horaActual','$observaciones') ";
+    $sql .= "('$idEvaluacion','51','$fechaActual','$horaActual','$observaciones')";
 
-    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   
     $sql = utf8_decode($sql);
@@ -837,6 +880,7 @@ function ingresarGlicemia(){
         echo 'true';
     }else{
         echo 'false';
+        
     }
     
     mysqli_close($conexion);
@@ -847,9 +891,13 @@ function ingresarCreatinina(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   $valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
@@ -858,9 +906,9 @@ function ingresarCreatinina(){
 
   $sql .= "('$idEvaluacion','26','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','27','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','27','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -878,9 +926,13 @@ function ingresarHemoglobina(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   $valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
@@ -889,9 +941,9 @@ function ingresarHemoglobina(){
 
   $sql .= "('$idEvaluacion','38','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','39','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','39','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -908,18 +960,22 @@ function ingresarRxTorax(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','56','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','57','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','57','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -936,16 +992,20 @@ function ingresarEncuestaDeLakeLouis(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   //$estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
-  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','59','$fechaActual','$horaActual','$observaciones') ";
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','59','$fechaActual','$horaActual','$observaciones')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   $sql = utf8_decode($sql);
 
@@ -963,18 +1023,22 @@ function ingresarCultivoNasal(){
     include '../global/conexion.php';
     session_start();
 
+    date_default_timezone_set("America/Santiago");  
+
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
     //$valor = $_POST['valor'];
     $estado = $_POST['estado'];
     $observaciones = $_POST['observaciones'];
     
     $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','62','$fechaActual','$horaActual','$observaciones'), ";
 
-    $sql .= "('$idEvaluacion','63','$fechaActual','$horaActual','$estado') ";
+    $sql .= "('$idEvaluacion','63','$fechaActual','$horaActual','$estado')";
 
-    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
     $sql = utf8_decode($sql);
@@ -988,21 +1052,25 @@ function ingresarCultivoNasal(){
 }
 
 function ingresarCultivoFaringeo(){
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     session_start();
 
+    date_default_timezone_set("America/Santiago");  
+
     $idEvaluacion = $_SESSION['idEvaluacion'];
-    $horaActual = $_SESSION['horaActual'];
-    $fechaActual = $_SESSION['fechaActual'];
+    //$horaActual = $_SESSION['horaActual'];
+    //$fechaActual = $_SESSION['fechaActual'];
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
     //$valor = $_POST['valor'];
     $estado = $_POST['estado'];
     $observaciones = $_POST['observaciones'];
     
     $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','65','$fechaActual','$horaActual','$observaciones'), ";
 
-    $sql .= "('$idEvaluacion','66','$fechaActual','$horaActual','$estado' )";
+    $sql .= "('$idEvaluacion','66','$fechaActual','$horaActual','$estado')";
 
-    $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
     $sql = utf8_decode($sql);
@@ -1019,18 +1087,22 @@ function ingresarCultivoLechoUngueal(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','68','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','69','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','69','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -1047,18 +1119,22 @@ function ingresarAltSgpt(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','71','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','72','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','72','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -1071,22 +1147,26 @@ function ingresarAltSgpt(){
   mysqli_close($conexion);
 }
 
-function ingresarAltSgot(){
+function ingresarAstSgot(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','74','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','75','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','75','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -1103,18 +1183,22 @@ function ingresarProtrombina(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','77','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','78','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','78','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -1131,18 +1215,22 @@ function ingresarTiempoDeProtrombina(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','80','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','81','$fechaActual','$horaActual','$estado') ";
+  $sql .= "('$idEvaluacion','81','$fechaActual','$horaActual','$estado')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
 
   $sql = utf8_decode($sql);
@@ -1158,19 +1246,22 @@ function ingresarTiempoDeProtrombina(){
 function ingresarActividadDeAcetilcolinesterasa(){
   include '../global/conexion.php';
   session_start();
+  date_default_timezone_set("America/Santiago");
 
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
+
   //$valor = $_POST['valor'];
   $estado = $_POST['estado'];
   $observaciones = $_POST['observaciones'];
+
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','83','$fechaActual','$horaActual','$observaciones'), ";
 
-  $sql .= "('$idEvaluacion','84','$fechaActual','$horaActual','$estado') ";
-
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  $sql .= "('$idEvaluacion','84','$fechaActual','$horaActual','$estado')";
 
 
   $sql = utf8_decode($sql);
@@ -1186,13 +1277,16 @@ function ingresarActividadDeAcetilcolinesterasa(){
 function ingresarOptometria(){
   include '../global/conexion.php';
   session_start();
+  date_default_timezone_set("America/Santiago");  
 
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
 
-  $ojoDerechoLejos =$_POST['ojoDerechoLejos'];
+  $ojoDerechoLejos = $_POST['ojoDerechoLejos'];
   $ojoIzquierdoLejos = $_POST['ojoIzquierdoLejos'];
   $ambosOjosLejos = $_POST['ambosOjosLejos'];
   $ojoDerechoCerca = $_POST['ojoDerechoCerca'];
@@ -1211,26 +1305,27 @@ function ingresarOptometria(){
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES"; 
   $sql .= "('$idEvaluacion','85','$fechaActual','$horaActual','$ojoDerechoLejos'), 
-('$idEvaluacion','86','$fechaActual','$horaActual','$ojoIzquierdoLejos'), 
-('$idEvaluacion','87','$fechaActual','$horaActual','$ambosOjosLejos'), 
-('$idEvaluacion','88','$fechaActual','$horaActual','$ojoDerechoCerca'), 
-('$idEvaluacion','89','$fechaActual','$horaActual','$ojoIzquierdoCerca'), 
-('$idEvaluacion','90','$fechaActual','$horaActual','$ambosOjosCerca'), 
-('$idEvaluacion','91','$fechaActual','$horaActual','$figuras'), 
-('$idEvaluacion','92','$fechaActual','$horaActual','$animalesA'), 
-('$idEvaluacion','93','$fechaActual','$horaActual','$animalesB'), 
-('$idEvaluacion','94','$fechaActual','$horaActual','$animalesC'), 
-('$idEvaluacion','95','$fechaActual','$horaActual','$coloresPrimarios'), 
-('$idEvaluacion','96','$fechaActual','$horaActual','$encandilamiento'), 
-('$idEvaluacion','97','$fechaActual','$horaActual','$recuperacionEncandilamiento'), 
-('$idEvaluacion','98','$fechaActual','$horaActual','$visionNocturna'), 
-('$idEvaluacion','99','$fechaActual','$horaActual','$estado '), 
-('$idEvaluacion','100','$fechaActual','$horaActual','$observaciones') ";
+  ('$idEvaluacion','86','$fechaActual','$horaActual','$ojoIzquierdoLejos'), 
+  ('$idEvaluacion','87','$fechaActual','$horaActual','$ambosOjosLejos'), 
+  ('$idEvaluacion','88','$fechaActual','$horaActual','$ojoDerechoCerca'), 
+  ('$idEvaluacion','89','$fechaActual','$horaActual','$ojoIzquierdoCerca'), 
+  ('$idEvaluacion','90','$fechaActual','$horaActual','$ambosOjosCerca'), 
+  ('$idEvaluacion','91','$fechaActual','$horaActual','$figuras'), 
+  ('$idEvaluacion','92','$fechaActual','$horaActual','$animalesA'), 
+  ('$idEvaluacion','93','$fechaActual','$horaActual','$animalesB'), 
+  ('$idEvaluacion','94','$fechaActual','$horaActual','$animalesC'), 
+  ('$idEvaluacion','95','$fechaActual','$horaActual','$coloresPrimarios'), 
+  ('$idEvaluacion','96','$fechaActual','$horaActual','$encandilamiento'), 
+  ('$idEvaluacion','97','$fechaActual','$horaActual','$recuperacionEncandilamiento'), 
+  ('$idEvaluacion','98','$fechaActual','$horaActual','$visionNocturna'), 
+  ('$idEvaluacion','99','$fechaActual','$horaActual','$estado '), 
+  ('$idEvaluacion','100','$fechaActual','$horaActual','$observaciones')";
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
-
+  //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+  
 
   $sql = utf8_decode($sql);
+  echo $sql;
   if(mysqli_query($conexion, $sql)){
       echo 'true';
   }else{
@@ -1244,9 +1339,13 @@ function ingresarAudiometria(){
   include '../global/conexion.php';
   session_start();
 
+  date_default_timezone_set("America/Santiago");  
+
   $idEvaluacion = $_SESSION['idEvaluacion'];
-  $horaActual = $_SESSION['horaActual'];
-  $fechaActual = $_SESSION['fechaActual'];
+  //$horaActual = $_SESSION['horaActual'];
+  //$fechaActual = $_SESSION['fechaActual'];
+  $fechaActual = obtenerFechaActual();
+  $horaActual = obtenerHoraActual();
 
 
   $VAOD125 = $_POST['VAOD125'];
@@ -1289,47 +1388,47 @@ function ingresarAudiometria(){
   $observaciones = $_POST['observaciones'];
   
   $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES
-('$idEvaluacion','101','$fechaActual','$horaActual','$VAOD125'),
-('$idEvaluacion','102','$fechaActual','$horaActual','$VAOD250'),
-('$idEvaluacion','103','$fechaActual','$horaActual','$VAOD500'),
-('$idEvaluacion','104','$fechaActual','$horaActual','$VAOD1000'),
-('$idEvaluacion','105','$fechaActual','$horaActual','$VAOD2000'),
-('$idEvaluacion','106','$fechaActual','$horaActual','$VAOD3000'),
-('$idEvaluacion','107','$fechaActual','$horaActual','$VAOD4000'),
-('$idEvaluacion','108','$fechaActual','$horaActual','$VAOD6000'),
-('$idEvaluacion','109','$fechaActual','$horaActual','$VAOD8000'),
-('$idEvaluacion','110','$fechaActual','$horaActual','$VAOI125'),
-('$idEvaluacion','111','$fechaActual','$horaActual','$VAOI250'),
-('$idEvaluacion','112','$fechaActual','$horaActual','$VAOI500'),
-('$idEvaluacion','113','$fechaActual','$horaActual','$VAOI1000'),
-('$idEvaluacion','114','$fechaActual','$horaActual','$VAOI2000'),
-('$idEvaluacion','115','$fechaActual','$horaActual','$VAOI3000'),
-('$idEvaluacion','116','$fechaActual','$horaActual','$VAOI4000'),
-('$idEvaluacion','117','$fechaActual','$horaActual','$VAOI6000'),
-('$idEvaluacion','118','$fechaActual','$horaActual','$VAOI8000'),
-('$idEvaluacion','119','$fechaActual','$horaActual','$VOOD125'),
-('$idEvaluacion','120','$fechaActual','$horaActual','$VOOD250'),
-('$idEvaluacion','121','$fechaActual','$horaActual','$VOOD500'),
-('$idEvaluacion','122','$fechaActual','$horaActual','$VOOD1000'),
-('$idEvaluacion','123','$fechaActual','$horaActual','$VOOD2000'),
-('$idEvaluacion','124','$fechaActual','$horaActual','$VOOD3000'),
-('$idEvaluacion','125','$fechaActual','$horaActual','$VOOD4000'),
-('$idEvaluacion','126','$fechaActual','$horaActual','$VOOD6000'),
-('$idEvaluacion','127','$fechaActual','$horaActual','$VOOD8000'),
-('$idEvaluacion','128','$fechaActual','$horaActual','$VOOI125'),
-('$idEvaluacion','129','$fechaActual','$horaActual','$VOOI250'),
-('$idEvaluacion','130','$fechaActual','$horaActual','$VOOI500'),
-('$idEvaluacion','131','$fechaActual','$horaActual','$VOOI1000'),
-('$idEvaluacion','132','$fechaActual','$horaActual','$VOOI2000'),
-('$idEvaluacion','133','$fechaActual','$horaActual','$VOOI3000'),
-('$idEvaluacion','134','$fechaActual','$horaActual','$VOOI4000'),
-('$idEvaluacion','135','$fechaActual','$horaActual','$VOOI6000'),
-('$idEvaluacion','136','$fechaActual','$horaActual','$VOOI8000'),
-('$idEvaluacion','137','$fechaActual','$horaActual','$observaciones'),
-('$idEvaluacion','138','$fechaActual','$horaActual','$estado')";
+  ('$idEvaluacion','101','$fechaActual','$horaActual','$VAOD125'),
+  ('$idEvaluacion','102','$fechaActual','$horaActual','$VAOD250'),
+  ('$idEvaluacion','103','$fechaActual','$horaActual','$VAOD500'),
+  ('$idEvaluacion','104','$fechaActual','$horaActual','$VAOD1000'),
+  ('$idEvaluacion','105','$fechaActual','$horaActual','$VAOD2000'),
+  ('$idEvaluacion','106','$fechaActual','$horaActual','$VAOD3000'),
+  ('$idEvaluacion','107','$fechaActual','$horaActual','$VAOD4000'),
+  ('$idEvaluacion','108','$fechaActual','$horaActual','$VAOD6000'),
+  ('$idEvaluacion','109','$fechaActual','$horaActual','$VAOD8000'),
+  ('$idEvaluacion','110','$fechaActual','$horaActual','$VAOI125'),
+  ('$idEvaluacion','111','$fechaActual','$horaActual','$VAOI250'),
+  ('$idEvaluacion','112','$fechaActual','$horaActual','$VAOI500'),
+  ('$idEvaluacion','113','$fechaActual','$horaActual','$VAOI1000'),
+  ('$idEvaluacion','114','$fechaActual','$horaActual','$VAOI2000'),
+  ('$idEvaluacion','115','$fechaActual','$horaActual','$VAOI3000'),
+  ('$idEvaluacion','116','$fechaActual','$horaActual','$VAOI4000'),
+  ('$idEvaluacion','117','$fechaActual','$horaActual','$VAOI6000'),
+  ('$idEvaluacion','118','$fechaActual','$horaActual','$VAOI8000'),
+  ('$idEvaluacion','119','$fechaActual','$horaActual','$VOOD125'),
+  ('$idEvaluacion','120','$fechaActual','$horaActual','$VOOD250'),
+  ('$idEvaluacion','121','$fechaActual','$horaActual','$VOOD500'),
+  ('$idEvaluacion','122','$fechaActual','$horaActual','$VOOD1000'),
+  ('$idEvaluacion','123','$fechaActual','$horaActual','$VOOD2000'),
+  ('$idEvaluacion','124','$fechaActual','$horaActual','$VOOD3000'),
+  ('$idEvaluacion','125','$fechaActual','$horaActual','$VOOD4000'),
+  ('$idEvaluacion','126','$fechaActual','$horaActual','$VOOD6000'),
+  ('$idEvaluacion','127','$fechaActual','$horaActual','$VOOD8000'),
+  ('$idEvaluacion','128','$fechaActual','$horaActual','$VOOI125'),
+  ('$idEvaluacion','129','$fechaActual','$horaActual','$VOOI250'),
+  ('$idEvaluacion','130','$fechaActual','$horaActual','$VOOI500'),
+  ('$idEvaluacion','131','$fechaActual','$horaActual','$VOOI1000'),
+  ('$idEvaluacion','132','$fechaActual','$horaActual','$VOOI2000'),
+  ('$idEvaluacion','133','$fechaActual','$horaActual','$VOOI3000'),
+  ('$idEvaluacion','134','$fechaActual','$horaActual','$VOOI4000'),
+  ('$idEvaluacion','135','$fechaActual','$horaActual','$VOOI6000'),
+  ('$idEvaluacion','136','$fechaActual','$horaActual','$VOOI8000'),
+  ('$idEvaluacion','137','$fechaActual','$horaActual','$observaciones'),
+  ('$idEvaluacion','138','$fechaActual','$horaActual','$estado')";
 
 
-  $sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+ //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   
 
@@ -1860,7 +1959,7 @@ function actualizarAltSgpt(){
   mysqli_close($conexion);
 }
 
-function actualizarAltSgot(){
+function actualizarAstSgot(){
   include '../global/conexion.php';
   session_start();
 
@@ -2169,7 +2268,21 @@ function interconsulta(){
         echo 'false';
       } */
     
+function obtenerFechaActual(){
+        $dia = date("d");
+        $mes = date("m");
+        $anio = date("Y");
+        $fechaActual = $anio. "-" . $mes . "-" . $dia;
+        return $fechaActual;
+}
 
+function obtenerHoraActual(){
+      $hora = date("H");
+      $minutos = date("i");
+      $segundos = date("s");
+      $horaActual = $hora . ":" . $minutos . ":" . $segundos;
+      return $horaActual;
+}
 
 
 
