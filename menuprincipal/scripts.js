@@ -2117,6 +2117,7 @@ function guardarTiempoDeProtrombina(){
                                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
                                 
                             }
+                            //alert(r);
                             
                             
                             

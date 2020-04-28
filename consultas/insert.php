@@ -542,8 +542,6 @@ function signosVitales(){
     
     $valido = false;
 
-
-
     $pulso = $_POST['pulso'];
     $tensionDiastolica = $_POST['tensionDiastolica'];
     $tensionSistolica = $_POST['tensionSistolica'];
@@ -554,8 +552,6 @@ function signosVitales(){
 
     session_start();
 
-    $_SESSION['ID_EVALUACION'];
-
     $_SESSION['pulso'] = $pulso;
     $_SESSION['tensionDiastolica']=$tensionDiastolica;
     $_SESSION['tensionSistolica']=$tensionSistolica;
@@ -563,11 +559,43 @@ function signosVitales(){
     $_SESSION['altura']=$altura;
     $_SESSION['imc']=$imc;
 
-
     $horaExamen = $_SESSION['horaActual'];
     $fechaExamen = $_SESSION['fechaActual'];
+
+    $sql = "SELECT ID_EVALUACION FROM EVALUACION WHERE FECHA_CREACION = '$fechaExamen' AND HORA_CREACION = '$horaExamen'";
+
+    $resultado = mysqli_query($conexion, $sql);
+    $row = mysqli_fetch_assoc($resultado);
+    $_SESSION['idEvaluacion'] = $row['ID_EVALUACION'];
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+        
+
+
+    $sql = "INSERT INTO `signos_vitales_evaluacion` (`ID_SIGNO_VITAL`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_SIGNO_VITAL`) VALUES 
+    ('1', '$idEvaluacion', '$fechaExamen','$horaExamen','$pulso'), 
+    ('2', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionDiastolica'), 
+    ('3', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionSistolica'), 
+    ('4', '$idEvaluacion', '$fechaExamen','$horaExamen','$peso'), 
+    ('5', '$idEvaluacion', '$fechaExamen','$horaExamen','$altura'), 
+    ('6', '$idEvaluacion', '$fechaExamen','$horaExamen','$imc')";
+
+    if(mysqli_query($conexion,$sql)){
+      echo 'true';
+    }else{
+      echo 'false';
+    }
+}
+        
+    /* 1	PULSO
+    2	PRESION_DIASTOLICA  
+    3	PRESION_SISTOLICA
+    4	PESO
+    5	ALTURA
+    6	IMC */
+
     
 
+/* 
     $sql = "UPDATE EVALUACION
     SET 
     PULSO = '$pulso', 
@@ -582,9 +610,7 @@ function signosVitales(){
       echo 'true';
     }else{
       echo 'false';
-    }
-
-}
+    } */
 
 
 
@@ -1206,6 +1232,7 @@ function ingresarProtrombina(){
       echo 'true';
   }else{
       echo 'false';
+      echo $sql;
   }
   
   mysqli_close($conexion);
