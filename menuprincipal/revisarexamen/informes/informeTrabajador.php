@@ -4,8 +4,56 @@ include '../../plantillas/header.php';
 include "../../../global/conexion.php";
 require_once __DIR__ . '../../../../plugins/mpdf/vendor/autoload.php';
 session_start();
+date_default_timezone_set("America/Santiago");  
 
-if(isset($_POST)){
+$fecha = $_SESSION['fecha'];
+$hora = $_SESSION['hora'];
+$idEvaluacion = $_SESSION['idEvaluacion'];
+
+$sql = "SELECT * FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'";
+    //echo $sql;
+    $resultado = mysqli_query($conexion,$sql);
+    $row = mysqli_fetch_assoc($resultado);
+    
+    $idEmpresa = $row['ID_EMPRESA'];
+    $fechaValidez = $row['FECHA_VALIDEZ'];
+    $fecha = $row['FECHA'];
+    $hora = $row['HORA'];
+    $nombreMedico = $row['NOMBRE_MEDICO'];
+    $nombreTrabajador = utf8_encode($row['NOMBRE_TRABAJADOR']);
+    $rutTrabajador = $row['RUN_TRABAJADOR'];
+    $edad = $row['EDAD'];
+    $cargo = $row['CARGO'];
+    $bateriasDeExamenes = $row['BATERIAS_DE_EXAMENES'];
+    $cadenaExamenes = $row['CADENA_EXAMENES'];
+    $pulso = $row['PULSO'];
+    $presionArterial = $row['PRESION_ARTERIAL'];
+    $peso = $row['PESO'];
+    $altura = $row['ALTURA'];
+    $IMC = $row['IMC'];
+    $recomendaciones = $row['RECOMENDACIONES'];
+    $examenFisicoGeneral = $row['EXAMEN_FISICO_GENERAL'];
+    $conclusionMedica = $row['CONCLUSION_MEDICA'];
+    $codigoDescargaTrabajador = $row['CODIGO_DESCARGA_TRABAJADOR'];
+    $codigoDescargaEmpresa = $row['CODIGO_DESCARGA_EMPRESA'];
+    $codigoDescargaTrabajador = $row['CODIGO_DESCARGA_TRABAJADOR'];
+
+
+mysqli_free_result($resultado);
+
+$sql = "SELECT NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
+$resultado = mysqli_query($conexion,$sql);
+$row = mysqli_fetch_assoc($resultado);
+
+$nombreEmpresa = $row['NOMBRE_EMPRESA'];
+$rutEmpresa = $row['RUT_EMPRESA'] . "-" . $row['DV_EMPRESA'];
+
+mysqli_free_result($resultado);
+
+
+
+
+/* if(isset($_POST)){
 
     $_SESSION['nombreEmpresa'] = $_POST['nombreEmpresa'];
     $_SESSION['cargoTrabajador'] = $_POST['cargoTrabajador'];
@@ -21,12 +69,9 @@ if(isset($_POST)){
     $cargoTrabajador = $_SESSION['cargoTrabajador'];
     $nombreMedico = $_SESSION['nombreMedico'];
     $idEvaluacion = $_SESSION['idEvaluacion'];
-}
+} */
 
-
-
-
-$sql="SELECT RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
+/* $sql="SELECT RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
 
 $resultado = mysqli_query($conexion,$sql);
 $row = mysqli_fetch_assoc($resultado);
@@ -34,20 +79,20 @@ $row = mysqli_fetch_assoc($resultado);
 $rutEmpresa = $row['RUT_EMPRESA'];
 $dvEmpresa = $row['DV_EMPRESA'];
 $rutEmpresaCompleto = $rutEmpresa."-".$dvEmpresa;
-mysqli_free_result($resultado);
+mysqli_free_result($resultado); */
 
 
 
 //$idTrabajador = $_SESSION['idTrabajador'];
 //$idUsuario = $_SESSION['idUsuario'];
-$edad = $_SESSION['edadTrabajador'];
+/*$edad = $_SESSION['edadTrabajador'];
 $nombreCompletoTrabajador = utf8_encode($_SESSION['nombreCompletoTrabajador']);
 $rutTrabajador = $_SESSION['rutTrabajador'];
 $dvTrabajador = $_SESSION['dvTrabajador'];
-$rut = $rutTrabajador . "-" . $dvTrabajador;
+$rut = $rutTrabajador . "-" . $dvTrabajador; */
     
 
-$sql = "SELECT PULSO, PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, IMC, EXAMEN_FISICO_GENERAL, CONCLUSION_MEDICA, RECOMENDACIONES FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
+/* $sql = "SELECT PULSO, PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, IMC, EXAMEN_FISICO_GENERAL, CONCLUSION_MEDICA, RECOMENDACIONES FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
 
 $resultado = mysqli_query($conexion,$sql);
 $row = mysqli_fetch_assoc($resultado);
@@ -64,26 +109,24 @@ $conclusionMedica2 = explode("-",$conclusionMedica);
 $conclusionMedica3 = $conclusionMedica2[1];
 $recomendaciones = utf8_encode($row['RECOMENDACIONES']);
 
-mysqli_free_result($resultado);
+mysqli_free_result($resultado); */
 
-$sql = "SELECT bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES FROM bateria_de_examenes INNER JOIN evaluacion_bateria_de_examenes ON bateria_de_examenes.ID_BATERIA_DE_EXAMENES = evaluacion_bateria_de_examenes.ID_BATERIA_DE_EXAMENES INNER JOIN EVALUACION ON evaluacion_bateria_de_examenes.ID_EVALUACION = evaluacion.ID_EVALUACION WHERE evaluacion.ID_EVALUACION = '$idEvaluacion'";
+/* $sql = "SELECT bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES FROM bateria_de_examenes INNER JOIN evaluacion_bateria_de_examenes ON bateria_de_examenes.ID_BATERIA_DE_EXAMENES = evaluacion_bateria_de_examenes.ID_BATERIA_DE_EXAMENES INNER JOIN EVALUACION ON evaluacion_bateria_de_examenes.ID_EVALUACION = evaluacion.ID_EVALUACION WHERE evaluacion.ID_EVALUACION = '$idEvaluacion'";
 
 $cadenaBateriaDeExamenes = "";
 
 $resultado = mysqli_query($conexion,$sql);
 while($row = mysqli_fetch_assoc($resultado)){
     $cadenaBateriaDeExamenes .= $row['NOMBRE_BATERIA_DE_EXAMENES']." / ";
-}
+} */
 
-$cadenaBateriaDeExamenes = substr($cadenaBateriaDeExamenes,0,-2);
-mysqli_free_result($resultado);
+/* $cadenaBateriaDeExamenes = substr($cadenaBateriaDeExamenes,0,-2);
+mysqli_free_result($resultado); */
 
+/* 
+$fecha = date("d/m/Y");
+$validoHasta = date("m/d/Y",strtotime($fecha."+ 1 year")); */
 
-
-$time = time();
-
-
-$hoy = date("Y/m/d", $time);
 
 $html = "<table>
 
@@ -94,7 +137,19 @@ $html = "<table>
         <table>
             <tr>
                 <td style='font-family:arial; font-size:14;'>FECHA EMISIÓN: </td>
-                <td style='font-family:arial; font-size:14;'>$hoy</td>
+                <td style='font-family:arial; font-size:14;'>$fecha</td>
+            </tr>
+            <tr>
+                <td style='font-family:arial; font-size:14;'>VÁLIDO HASTA: </td>
+                <td style='font-family:arial; font-size:14;'>$fechaValidez</td>
+            </tr>
+            <tr>
+                <td style='font-family:arial; font-size:14;'>CÓDIGO TRABAJADOR: </td>
+                <td style='font-family:arial; font-size:14;'>$codigoDescargaTrabajador</td>
+            </tr>
+            <tr>
+                <td style='font-family:arial; font-size:14;'>CÓDIGO EMPRESA: </td>
+                <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
             </tr>
         </table>
     </td>
@@ -108,20 +163,20 @@ $html = "<table>
 
 
 <table style='font-family:arial; font-size:16;'> 
-    <title>Resultado exámenes de: $nombreCompletoTrabajador</title>
+    <title>Resultado exámenes de: $nombreTrabajador</title>
 
     <tr>
         <td>Trabajador: <td>
-        <td>$nombreCompletoTrabajador<td>
+        <td>$nombreTrabajador<td>
         <td style='width:100'></td>
         <td></td>
         <td>Cargo: <td>
-        <td>$cargoTrabajador<td>
+        <td>$cargo<td>
     </tr>
 
     <tr>
         <td>RUN: <td>
-        <td>$rut<td>
+        <td>$rutTrabajador<td>
         <td></td>
         <td></td>
         <td>Empresa: <td>
@@ -130,11 +185,11 @@ $html = "<table>
 
     <tr>
         <td>Edad: <td>
-        <td>$edad<td>
+        <td>$edad años<td>
         <td></td>
         <td></td>
         <td>RUN: <td>
-        <td>$rutEmpresaCompleto<td>
+        <td>$rutEmpresa<td>
     </tr>
 
 
@@ -152,7 +207,7 @@ $html = "<table>
 </tr>
 
 <tr>
-    <td style='border:1px solid;text-align:center;'>$cadenaBateriaDeExamenes</td>
+    <td style='border:1px solid;text-align:center;'>$bateriasDeExamenes</td>
 </tr>
 </table>
 
@@ -170,7 +225,7 @@ $html = "<table>
 
 <tr>
     <td style='border: 1px solid; text-align:center; font-family:arial; font-size:14;'>$pulso X'</td>
-    <td style='border: 1px solid; text-align:center; font-family:arial; font-size:14;'>$tensionDiastolica/$tensionSistolica mm/Hg</td>
+    <td style='border: 1px solid; text-align:center; font-family:arial; font-size:14;'>$presionArterial mm/Hg</td>
     <td style='border: 1px solid; text-align:center; font-family:arial; font-size:14;'>$peso kg</td>
     <td style='border: 1px solid; text-align:center; font-family:arial; font-size:14;'>$altura cm</td>    
     <td style='border: 1px solid; text-align:center; font-family:arial;'>$IMC %</td>
@@ -180,18 +235,6 @@ $html = "<table>
 ";
 
 
-$sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
-
-$resultado = mysqli_query($conexion,$sql);
-$i=0;
-
-$array = array();
-while($row = mysqli_fetch_assoc($resultado)){
-    $array[$i] = $row['NOMBRE_EXAMEN'];                
-    $i++;
-}
-
-mysqli_free_result($resultado);
 
 
 
@@ -227,13 +270,13 @@ $html .= "
 </tr>
 
 <tr>
-    <td style='border:1px solid;'>$conclusionMedica3</td>
+    <td style='border:1px solid;'>$conclusionMedica</td>
 </tr>
 </table>
 <br>
 
 
-<table style='table-layout: fixed; width: 250px; border-collapse:collapse;'>
+<table style='table-layout: fixed; width: 250px; border-collapse:collapse; margin-bottom:50px'>
 <tr>
   <th style='border: 1px solid; width: 218px; word-wrap: break-word; font-family:arial; font-size:20;'>EXÁMEN</th>
   <th style='border: 1px solid; width: 70px; word-wrap: break-word; font-family:arial; font-size:20;'>VALOR</th>
@@ -243,519 +286,46 @@ $html .= "
 
 
 
-foreach($array as $examen){
+
+/* $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
+
+$resultado = mysqli_query($conexion,$sql);
+$i=0;
+
+$array = array();
+while($row = mysqli_fetch_assoc($resultado)){
+    $array[$i] = $row['NOMBRE_EXAMEN'];                
+    $i++;
+}
+
+mysqli_free_result($resultado); */
+
+$examenes = explode("~",$cadenaExamenes);
+$i = 0;
+
+foreach($examenes as $dato){
     
+    $dato2 = explode("|",$dato);
+
+    $examen = $dato2[0]; 
+    $valor = $dato2[1];
+    $observaciones = $dato2[2];
+    $estado = $dato2[3];
+
+     
+    $html .= "<tr>
+    <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$examen</td>
+    <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$valor</td>
+    <td style='border:1px solid; text-align:justify; font-family:arial; font-size:16;'>$observaciones</td>
+    <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$estado</td>
+    </tr>";
     
-    $valor = '';
-    $observaciones = '';
-    $estado = 'Sin evaluar';
-
-    $sql = "SELECT parametro.ID_PARAMETRO, evaluacion_parametro.VALOR_PARAMETRO 
-    FROM EVALUACION_PARAMETRO 
-    INNER JOIN parametro
-    ON evaluacion_parametro.ID_PARAMETRO = parametro.ID_PARAMETRO
-    INNER JOIN examen
-    ON parametro.ID_EXAMEN = examen.ID_EXAMEN
-    WHERE "  ;  
-
-    switch($examen)
-            {
-            case 'Optometria':
-                $idExamen = '1';
-
-
-
-            break;
-
-            case 'Electrocardiograma':
-                $idExamen = '2';
-                
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-                        case '4':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '5':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-                
-
-            break;
-
-            case 'Glicemia':
-                $idExamen = '3';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '49':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '51':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '50':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-
-            break;
-
-            case 'Espirometria basal':
-                $idExamen = '4';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '22':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '23':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Audiometria':
-                $idExamen = '5';
-                
-            break;
-
-            case 'Creatinina':
-                $idExamen = '6';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '24':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-                        
-                        case '26':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '27':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Perfil lipidico':
-                $idExamen = '7';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '34':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '35':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-            
-            case 'Hemoglobina':
-                $idExamen = '8';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '36':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '38':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '39':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-                
-            break;
-            
-            case 'Rx torax':
-                $idExamen = '9';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '55':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '56':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '57':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Indice de Framingham':
-                $idExamen = '10';
-                
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '40':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '41':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '42':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-
-            break;
-
-            case 'Encuesta de Lake Louis':
-                $idExamen = '11';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '58':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '59':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '60':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Test de Ruffier':
-                $idExamen = '12';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '46':
-                            $valor = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '47':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '48':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Hemograma':
-                $idExamen = '13';
-                
-                
-            break;
-            
-            case 'Cultivo nasal':
-                $idExamen = '14';
-
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        
-
-                        case '62':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '63':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-
-                
-                
-            break;
-
-            case 'Cultivo faringeo':
-                $idExamen = '15';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '65':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '66':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-
-            break;
-
-            case 'Cultivo lecho ungueal':
-                $idExamen = '16';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '68':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '69':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'ALT/SGPT':
-                $idExamen = '17';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '71':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '72':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'AST/SGOT':
-                $idExamen = '18';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '74':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '75':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Protrombina':
-                $idExamen = '19';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '77':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '78':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Tiempo de protrombina':
-                $idExamen = '20';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '80':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '81':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            case 'Actividad de acetilcolinesterasa':
-                $idExamen = '21';
-
-                $sql.="evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND examen.ID_EXAMEN='$idExamen';";
-
-                $resultado = mysqli_query($conexion,$sql);
-
-                while($row = mysqli_fetch_assoc($resultado)){
-                    $idParametro = $row['ID_PARAMETRO'];
-                    switch($idParametro){
-
-                        case '83':
-                            $observaciones = $row['VALOR_PARAMETRO'];
-                        break;
-
-                        case '84':
-                            $estado = $row['VALOR_PARAMETRO'];
-                        break;
-                    }
-                }
-                
-            break;
-
-            default:
-            break;
-            }
-
-            $observaciones = utf8_encode($observaciones);
-
-            $html .= "<tr>
-            <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$examen</td>
-            <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$valor</td>
-            <td style='border:1px solid; text-align:justify; font-family:arial; font-size:16;'>$observaciones</td>
-            <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$estado</td>
-            </tr>";
-
-            // $texto = $examen. " ---- " . $valor. " ---- " .utf8_encode($observaciones). " ---- " .utf8_encode($estado)."<br>"; */
-            //echo $texto;
 }
 
 
-mysqli_free_result($resultado);
-mysqli_close($conexion);
+$html .= "</table>"; 
 
-$html .= "</table>
-<br>
-
-
-";
-
-$html .= "<br>
-<br><br><br>
+$html .= "
 
 <table style='font-family:arial; width:700'> 
 <tr>
@@ -767,13 +337,6 @@ $html .= "<br>
 </tr>
 </table>
 
-<br><br>
-
-
-
-
-
-
 ";
 
 
@@ -783,27 +346,33 @@ $html .= "<br>
 
 //$nombreSalida = $trabajador.".php";
 
-$mpdf = new \Mpdf\Mpdf();
+ $mpdf = new \Mpdf\Mpdf();
+
+$mpdf->AddPage('', // L - landscape, P - portrait 
+'', '', '', '',
+15, // margin_left
+15, // margin right
+15, // margin top
+25, // margin bottom
+5, // margin header
+5); // margin footer
+
 $mpdf->SetHTMLFooter("
 <table style='font-family:arial; width:700; font-size:12;'>
     <tr>
-
         <td>
-            <h5>OBSERVACIONES:</h5>
-
+            <h4>OBSERVACIONES:</h4>
             <p>-Los elementos utilizados y/o disponibles en esta evaluación no aseguran que el trabajador esté exento de presentar síntomas o complicaciones de salud o que presente agravamiento de enfermedades comunes y/o no declaradas o no diagnosticadas.</p>
-            <p>-Si el empleador requiere el detalle de la evaluación, solo puede ser entregada con autorización  explícita por el trabajador, con documento que lleve nombre firma y rut.</p>
+            <p>-Si el empleador requiere el detalle de la evaluación, solo puede ser entregada con autorización explícita por el trabajador, con documento que lleve nombre, firma y rut.</p>
             <p>-La adulteración de este certificado es un delito penado por ley.</p>
-
-            
-
-
-
         </td>
     <tr>
 </table>
 ");
 $mpdf->WriteHTML($html);
-$mpdf->Output();
+
+
+
+$mpdf->Output(); 
 
 ?>

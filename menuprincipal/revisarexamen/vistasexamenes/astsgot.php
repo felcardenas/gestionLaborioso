@@ -16,7 +16,7 @@ WHERE ID_EVALUACION = '$idEvaluacion'";
 
 
 $estado = 'Sin evaluar';
-$observaciones = 'Sin observaciones';
+$observaciones = '';
 
 $resultado = mysqli_query($conexion,$sql);
 
@@ -46,7 +46,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 <div class="row justify-content-center my-5">
     <div class="col-6">
-        <h1 class="text-center">ALT/SGOT</h1>
+        <h1 class="text-center">AST/SGOT</h1>
     </div>
 </div>
 

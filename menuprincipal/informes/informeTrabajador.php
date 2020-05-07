@@ -10,9 +10,6 @@ if(isset($_POST)){
     $idEvaluacion = $_POST['idEvaluacion'];
 }
 
-
-
-
 //$idTrabajador = $_SESSION['idTrabajador'];
 //$idUsuario = $_SESSION['idUsuario'];
 $edad = $_SESSION['edadTrabajador'];
@@ -732,10 +729,10 @@ $html .= "</table>
 
 
 
-$nombreSalida = $trabajador.".php";
+//$nombreSalida = $trabajador.".php";
 
-$mpdf = new \Mpdf\Mpdf();
+/* $mpdf = new \Mpdf\Mpdf();
 $mpdf->WriteHTML($html);
 $mpdf->Output();
-
+ */
 ?>

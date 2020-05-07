@@ -3,7 +3,12 @@ session_start();
 include '../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
-$sql = "SELECT EXAMEN_FISICO_GENERAL, CABEZA, TORAX, ABDOMEN, EXTREMIDADES_SUPERIORES, EXTREMIDADES_INFERIORES, COLUMNA_GENERAL FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
+$tabla = "examen_fisico_evaluacion";
+$campoId = "ID_EXAMEN_FISICO";  
+
+/* $sql = "SELECT EXAMEN_FISICO_GENERAL, CABEZA, TORAX, ABDOMEN, EXTREMIDADES_SUPERIORES, EXTREMIDADES_INFERIORES, COLUMNA_GENERAL FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
+
+$sql = "SELECT ID_EXAMEN_FISICO, VALOR_EXAMEN_FISICO FROM `examen_fisico_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_EXAMEN_FISICO` ASC LIMIT 7";
 
 $examenFisicoGeneral = '';
 $cabeza = '';
@@ -13,17 +18,58 @@ $extremidadesSuperiores = '';
 $extremidadesInferiores = '';
 $columnaGeneral = '';
 
-$resultado = mysqli_query($conexion, $sql); 
+
+if($resultado = mysqli_query($conexion,$sql)){;
+    while($row = mysqli_fetch_assoc($resultado)){
+       $idSignoVital = $row['ID_EXAMEN_FISICO'];
+       
+       switch($idSignoVital){
+            case '1':
+                $examenFisicoGeneral = utf8_encode($row['VALOR_EXAMEN_FISICO']); 
+                
+            break;
+
+            case '2': 
+                $cabeza = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+
+            case '3':
+                $torax = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+
+            case '4': 
+                $abdomen = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+
+            case '5':
+                $extremidadesSuperiores = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+
+            case '6': 
+                $extremidadesInferiores = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+
+            case '7': 
+                $columnaGeneral = utf8_encode($row['VALOR_EXAMEN_FISICO']);
+            break;
+       }
+       
+    }
+}
+
+
+/* $resultado = mysqli_query($conexion, $sql); 
     
 if($row = mysqli_fetch_assoc($resultado)){
+    
     $examenFisicoGeneral = utf8_encode($row['EXAMEN_FISICO_GENERAL']);
     $cabeza = utf8_encode($row['CABEZA']);
-    $torax = utf8_encode($row['TORAX']);
+    $torax = utf8_encode($row['TzORAX']);
     $abdomen = utf8_encode($row['ABDOMEN']);
     $extremidadesSuperiores = utf8_encode($row['EXTREMIDADES_SUPERIORES']);
     $extremidadesInferiores = utf8_encode($row['EXTREMIDADES_INFERIORES']);
     $columnaGeneral = utf8_encode($row['COLUMNA_GENERAL']);
-}
+} */
 
 ?>
 
@@ -33,7 +79,7 @@ if($row = mysqli_fetch_assoc($resultado)){
 </div>
 
 
-<form action="" method="post" class="form-group" id="formExamenFisico" name="formExamenFisico">
+<form action="" method="post" class="form-group" id="formIngresarExamenFisico" name="formIngresarExamenFisico">
     
     <!-- SELECCIONE EMPRESA -->
     <div class="row justify-content-center">
@@ -76,15 +122,28 @@ if($row = mysqli_fetch_assoc($resultado)){
 
     </div>
 
+                    
+                    
+
                     <input type="text" name="consulta" id="consulta" value="ingresarExamenFisico" hidden>
+                    <input type="text" name="select" id="select" value="selectExamenFisico" hidden>
+
                         <div class="row justify-content-center mt-5">
-                            <div class="col-8">
+                            <div class="col-4">
                                     <input type="button" 
                                     name="siguiente" 
                                     id="siguiente" 
                                     class="form-control btn btn-primary" 
                                     value="GUARDAR"
                                     onclick="validarExamenFisico()">
+                            </div>
+
+                            <div class="col-4">
+                                    <select class="form-control" onchange="obtenerParametrosExamenFisico()" name="fechaHora" id="fechaHora">
+                                
+                                        <?php include 'selectDatosAnteriores.php'; ?>
+                                    
+                                    </select>
                             </div>
                         </div>
 

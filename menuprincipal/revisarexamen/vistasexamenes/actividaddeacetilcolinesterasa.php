@@ -13,7 +13,7 @@ ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
 WHERE ID_EVALUACION = '$idEvaluacion'";
 
 $estado = 'Sin evaluar';
-$observaciones = 'Sin observaciones';
+$observaciones = '';
 
 $resultado = mysqli_query($conexion, $sql); 
     

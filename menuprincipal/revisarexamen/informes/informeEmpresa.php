@@ -4,95 +4,45 @@ include '../../plantillas/header.php';
 include "../../../global/conexion.php";
 require_once __DIR__ . '../../../../plugins/mpdf/vendor/autoload.php';
 session_start();
+date_default_timezone_set("America/Santiago");  
+$fecha = $_SESSION['fecha'];
+$hora = $_SESSION['hora'];
+$idEvaluacion = $_SESSION['idEvaluacion'];
 
 
-
-if(isset($_POST)){
-    $nombreEmpresa = $_POST['nombreEmpresa'];
-    $cargoTrabajador = $_POST['cargoTrabajador'];
-    $nombreMedico = $_POST['nombreMedico'];
-    $idEvaluacion = $_SESSION['idEvaluacion'];
-}
-$sql="SELECT RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
-
-$resultado = mysqli_query($conexion,$sql);
-$row = mysqli_fetch_assoc($resultado);
-
-$rutEmpresa = $row['RUT_EMPRESA'];
-$dvEmpresa = $row['DV_EMPRESA'];
-$rutEmpresaCompleto = $rutEmpresa."-".$dvEmpresa;
-
-?>
-
-
-
-<?php
-
-
-
-//$idTrabajador = $_SESSION['idTrabajador'];
-//$idUsuario = $_SESSION['idUsuario'];
-$edad = $_SESSION['edadTrabajador'];
-$nombreCompletoTrabajador = utf8_encode($_SESSION['nombreCompletoTrabajador']);
-$rutTrabajador = $_SESSION['rutTrabajador'];
-$dvTrabajador = $_SESSION['dvTrabajador'];
-$rut = $rutTrabajador . "-" . $dvTrabajador;
+$sql = "SELECT ID_EMPRESA, FECHA_VALIDEZ, FECHA, NOMBRE_MEDICO, NOMBRE_TRABAJADOR, RUN_TRABAJADOR, EDAD, CARGO, BATERIAS_DE_EXAMENES, CADENA_EXAMENES, CONCLUSION_MEDICA, CODIGO_DESCARGA_EMPRESA FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'";
+    //echo $sql;
+    $resultado = mysqli_query($conexion,$sql);
+    $row = mysqli_fetch_assoc($resultado);
+    
+    $idEmpresa = $row['ID_EMPRESA'];
+    $fechaValidez = $row['FECHA_VALIDEZ'];
+    $fecha = $row['FECHA'];
+    $nombreMedico = $row['NOMBRE_MEDICO'];
+    $nombreTrabajador = utf8_encode($row['NOMBRE_TRABAJADOR']);
+    $rutTrabajador = $row['RUN_TRABAJADOR'];
+    $edad = $row['EDAD'];
+    $cargo = $row['CARGO'];
+    $bateriasDeExamenes = $row['BATERIAS_DE_EXAMENES'];
+    $cadenaExamenes = $row['CADENA_EXAMENES'];
+    $conclusionMedica = $row['CONCLUSION_MEDICA'];
+    $codigoDescargaEmpresa = $row['CODIGO_DESCARGA_EMPRESA'];
     
 
-$sql = "SELECT PULSO, PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, IMC, CONCLUSION_MEDICA, RECOMENDACIONES FROM EVALUACION WHERE ID_EVALUACION = $idEvaluacion";
 
+mysqli_free_result($resultado);
+
+
+
+$sql = "SELECT NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
 $resultado = mysqli_query($conexion,$sql);
 $row = mysqli_fetch_assoc($resultado);
 
-$pulso = $row['PULSO'];
-$peso = $row['PESO'];
-$altura = $row['ALTURA'];
-$tensionDiastolica = $row['PRESION_DIASTOLICA'];
-$tensionSistolica = $row['PRESION_SISTOLICA'];
-$IMC = round($row['IMC'],1);
-$conclusionMedica = utf8_encode($row['CONCLUSION_MEDICA']);
-$conclusionMedica2 = explode("-",$conclusionMedica);
-$conclusionMedica3 = $conclusionMedica2[1];
-
-$recomendaciones = utf8_encode($row['RECOMENDACIONES']);
-
+$nombreEmpresa = $row['NOMBRE_EMPRESA'];
+$rutEmpresa = $row['RUT_EMPRESA'] . "-" . $row['DV_EMPRESA'];
 
 mysqli_free_result($resultado);
 
-
-//$idEvaluacion = '136';
-//$trabajador = "Juanito";
-//$rut = $rutCompletoTrabajador;
-//$edad = "50"." años";
-
-$sql = "SELECT CONCLUSION_MEDICA, RECOMENDACIONES FROM EVALUACION WHERE ID_EVALUACION = $idEvaluacion";
-
-$resultado = mysqli_query($conexion,$sql);
-$row = mysqli_fetch_assoc($resultado);
-
-$conclusionMedica = utf8_encode($row['CONCLUSION_MEDICA']);
-$recomendaciones = utf8_encode($row['RECOMENDACIONES']);
-
-mysqli_free_result($resultado);
-
-$sql = "SELECT bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES FROM bateria_de_examenes INNER JOIN evaluacion_bateria_de_examenes ON bateria_de_examenes.ID_BATERIA_DE_EXAMENES = evaluacion_bateria_de_examenes.ID_BATERIA_DE_EXAMENES INNER JOIN EVALUACION ON evaluacion_bateria_de_examenes.ID_EVALUACION = evaluacion.ID_EVALUACION WHERE evaluacion.ID_EVALUACION = '$idEvaluacion'";
-
-$cadenaBateriaDeExamenes = "";
-
-$resultado = mysqli_query($conexion,$sql);
-while($row = mysqli_fetch_assoc($resultado)){
-    $cadenaBateriaDeExamenes .= $row['NOMBRE_BATERIA_DE_EXAMENES']." / ";
-}
-
-$cadenaBateriaDeExamenes = substr($cadenaBateriaDeExamenes,0,-2);
-mysqli_free_result($resultado);
-
-
-
-$time = time();
-
-
-$hoy = date("Y/m/d", $time);
 
 $html = "<table>
 
@@ -103,7 +53,15 @@ $html = "<table>
         <table>
             <tr>
                 <td style='font-family:arial; font-size:14;'>FECHA EMISIÓN: </td>
-                <td style='font-family:arial; font-size:14;'>$hoy</td>
+                <td style='font-family:arial; font-size:14;'>$fecha</td>
+            </tr>
+            <tr>
+                <td style='font-family:arial; font-size:14;'>VÁLIDO HASTA: </td>
+                <td style='font-family:arial; font-size:14;'>$fechaValidez</td>
+            </tr>
+            <tr>
+                <td style='font-family:arial; font-size:14;'>CODIGO: </td>
+                <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
             </tr>
         </table>
     </td>
@@ -122,7 +80,7 @@ $html = "<table>
 
     <tr>
         <td>RUN: <td>
-        <td>$rutEmpresaCompleto<td>
+        <td>$rutEmpresa<td>
     </tr>
 
     <tr>
@@ -139,26 +97,26 @@ $html = "<table>
 
 
 <table style='font-family:arial; font-size:16;'> 
-    <title>Resultado de exámenes de: $nombreCompletoTrabajador</title>
+    <title>Resultado de exámenes de: $nombreTrabajador</title>
 
     <tr>
         <td>Trabajador: <td>
-        <td>$nombreCompletoTrabajador<td>
+        <td>$nombreTrabajador<td>
     </tr>
 
     <tr>
         <td>RUN: <td>
-        <td>$rut<td>
+        <td>$rutTrabajador<td>
     </tr>
 
     <tr>
         <td>Edad: <td>
-        <td>$edad<td>
+        <td>$edad años<td>
     </tr>
 
     <tr>
         <td>Cargo: <td>
-        <td>$cargoTrabajador<td>
+        <td>$cargo<td>
     </tr>
 
     
@@ -173,7 +131,7 @@ $html = "<table>
 </tr>
 
 <tr>
-    <td style='border:1px solid;text-align:center;'>$cadenaBateriaDeExamenes</td>
+    <td style='border:1px solid;text-align:center;'>$bateriasDeExamenes</td>
 </tr>
 </table>
 
@@ -181,28 +139,21 @@ $html = "<table>
 ";
 
 
-$sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
+/* $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
 
 $resultado = mysqli_query($conexion,$sql);
 $i=0;
 
 $array = array();
 while($row = mysqli_fetch_assoc($resultado)){
-    $array[$i] = $row['NOMBRE_EXAMEN'];                
+    $array[$i] = $row['NOMBRE_EXAMEN'];
+                
     $i++;
 }
 
-mysqli_free_result($resultado);
-
-
-
-
-
-
-
 
 mysqli_free_result($resultado);
-mysqli_close($conexion);
+mysqli_close($conexion); */
 
 $html .= "
 <br>
@@ -214,7 +165,7 @@ $html .= "
 </tr>
 
 <tr>
-    <td style='border:1px solid;'>$conclusionMedica3</td>
+    <td style='border:1px solid;'>$conclusionMedica</td>
 </tr>
 </table>
 
@@ -262,6 +213,6 @@ $mpdf->SetHTMLFooter("
 </table>
 ");
 $mpdf->WriteHTML($html);
-$mpdf->Output();
+$mpdf->Output(); 
 
 ?>

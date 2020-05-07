@@ -21,7 +21,7 @@ WHERE ID_EVALUACION = '$idEvaluacion'";
 
 $valor = '';
 $estado = 'Sin evaluar';
-$observaciones = 'Sin observaciones';
+$observaciones = '';
 
 $resultado = mysqli_query($conexion,$sql);
 

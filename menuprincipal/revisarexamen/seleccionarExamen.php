@@ -63,10 +63,16 @@ $contador = 1;
 
 
 if ($resultado = mysqli_query($conexion, $sql)) {
-    while ($row = mysqli_fetch_assoc($resultado)) {?>
+    while ($row = mysqli_fetch_assoc($resultado)) {
+    
+    $horaCreacion = $row['HORA_CREACION'];
+    $fechaCreacion = $row['FECHA_CREACION'];
+    $idEvaluacion = $row['ID_EVALUACION'];
+        
+    ?>
     
 
-    <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;'; ?>">
+    <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;' ?>">
 
     <!-- <div class="col-1">
          //$contador++ ?>
@@ -90,30 +96,30 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 
     <div class="col-2">
         <?php 
-            $fecha = new DateTime($row['FECHA_CREACION']);
+            $fecha = new DateTime($fechaCreacion);
             echo $fecha->format('d-m-Y');
-        ?>    
+        ?>   
     </div>
 
     <div class="col-2">
-        <?= $row['HORA_CREACION'] ?>
+        <?= $horaCreacion ?>
     </div>
 
     <div class="col-2">
-        <form action="examen.php" method="post">
-            <input type="text" name="horaExamen" id="horaExamen" value="<?=$row['HORA_CREACION']?>" hidden>
-            <input type="text" name="fechaExamen" id="fechaExamen" value="<?=$row['FECHA_CREACION']?>" hidden>
-            <input type="text" name="idEvaluacion" id="idEvaluacion" value="<?=$row['ID_EVALUACION']?>" hidden>
+        <form action="ingresarDatos.php" method="post">
+            <input type="text" name="horaExamen" id="horaExamen" value="<?=$horaCreacion?>" hidden>
+            <input type="text" name="fechaExamen" id="fechaExamen" value="<?=$fechaCreacion?>" hidden>
+            <input type="text" name="idEvaluacion" id="idEvaluacion" value="<?=$idEvaluacion?>" hidden>
 
             <button type="submit" class="btn btn-primary btn-block">SELECCIONAR</button>
         </form>
     </div>
 </div> 
 
-<?php
-}
+    <?php
+    }
     /* liberar el conjunto de resultados */
-    //mysqli_free_result($resultado);
+    mysqli_free_result($resultado);
 }?>
 
 

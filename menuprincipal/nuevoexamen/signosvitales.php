@@ -53,14 +53,15 @@ session_start();
                 <div class="row justify-content-center">
                     <div class="col-5">
 
-                        <input type="text" name="tensionDiastolica" id="tensionDiastolica" class="form-control" pattern="^\d{1,3}$" placeholder="T.diastólica" maxlength="3" onkeyup="limpiarNumero(this)" onchange="limpiarNumero(this)" required>
+                        <input type="text" name="tensionSistolica" id="tensionSistolica" class="form-control" pattern="^\d{1,3}$" placeholder="T.sistólica" maxlength="3" onkeyup="limpiarNumero(this)" onchange="limpiarNumero(this)" required>
 
                     </div>
 
                     <div class="col-1">/</div>
 
                     <div class="col-5">
-                        <input type="text" name="tensionSistolica" id="tensionSistolica" class="form-control" pattern="^\d{1,3}$" placeholder="T.sistólica" maxlength="3" onkeyup="limpiarNumero(this)" onchange="limpiarNumero(this)" required>
+                        
+                        <input type="text" name="tensionDiastolica" id="tensionDiastolica" class="form-control" pattern="^\d{1,3}$" placeholder="T.diastólica" maxlength="3" onkeyup="limpiarNumero(this)" onchange="limpiarNumero(this)" required>
                     </div>
 
                 </div>

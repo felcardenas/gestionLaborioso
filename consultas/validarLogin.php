@@ -2,25 +2,41 @@
 
     include '../global/config.php';
 
-    $rut = $_POST['rut'];
+    $rutOriginal = $_POST['rut'];
 
-    /* switch(strlen($rut)){
-        case 7:
-            $rut = "00".$_POST['rut'];
+    $parteRut = explode("-",$rutOriginal);
+
+    $rutSinDv = $parteRut[0];
+    $dv = $parteRut[1];
+
+    $rutSinPuntos = explode(".",$rutSinDv);
+    $rut = $rutSinPuntos[0].$rutSinPuntos[1].$rutSinPuntos[2];
+
+    //echo $rut."-".$dv;
+
+    switch(strlen($rut)){
+        case 9:
+            $rut = "00".$rut;
         break;
 
-        case 8:
-            $rut = "0".$_POST['rut'];
+        case 10:
+            $rut = "0".$rut;
         break;
         
         default:
-            $rut = $_POST['rut'];
-    } */
+            $rut = $rut;
+        break;
+    } 
 
+    //echo $rut;
+    //$rutCompleto = $rut . "-" .$dv;
+
+    //echo "<script>alert($rut);</script>";
     //echo $rut."<br>";
 
     $contraseñaLogin = $_POST['password'];
-    $dv = $_POST['dv'];
+    //echo $contraseñaLogin;
+    //$dv = $_POST['dv'];
 
     //echo $rut."-".$dv;
 
@@ -51,7 +67,6 @@
     if($contraseñaBDD == $contraseñaLogin){
             //echo $contraseñaBDD."<br>";
             //echo "Correcto";
-
             
             session_start();
             $_SESSION['usuarioNombreCompleto']=$nombreUsuario." ".$apellidoUsuario;
@@ -61,13 +76,14 @@
             $_SESSION['idUsuario'] = $idUsuario;
             $_SESSION['control'] = true;
             
+            
             header('Location:../menuprincipal/index.php');
         }else{
             ?>
 
             <form action="../index.php" method="post" id="form">
-                <input type="text" name="rut" id="rut" value="<?= $rut ?>" hidden>
-                <input type="text" name="dv" id="dv" value="<?= $dv ?>" hidden>
+                <input type="text" name="rut" id="rut" value="<?= $rutOriginal ?>" hidden>
+               <!--  <input type="text" name="dv" id="dv" value=" //$dv " hidden> -->
                 <input type="text" name="resultado" id="resultado" value="credencialesInvalidas" hidden>
             </form>
             <script>

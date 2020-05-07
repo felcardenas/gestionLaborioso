@@ -198,26 +198,29 @@ function validarFormularioIngresarEmpresa() {
 
 
     //VALIDACIONES DIRECCION EMPRESA (PUEDE SER BLANCO, PERO SI ESTÁ LLENO DEBE HABER VALIDACIONES)
-    if (validarBlanco(direccionEmpresa)) {
-        if (direccionEmpresa.length > 64) {
+    if(!validarBlanco(direccionEmpresa)) {
+        mensajeEnPantalla("Error", "Debe completar campo Dirección empresa", "error");
+        return valido;
+    }
+        
+    if (direccionEmpresa.length > 64) {
             mensajeEnPantalla("Error", "Dirección empresa no puede tener más de 64 caracteres", "error");
             return valido;
-        }
-
-        if (!validarRegExp(direccionEmpresa, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$/)) {
-            mensajeEnPantalla("Error", "El campo Dirección empresa solo puede contener letras, números y espacios", "error");
-            return valido;
-        }
     }
 
-    //VALIDAR EMAIL-TELEFONO
-    if (!validarBlanco(emailEmpresa) && !validarBlanco(telefonoEmpresa)) {
-        mensajeEnPantalla("Error", "Debe completar al menos uno de los campos email o teléfono.", "error");
-        return valido;
-    } else {
+    if (!validarRegExp(direccionEmpresa, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo Dirección empresa solo puede contener letras, números y espacios", "error");
+         return valido;
+    }
+    
 
-        if (validarBlanco(emailEmpresa)) {
-            //VALIDACIONES EMAIL EMPRESA
+    //VALIDAR EMAIL-TELEFONO
+   
+
+        if (!validarBlanco(emailEmpresa)) {
+            mensajeEnPantalla("Error", "Debe completar campo Email empresa", "error");
+            return valido;
+        }
             if (!validarRegExp(emailEmpresa, /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
                 mensajeEnPantalla("Error", "El campo Correo electrónico debe tener el formato 'correo@correo.cl'", "error");
                 return valido;
@@ -226,11 +229,14 @@ function validarFormularioIngresarEmpresa() {
                 mensajeEnPantalla("Error", "Email empresa no puede tener más de 64 caracteres", "error");
                 return valido;
             }
-        }
+        
 
         //VALIDACIONES TELEFONO EMPRESA
 
         if (validarBlanco(telefonoEmpresa)) {
+            mensajeEnPantalla("Error", "Debe completar campo teléfono", "error");
+            return valido;
+        }
             if (!validarRegExp(telefonoEmpresa, /^\d{7,9}$/)) {
                 mensajeEnPantalla("Error", "El campo Teléfono empresa debe contenter solo números", "error");
                 return valido;
@@ -240,10 +246,13 @@ function validarFormularioIngresarEmpresa() {
                 mensajeEnPantalla("Error", "El campo telefono empresa debe tener 9 caracteres", "error");
                 return valido;
             }
-        }
+        
 
-
-    }
+        /* if (!validarBlanco(emailEmpresa) && !validarBlanco(telefonoEmpresa)) {
+            mensajeEnPantalla("Error", "Debe completar al menos uno de los campos email o teléfono.", "error");
+            return valido;
+        } else {
+    } */
 
     var tituloConfirmacion = "Confirmación de la operacion";
     var textoConfirmacion = "Desea agregar los siguientes datos?<br> Nombre empresa:" + nombreEmpresa + "<br> RUT EMPRESA: " + rutEmpresa + "<br>";
@@ -416,7 +425,10 @@ function validarFormularioIngresarTrabajador() {
     }
 
     //VALIDACIONES DIRECCION TRABAJADOR (PUEDE SER BLANCO, PERO SI ESTÁ LLENO DEBE HABER VALIDACIONES)
-    if (validarBlanco(direccionTrabajador)) {
+    if (!validarBlanco(direccionTrabajador)){
+        mensajeEnPantalla("Error", "Debe completar campo Dirección trabajador ", "error");
+        return valido;
+    }
         if (direccionTrabajador.length > 64) {
             mensajeEnPantalla("Error", "Dirección trabajador no puede tener más de 64 caracteres", "error");
             return valido;
@@ -426,19 +438,18 @@ function validarFormularioIngresarTrabajador() {
             mensajeEnPantalla("Error", "El campo Dirección empresa solo puede contener letras, números y espacios", "error");
             return valido;
         }
-    }
+    
 
-
+    
 
 
 
     //VALIDAR EMAIL-TELEFONO
-    if (!validarBlanco(emailTrabajador) && !validarBlanco(telefonoTrabajador)) {
-        mensajeEnPantalla("Error", "Debe completar al menos uno de los campos email o teléfono.", "error");
-        return valido;
-    } else {
-
-        if (validarBlanco(emailTrabajador)) {
+    
+        if (!validarBlanco(emailTrabajador)) {
+            mensajeEnPantalla("Error", "Debe completar campo Email trabajador ", "error");
+            return valido;
+        }
             //VALIDACIONES EMAIL EMPRESA
             if (!validarRegExp(emailTrabajador, /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
                 mensajeEnPantalla("Error", "El campo Correo electrónico debe tener el formato 'correo@correo.cl'", "error");
@@ -448,11 +459,14 @@ function validarFormularioIngresarTrabajador() {
                 mensajeEnPantalla("Error", "Email trabajador no puede tener más de 64 caracteres", "error");
                 return valido;
             }
-        }
+        
 
         //VALIDACIONES TELEFONO EMPRESA
 
-        if (validarBlanco(telefonoTrabajador)) {
+        if(!validarBlanco(telefonoTrabajador)) {
+            mensajeEnPantalla("Error", "Debe completar campo Teléfono trabajador ", "error");
+            return valido;
+        }
             if (!validarRegExp(telefonoTrabajador, /^\d*$/)) {
                 mensajeEnPantalla("Error", "El campo Teléfono empresa debe contener solo números", "error");
                 return valido;
@@ -462,8 +476,8 @@ function validarFormularioIngresarTrabajador() {
                 mensajeEnPantalla("Error", "El campo telefono empresa debe tener 9 caracteres", "error");
                 return valido;
             }
-        }
-    }
+        
+    
 
 
     var datos = $('#formIngresarTrabajador').serialize();
@@ -2660,6 +2674,220 @@ function obtenerParametrosTiempoDeProtrombina(){
 
 
 
+
+
+
+
+
+function obtenerParametrosAnamnesis(){
+
+    
+    var datos = $('#formIngresarAnamnesis').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+
+            //document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            document.getElementById('anamnesis').value = js[0].TEXTO_ANAMNESIS;
+            
+        }
+        
+    });      
+}
+
+
+function obtenerParametrosExamenFisico(){
+    var datos = $('#formIngresarExamenFisico').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+            //alert(r);
+            document.getElementById('examenFisicoGeneral').value = js[0].VALOR_EXAMEN_FISICO;
+            document.getElementById('cabeza').value = js[1].VALOR_EXAMEN_FISICO;
+            document.getElementById('torax').value = js[2].VALOR_EXAMEN_FISICO;
+            document.getElementById('abdomen').value = js[3].VALOR_EXAMEN_FISICO;
+            document.getElementById('extremidadesSuperiores').value = js[4].VALOR_EXAMEN_FISICO;
+            document.getElementById('extremidadesInferiores').value = js[5].VALOR_EXAMEN_FISICO;
+            document.getElementById('columnaGeneral').value = js[6].VALOR_EXAMEN_FISICO;
+            //document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
+            //document.getElementById('anamnesis').value = js[0].TEXTO_ANAMNESIS;
+            
+        }
+        
+    });      
+}
+
+function obtenerParametrosConclusionMedica(){
+    
+    var datos = $('#formIngresarConclusionMedica').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r) {
+            
+            var js = JSON.parse(r);
+            //alert(r);
+                       
+            valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
+            
+            document.getElementById('conclusionMedica').selectedIndex = valor;
+            //alert(js[0].NOMBRE_CONCLUSION_MEDICA);
+            //js[0].NOMBRE_CONCLUSION_MEDICA.selected = true;
+            //document.getElementById('conclusionMedica').value = '0';
+            //js[0].NOMBRE_CONCLUSION_MEDICA;
+            //alert(js[0].NOMBRE_CONCLUSION_MEDICA);
+        }
+        
+    });      
+}
+
+
+function obtenerParametrosRecomendaciones(){
+    var datos = $('#formIngresarRecomendaciones').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r) {
+            var js = JSON.parse(r);
+
+            document.getElementById('recomendacion1').checked = false;
+            document.getElementById('recomendacion2').checked = false;
+            document.getElementById('recomendacion3').checked = false;
+            document.getElementById('recomendacion4').checked = false;
+            document.getElementById('recomendacion5').checked = false;
+            document.getElementById('recomendacion6').checked = false;
+            document.getElementById('recomendacion7').checked = false;
+
+            var i = 0;
+            for (let i in js) {
+                switch(parseInt(js[i].ID_RECOMENDACIONES)){
+                    
+                    case 1:
+                        document.getElementById('recomendacion1').checked = true;
+                    break;
+
+                    case 2:
+                        document.getElementById('recomendacion2').checked = true;
+                    break;
+
+                    case 3:
+                        document.getElementById('recomendacion3').checked = true;
+                    break;
+
+                    case 4:
+                        document.getElementById('recomendacion4').checked = true;
+                    break;
+
+                    case 5:
+                        document.getElementById('recomendacion5').checked = true;
+                    break;
+
+                    case 6:
+                        document.getElementById('recomendacion6').checked = true;
+                    break;
+
+                    case 7:
+                        document.getElementById('recomendacion7').checked = true;
+                    break;
+
+
+                };
+
+                //alert(parseInt(js[i].ID_RECOMENDACIONES));
+                i++;
+            }
+            
+            
+            
+            //var js = JSON.parse(r);
+            //valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
+            //alert(valor);
+            //document.getElementById('conclusionMedica').selectedIndex = valor;
+            //alert(js[0].NOMBRE_CONCLUSION_MEDICA);
+            //js[0].NOMBRE_CONCLUSION_MEDICA.selected = true;
+            //document.getElementById('conclusionMedica').value = '0';
+            //js[0].NOMBRE_CONCLUSION_MEDICA;
+            //alert(js[0].NOMBRE_CONCLUSION_MEDICA);
+        }
+        
+    });      
+}
+
+
+
+
+function obtenerParametrosInterconsulta(){
+    
+    var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r){
+            //alert(r);
+            var js = JSON.parse(r);
+
+            //alert(r);
+            //alert (js[0].NOMBRE_ESPECIALIDAD);
+            /* valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
+            
+            document.getElementById('conclusionMedica').selectedIndex = valor;
+             */
+            var idEspecialidad =  js[0].ID_ESPECIALIDAD;
+            //var especialidad = js[0].NOMBRE_ESPECIALIDAD;
+            var observaciones = js[0].OBSERVACIONES; 
+            
+            /* especialidad = document.getElementById("especialidad").value;
+            observaciones = document.getElementById("observaciones").value; */
+            //alert(idEspecialidad + " " + especialidad + " " + observaciones);
+
+            valor = parseInt(idEspecialidad) - 1;
+            document.getElementById('especialidad').selectedIndex = valor;
+            document.getElementById('observaciones').value = observaciones;
+        } 
+
+        
+    });  
+}
+
+function obtenerParametrosInformes(){
+    
+     var datos = $('#formInformes').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/mostrarDatosEvaluacion.php",
+        data: datos,
+        success: function (r){
+            //alert(r);
+            
+             var js = JSON.parse(r);
+
+            var cargo =  js[0].CARGO;
+            var idEmpresa = js[0].ID_EMPRESA; 
+            
+            
+            valor = parseInt(idEmpresa) - 1;
+            document.getElementById('nombreEmpresa').selectedIndex = valor;
+            document.getElementById('cargoTrabajador').value = cargo; 
+            /*  */
+        } 
+
+        
+    });   
+}
+
+
+
 function obtenerValorTestDeRuffier(){
     
    
@@ -2701,7 +2929,6 @@ function obtenerValorTestDeRuffier(){
 
 
 
-
 function obtenerIMC() {
     peso = 0;
     altura = 0;
@@ -2717,6 +2944,10 @@ function obtenerIMC() {
         document.getElementById('imc').value = imc.toFixed(2);
     }
 
+}
+
+function mostrarSignosVitales(){
+    $("#contenidoExamen").load("vistasexamenes/signosvitales.php");
 }
 
 function mostrarOptometria() {
@@ -2859,8 +3090,26 @@ function mostrarInformes(){
 
 
 
-function generarInforme(){
+function generarInformes(){
     
+    var datos = $('#formInformes').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insertarInformes.php",
+        data: datos,
+        success: function (r) {
+            
+            mensajeEnPantalla(r);                   
+            var js = JSON.parse(r);
+            //alert(r);
+            
+            //valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
+            
+            //document.getElementById('conclusionMedica').selectedIndex = valor;
+            
+        }
+        
+    });  
 }
 
 function generarInformeEmpresa(){
@@ -2871,7 +3120,6 @@ function generarInformeEmpresa(){
         mensajeEnPantalla("Debe rellenar el campo cargo","","error");
         return false;
     }
-
     
     document.getElementById("formInformes").action = "informes/informeEmpresa.php"; 
 }
@@ -2886,6 +3134,103 @@ function generarInformeTrabajador(){
     document.getElementById("formInformes").action = "informes/informeTrabajador.php"; 
 }
 
+function revisarPDFTrabajador(){
+
+    var fechaHora = document.getElementById("fechaHora").value;
+
+    if(!validarBlanco(fechaHora)){
+        mensajeEnPantalla("No hay informes para mostrar. Si desea generar un informe, seleccione una empresa, rellene el campo Cargo y presione Generar informes","","error");
+        return false;
+    }
+
+    var datos = $('#formInformes').serialize();
+    $.ajax({
+        type: "POST",
+        url: "ingresarDatosInformes.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                window.open("informes/informeTrabajador.php","Informe trabajador","fullscreen=yes");
+                //width=700,height=700,scrollbars=NO
+            } else if (r == 'false') {
+                //mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+            //alert(r);
+        }
+    });
+
+    /* window.open('ingresarDatosInformes.php', 'formInformes', 'width=450,height=300,status=yes,resizable=yes,scrollbars=yes'); */
+    //ingresarDatosInformes.php
+}
+
+function revisarPDFEmpresa(){
+
+    var fechaHora = document.getElementById("fechaHora").value;
+
+    if(!validarBlanco(fechaHora)){
+        mensajeEnPantalla("No hay informes para mostrar. Si desea generar informe, seleccione una empresa y rellene el campo Cargo","","error");
+        return false;
+    }
+    var datos = $('#formInformes').serialize();
+    $.ajax({
+        type: "POST",
+        url: "ingresarDatosInformes.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                window.open("informes/informeEmpresa.php","Informe empresa","fullscreen=yes");
+                //width=700,height=700,scrollbars=NO
+            } else if (r == 'false') {
+                //mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+            //alert(r);
+        }
+    });
+}
+
+function revisarPDFInterconsulta(){
+    
+    var fechaHora = document.getElementById("fechaHora").value;
+
+    if(!validarBlanco(fechaHora)){
+        mensajeEnPantalla("No hay informes para mostrar. Si desea generar un informe de Interconsulta, seleccione una especialidad, rellene el campo Observaciones y presione Generar informe","","error");
+        return false;
+    }
+
+    var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "ingresarDatosInterconsulta.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                window.open("informes/informeInterconsulta.php","Informe empresa","fullscreen=yes");
+                
+            } else if (r == 'false') {
+                
+            }
+        }
+    });
+}
+
+function verInformePDF(){
+
+    var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insert.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarAnamnesis();
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+        }
+    });
+}
+
 
 
 
@@ -2896,7 +3241,7 @@ function validarAnamnesis(){
         mensajeEnPantalla("Para ingresar la anamnesis escriba en el campo de texto y presione guardar","","error");
         return false;
     }
-    var datos = $('#formAnamnesis').serialize();
+    var datos = $('#formIngresarAnamnesis').serialize();
     $.ajax({
         type: "POST",
         url: "../../consultas/insert.php",
@@ -2904,6 +3249,7 @@ function validarAnamnesis(){
         success: function (r) {
             if (r == 'true') {
                 mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarAnamnesis();
             } else if (r == 'false') {
                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
             }
@@ -2938,7 +3284,7 @@ function validarExamenFisico(){
         return false;
     }
 
-    var datos = $('#formExamenFisico').serialize();
+    var datos = $('#formIngresarExamenFisico').serialize();
     $.ajax({
         type: "POST",
         url: "../../consultas/insert.php",
@@ -2946,6 +3292,7 @@ function validarExamenFisico(){
         success: function (r) {
             if (r == 'true') {
                 mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarExamenFisico();
             } else if (r == 'false') {
                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
             }
@@ -2965,8 +3312,6 @@ function revisarExamenesDeApoyoClinico(){
 }
 
 
-
-
 function validarConclusionMedica(){
     var conclusionMedica = document.getElementById('conclusionMedica').value;
 
@@ -2982,7 +3327,7 @@ function validarConclusionMedica(){
         return false;
     }
 
-     var datos = $('#formConclusionMedica').serialize();
+     var datos = $('#formIngresarConclusionMedica').serialize();
     $.ajax({
         type: "POST",
         url: "../../consultas/insert.php",
@@ -2990,6 +3335,7 @@ function validarConclusionMedica(){
         success: function (r) {
             if (r == 'true') {
                 mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarConclusionMedica();
             } else if (r == 'false') {
                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
             }
@@ -3003,6 +3349,47 @@ function validarConclusionMedica(){
 function validarInterconsulta() {
 
 
+    var observaciones = document.getElementById('observaciones').value;
+    var especialidad = document.getElementById('especialidad').value;
+
+        if(especialidad != 'MEDICINA GENERAL' &&
+            especialidad != 'CARDIOLOGIA' &&
+            especialidad != 'OFTALMOLOGIA' &&
+            especialidad != 'TRAUMATOLOGIA' &&
+            especialidad != 'PSIQUIATRIA' &&
+            especialidad != 'NEUROLOGIA' &&
+            especialidad != 'OTORRINOLARINGOLOGIA' &&
+            especialidad != 'BRONCOPULMONAR' &&
+            especialidad != 'GASTROENTEROLOGIA' &&
+            especialidad != 'ENDOCRINOLOGIA') {
+            //window.location.replace("informeinterconsulta.php");
+            mensajeEnPantalla("Error", "Debe elegir una especialidad", "error");
+            return false;
+        }
+
+
+     if(observaciones.length > 600){
+         mensajeEnPantalla("Campo observaciones tiene demasiados caracteres. Máximo 600.","","error");
+         return false;
+     }
+
+    var datos = $('#formInterconsulta').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insertarInterconsulta.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarInterconsulta();
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+            //alert(r);
+        }
+    }); 
+
+    return true;
     valido = false;
     //var rutTrabajador = document.getElementById("rutTrabajador").value;
     var especialidad = document.getElementById("especialidad").value;
@@ -3043,22 +3430,7 @@ function validarInterconsulta() {
     });
  */
 
-    if(especialidad == 'MEDICINA GENERAL' ||
-        especialidad == 'CARDIOLOGÍA' ||
-        especialidad == 'OFTALMOLOGÍA' ||
-        especialidad == 'TRAUMATOLOGÍA' ||
-        especialidad == 'PSIQUIATRÍA' ||
-        especialidad == 'NEUROLOGÍA' ||
-        especialidad == 'OTORRINOLARINGOLOGÍA' ||
-        especialidad == 'BRONCOPULMONAR' ||
-        especialidad == 'GASTROENTEROLOGÍA' ||
-        especialidad == 'ENDOCRINOLOGÍA') {
-        //window.location.replace("informeinterconsulta.php");
-        return true;
-    } else {
-        mensajeEnPantalla("Error", "Debe elegir una especialidad", "error");
-        return false;
-    }
+    
 
 
 
@@ -3070,6 +3442,8 @@ function validarInterconsulta() {
 
 
 function validarRecomendaciones(){
+
+    
     
     var recomendacion1 = document.getElementById('recomendacion1').value;
     var recomendacion2 = document.getElementById('recomendacion2').value;
@@ -3088,7 +3462,20 @@ function validarRecomendaciones(){
     var validarCheckBoxRecomendacion6 = document.getElementById("recomendacion6").checked;
     var validarCheckBoxRecomendacion7 = document.getElementById("recomendacion7").checked;
     
-    var recomendaciones = "";
+    var suma = 0;
+    var seleccionados = document.getElementsByName('seleccionado[]');
+    for (var i = 0, j = seleccionados.length; i < j; i++) {
+        if (seleccionados[i].checked == true) {
+            suma++;
+        }
+    }
+
+    if (suma == 0) {
+        mensajeEnPantalla("Error", "No seleccionó ninguna casilla ", "error");
+        return false;
+    }
+    
+    /* var recomendaciones = "";
 
     if(validarCheckBoxRecomendacion1){
        recomendaciones += recomendacion1 + " / ";
@@ -3119,11 +3506,8 @@ function validarRecomendaciones(){
      }
      
      recomendaciones = recomendaciones.substring(0,recomendaciones.length -3)
-     
-     document.getElementById("cadenaRecomendaciones").value = recomendaciones;
-
-    
-
+      */
+     //document.getElementById("cadenaRecomendaciones").value = recomendaciones;
 
 
     if(!validarBlanco(cadenaRecomendaciones)){
@@ -3132,7 +3516,7 @@ function validarRecomendaciones(){
     }
 
 
-    var datos = $('#formRecomendaciones').serialize();
+    var datos = $('#formIngresarRecomendaciones').serialize();
     $.ajax({
         type: "POST",
         url: "../../consultas/insert.php",
@@ -3140,12 +3524,39 @@ function validarRecomendaciones(){
         success: function (r) {
             if (r == 'true') {
                 mensajeEnPantalla("Se ingresaron los datos","","success");
+                
+                mostrarRecomendaciones();
             } else if (r == 'false') {
                 mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                
             }
+
+            
+
         }
     });
 
+
+}
+
+
+function ingresarDatosInformes(){
+    
+    var datos = $('#formInformes').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../../consultas/insertarInformes.php",
+        data: datos,
+        success: function (r) {
+            if (r == 'true') {
+                mensajeEnPantalla("Se ingresaron los datos","","success");
+                mostrarInformes();
+            } else if (r == 'false') {
+                mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            }
+            
+        }
+    }); 
 
 }
 

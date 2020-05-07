@@ -444,7 +444,7 @@ function nuevoExamen(){
         $_SESSION['horaActual'] = $horaActual;   
 
 
-        $sql = "INSERT INTO EVALUACION (ID_TRABAJADOR,SOLICITUD_TRABAJADOR,SOLICITUD_EMPLEADOR, PENDIENTE_REVISION_MEDICA, ID_USUARIO,FECHA_CREACION,HORA_CREACION) VALUES ('$idTrabajador','3','3','true','$idUsuario','$fechaActual','$horaActual')";
+        $sql = "INSERT INTO EVALUACION (ID_TRABAJADOR, PENDIENTE_REVISION_MEDICA, ID_USUARIO,FECHA_CREACION,HORA_CREACION) VALUES ('$idTrabajador','true','$idUsuario','$fechaActual','$horaActual')";
         
         if(mysqli_query($conexion,$sql)){
           
@@ -538,7 +538,7 @@ function revisarExamen(){
 }
 
 function signosVitales(){
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     
     $valido = false;
 
@@ -580,7 +580,15 @@ function signosVitales(){
     ('6', '$idEvaluacion', '$fechaExamen','$horaExamen','$imc')";
 
     if(mysqli_query($conexion,$sql)){
-      echo 'true';
+
+      $sql = "UPDATE `evaluacion` SET `PENDIENTE_REVISION_MEDICA`='0' WHERE ID_EVALUACION = '$idEvaluacion'";
+      
+      if(mysqli_query($conexion,$sql)){
+        echo 'true';
+      }else{
+        echo 'false';
+      }
+//      echo 'true';
     }else{
       echo 'false';
     }
@@ -2102,17 +2110,22 @@ function actualizarActividadDeAcetilcolinesterasa(){
 
 function ingresarAnamnesis(){
 
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     session_start();
+    date_default_timezone_set("America/Santiago");  
 
     $idEvaluacion = $_SESSION['idEvaluacion'];
     $horaActual = $_SESSION['horaActual'];
     $fechaActual = $_SESSION['fechaActual'];
     $anamnesis = $_POST['anamnesis'];
     
-   
+    $fechaActual = obtenerFechaActual();
+    $horaActual = obtenerHoraActual();
 
-    $sql = "UPDATE EVALUACION SET ANAMNESIS = '$anamnesis' WHERE ID_EVALUACION = '$idEvaluacion'";
+    $sql = "INSERT INTO `anamnesis_evaluacion`(`ID_ANAMNESIS`, `ID_EVALUACION`, `FECHA`, `HORA`, `TEXTO_ANAMNESIS`) VALUES 
+    ('1','$idEvaluacion','$fechaActual','$horaActual','$anamnesis');";
+
+    //$sql = "UPDATE EVALUACION SET ANAMNESIS = '$anamnesis' WHERE ID_EVALUACION = '$idEvaluacion'";
     //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
     $sql = utf8_decode($sql);
     
@@ -2130,8 +2143,9 @@ function ingresarAnamnesis(){
 
 function ingresarExamenFisico(){
 
-  include '../global/conexion.php';
+    include '../global/conexion.php';
     session_start();
+    date_default_timezone_set("America/Santiago");  
 
     $idEvaluacion = $_SESSION['idEvaluacion'];
     $horaActual = $_SESSION['horaActual'];
@@ -2143,11 +2157,21 @@ function ingresarExamenFisico(){
     $extremidadesSuperiores = $_POST['extremidadesSuperiores'];
     $extremidadesInferiores = $_POST['extremidadesInferiores'];
     $columnaGeneral = $_POST['columnaGeneral'];
+
+    $horaActual = obtenerHoraActual();
+    $fechaActual = obtenerFechaActual();
     
     //UPDATE tabla SET campo = ‘valor’, campo2 = ‘valor2’ WHERE condición
-   
+   $sql = "INSERT INTO `examen_fisico_evaluacion`(`ID_EXAMEN_FISICO`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_EXAMEN_FISICO`) VALUES 
+   ('1','$idEvaluacion','$fechaActual','$horaActual','$examenFisicoGeneral'),
+   ('2','$idEvaluacion','$fechaActual','$horaActual','$cabeza'),
+   ('3','$idEvaluacion','$fechaActual','$horaActual','$torax'),
+   ('4','$idEvaluacion','$fechaActual','$horaActual','$abdomen'),
+   ('5','$idEvaluacion','$fechaActual','$horaActual','$extremidadesSuperiores'),
+   ('6','$idEvaluacion','$fechaActual','$horaActual','$extremidadesInferiores'),
+   ('7','$idEvaluacion','$fechaActual','$horaActual','$columnaGeneral')";
 
-    $sql = "UPDATE EVALUACION 
+    /* $sql = "UPDATE EVALUACION 
     SET 
     EXAMEN_FISICO_GENERAL = '$examenFisicoGeneral', 
     CABEZA = '$cabeza', 
@@ -2157,7 +2181,7 @@ function ingresarExamenFisico(){
     EXTREMIDADES_INFERIORES = '$extremidadesInferiores',
     COLUMNA_GENERAL = '$columnaGeneral'   
     WHERE 
-    ID_EVALUACION = '$idEvaluacion'";
+    ID_EVALUACION = '$idEvaluacion'"; */
     //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
     $sql = utf8_decode($sql);
     
@@ -2175,55 +2199,69 @@ function ingresarExamenFisico(){
 function ingresarConclusionMedica(){
   include '../global/conexion.php';
     session_start();
+    date_default_timezone_set("America/Santiago");  
 
     $idEvaluacion = $_SESSION['idEvaluacion'];
     $horaActual = $_SESSION['horaActual'];
     $fechaActual = $_SESSION['fechaActual'];
     $conclusionMedica = $_POST['conclusionMedica'];
+    $horaActual = obtenerHoraActual();
+    $fechaActual = obtenerFechaActual();
     
     $texto = '';
 
+    
 
- /*                              a1.- SALUD COMPATIBLE ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS NO DEMUESTRAN ALTERACIONES QUE CONTRAINDIQUEN EL TRABAJO EN GRAN ALTURA GEOGRAFICA, DESDE 3.000 A 5.5000 MSNM.
-a2.- SALUD NO COMPATIBLE EN ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS DEMUESTRAN ALTERACIONES TEMPORALES  QUE CONTRAINDICAN  EL TRABAJO EN GRAN ALTURA GEOGRAFICA.
-a3.- SALUD COMPATIBLE. EL EXAMEN DE SALUD REALIZADO NO DEMUESTRA ALTERACIONES QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS.
-b.-SALUD NO COMPATIBLE TEMPORAL.- EL EXAMEN DE SALUD REALIZADO DEMUESTRA ALTERACIONES TEMPORALES  QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS
-c.- CONCLUSION PENDIENTE.- SE REQUIERE EXAMENES ADICIONALES EN PROCESO PARA CONCLUIR INFORME.
-d.- NO ASISTE A CONTROL.
-e.- SALUD NO COMPATIBLE PERMANENTE.- CON LOS EXAMENES PRACTICADOS SE A CONCLUIDO QUE EL TRABAJADOR PRESENTA CONDICIONES DE SALUD, QUE NO ES APTO DE MANERA PERMANENTE PARA TRABAJAR EN LOS RIESGOS INDICADOS.
-  */
+    /*                              a1.- SALUD COMPATIBLE ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS NO     DEMUESTRAN ALTERACIONES QUE CONTRAINDIQUEN EL TRABAJO EN GRAN ALTURA GEOGRAFICA, DESDE 3.000 A 5.5000 MSNM.
+    a2.- SALUD NO COMPATIBLE EN ALTURA GEOGRAFICA.- LOS EXAMNES PRACTICADOS DEMUESTRAN ALTERACIONES TEMPORALES  QUE CONTRAINDICAN  EL TRABAJO EN GRAN ALTURA GEOGRAFICA.
+    a3.- SALUD COMPATIBLE. EL EXAMEN DE SALUD REALIZADO NO DEMUESTRA ALTERACIONES QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS.
+    b.-SALUD NO COMPATIBLE TEMPORAL.- EL EXAMEN DE SALUD REALIZADO DEMUESTRA ALTERACIONES TEMPORALES  QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS
+    c.- CONCLUSION PENDIENTE.- SE REQUIERE EXAMENES ADICIONALES EN PROCESO PARA CONCLUIR INFORME.
+    d.- NO ASISTE A CONTROL.
+    e.- SALUD NO COMPATIBLE PERMANENTE.- CON LOS EXAMENES PRACTICADOS SE A CONCLUIDO QUE EL TRABAJADOR PRESENTA CONDICIONES DE SALUD, QUE NO ES APTO DE MANERA PERMANENTE PARA TRABAJAR EN LOS RIESGOS INDICADOS.
+      */
     switch($conclusionMedica){
       case 'A1':
           $texto = 'A1.-SALUD COMPATIBLE ALTURA GEOGRAFICA. LOS EXÁMENES PRACTICADOS NO DEMUESTRAN ALTERACIONES QUE CONTRAINDIQUEN EL TRABAJO EN GRAN ALTURA GEOGRAFICA, DESDE 3.000 A 5.500 MSNM.';
+          $idConclusionMedica = '1';
       break;
     
       case 'A2':
         $texto = 'A2.-SALUD NO COMPATIBLE EN ALTURA GEOGRAFICA. LOS EXÁMENES PRACTICADOS DEMUESTRAN ALTERACIONES TEMPORALES  QUE CONTRAINDICAN  EL TRABAJO EN GRAN ALTURA GEOGRAFICA.';
+        $idConclusionMedica = '2';
       break;
 
       case 'A3':
         $texto = 'A3.-SALUD COMPATIBLE. EL EXAMEN DE SALUD REALIZADO NO DEMUESTRA ALTERACIONES QUE IMPIDAN SU DESEMPEÑO PARA LOS RIESGOS INDICADOS.';
+        $idConclusionMedica = '3';
       break;
 
       case 'B':
         $texto = 'B.-SALUD NO COMPATIBLE TEMPORAL. EL EXAMEN DE SALUD REALIZADO DEMUESTRA ALTERACIONES TEMPORALES  QUE IMPIDAN SU DESENPEÑO PARA LOS RIESGOS INDICADOS';
+        $idConclusionMedica = '4';
       break;
 
       case 'C':
         $texto = 'C.-CONCLUSION PENDIENTE. SE REQUIEREN EXAMENES ADICIONALES EN PROCESO PARA CONCLUIR INFORME.';
+        $idConclusionMedica = '5';
       break;
 
       case 'D':
         $texto = 'D.-NO ASISTE A CONTROL.';
+        $idConclusionMedica = '6';
       break;
 
       case 'E':
         $texto = 'E.-SALUD NO COMPATIBLE PERMANENTE. CON LOS EXAMENES PRACTICADOS SE HA CONCLUIDO QUE EL TRABAJADOR PRESENTA CONDICIONES DE SALUD. NO ES APTO DE MANERA PERMANENTE PARA TRABAJAR EN LOS RIESGOS INDICADOS.';
+        $idConclusionMedica = '7';
       break;
     }
 
-    $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$texto' WHERE ID_EVALUACION = '$idEvaluacion'";
-    //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
+    $sql = "INSERT INTO `conclusion_medica_evaluacion`(`ID_CONCLUSION_MEDICA`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES 
+    ('$idConclusionMedica','$idEvaluacion','$fechaActual','$horaActual')";
+
+    /* $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$texto' WHERE ID_EVALUACION = '$idEvaluacion'";
+    //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual' */
     $sql = utf8_decode($sql);
     
     if(mysqli_query($conexion, $sql)){
@@ -2239,17 +2277,49 @@ e.- SALUD NO COMPATIBLE PERMANENTE.- CON LOS EXAMENES PRACTICADOS SE A CONCLUIDO
 function ingresarRecomendaciones(){
   include '../global/conexion.php';
   session_start();
+  date_default_timezone_set("America/Santiago");  
 
   $idEvaluacion = $_SESSION['idEvaluacion'];
   $horaActual = $_SESSION['horaActual'];
   $fechaActual = $_SESSION['fechaActual'];
-  $recomendaciones = $_POST['cadenaRecomendaciones'];
+  //$recomendaciones = $_POST['cadenaRecomendaciones'];
+
+  $horaActual = obtenerHoraActual();
+  $fechaActual = obtenerFechaActual();
+
+
+  $sql = "INSERT INTO `recomendaciones_evaluacion`(`ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES ";
+
+  foreach ($_POST['seleccionado'] as $selected){
+
+    //$sql = "SELECT `ID_RECOMENDACIONES` FROM `recomendaciones_evaluacion` WHERE RECOME";
+    //echo $selected;
+     
+    $sql .= "('$selected','$idEvaluacion','$fechaActual','$horaActual'),";
+
+  }
+
+  $sql = substr($sql, 0,-1);
+  
+  
+
+  
+    if(mysqli_query($conexion, $sql)){
+    echo 'true';
+  }else{
+    echo 'false';
+  } 
+
+  mysqli_close($conexion);  
+  
+  /* $sql = "INSERT INTO `recomendaciones_evaluacion`(`ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA`, `TEXTO_RECOMENDACIONES`) VALUES 
+  ('1','$idEvaluacion','$fechaActual','$horaActual','checked'),"; */
   
  
 
-  $sql = "UPDATE EVALUACION SET RECOMENDACIONES = '$recomendaciones' WHERE ID_EVALUACION = '$idEvaluacion'";
+  //$sql = "UPDATE EVALUACION SET RECOMENDACIONES = '$recomendaciones' WHERE ID_EVALUACION = '$idEvaluacion'";
   //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual'
-  $sql = utf8_decode($sql);
+  /* $sql = utf8_decode($sql);
   
   if(mysqli_query($conexion, $sql)){
       echo 'true';
@@ -2257,7 +2327,7 @@ function ingresarRecomendaciones(){
       echo 'false';
   }
   
-  mysqli_close($conexion);
+  mysqli_close($conexion); */
 }
 
 function interconsulta(){

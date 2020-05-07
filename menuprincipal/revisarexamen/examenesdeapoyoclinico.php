@@ -184,7 +184,7 @@ $resultado = mysqli_query($conexion,$sql);
 
                     case 'AST/SGOT':
                         $idExamen = '18';
-                        ?><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgot">ALT/SGOT</button><?php
+                        ?><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgot">AST/SGOT</button><?php
                         //include 'vistasexamenes/astsgot.php';
                     break;
 

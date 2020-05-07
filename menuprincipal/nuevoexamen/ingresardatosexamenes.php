@@ -26,8 +26,8 @@ session_start();
             <div class="row py-3 fondo justify-content-center">
         
                 <div class="col-2"><?= "PULSO: "?></div>
-                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: " ?></div>
-                <div class="col-2"><?= "TENSIÓN SISTÓLICA: "?></div>        
+                <div class="col-2"><?= "TENSIÓN SISTÓLICA: " ?></div>
+                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: "?></div>        
                 <div class="col-2"><?= "PESO: "?></div>
                 <div class="col-2"><?= "ALTURA: "?></div>
                 <div class="col-2"><?= "IMC: "?></div>
@@ -36,11 +36,11 @@ session_start();
 
             <div class="row fondo justify-content-center">
                 <div class="col-2"><?=$_SESSION['pulso']." X'"?></div>
-                <div class="col-2"><?= $_SESSION['tensionDiastolica'] ." mm/HG" ?></div>
-                <div class="col-2"><?= $_SESSION['tensionSistolica']." mm/HG" ?></div>        
+                <div class="col-2"><?= $_SESSION['tensionSistolica'] ." mm/HG" ?></div>
+                <div class="col-2"><?= $_SESSION['tensionDiastolica']." mm/HG" ?></div>        
                 <div class="col-2"><?= $_SESSION['peso'] . " kg" ?></div>
                 <div class="col-2"><?= $_SESSION['altura']." cm" ?></div>
-                <div class="col-2"><?= substr($_SESSION['imc'],0,5)." %"?></div>
+                <div class="col-2"><?= substr($_SESSION['imc'],0,2)." %"?></div>
             </div>
 
         </div>
@@ -76,16 +76,25 @@ if(isset($_POST['submit'])) {
 
     $sqlBorrarBateriaDeExamenes = "DELETE FROM EVALUACION_BATERIA_DE_EXAMENES WHERE ID_EVALUACION = '$idEvaluacion'";   
 
-            mysqli_query($conexion,$sqlBorrarBateriaDeExamenes);
+    mysqli_query($conexion,$sqlBorrarBateriaDeExamenes);
    
+
+
     
     if (isset($_POST['seleccionado'])){
+
+        $sqlEvaluacion = "UPDATE `evaluacion` SET `PENDIENTE_REVISION_MEDICA`='1' WHERE ID_EVALUACION = '$idEvaluacion'";
+      
+        if(mysqli_query($conexion,$sqlEvaluacion)){
+            //echo 'true';
+        }else{
+            //echo 'false';
+        }
+
         foreach ($_POST['seleccionado'] as $selected) {
             
             //SE GUARDAN LOS DATOS DE LAS BATERIAS CORRESPONDIENTES
             
-            
-
             $sqlBateriaDeExamenes = "SELECT ID_BATERIA_DE_EXAMENES FROM `bateria_de_examenes` WHERE NOMBRE_BATERIA_DE_EXAMENES = '$selected'";
 
             $resultado = mysqli_query($conexion,$sqlBateriaDeExamenes);
@@ -114,9 +123,6 @@ if(isset($_POST['submit'])) {
 
     if($resultado = mysqli_query($conexion, $sql)){
         
-       
-        
-        
         //print_r(mysqli_query($conexion,$sql));
         
         if(mysqli_num_rows($resultado) > 0){
@@ -129,6 +135,8 @@ if(isset($_POST['submit'])) {
                 
                 <div class="row justify-content-center">
                     <div class="col-3 fondo">
+
+                        <br><button onclick="mostrarSignosVitales()" class="btn btn-primary" style="font-size:20px;" id="btnSignosVitales">Signos vitales</button>
                 
             <?php
 
@@ -245,7 +253,7 @@ if(isset($_POST['submit'])) {
 
                     case 'AST/SGOT':
                         $idExamen = '18';
-                        ?><br><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgot">ALT/SGOT</button><?php
+                        ?><br><button onclick="mostrarASTSGOT()" class="btn btn-primary" style="font-size:20px;" id="btnAltSgot">AST/SGOT</button><?php
                         //include 'vistasexamenes/astsgot.php';
                     break;
 

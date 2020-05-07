@@ -2,11 +2,21 @@
 <h1><div class="col-12 mt-5">Ingresar Empresa</div></h1>
 </div>
 
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                                <h6> * TODOS LOS CAMPOS SON OBLIGATORIOS </h6>
+                                
+                            </div>    
+                        </div>
+
+
                     <form id="formIngresarEmpresa" action="" method="post" class="form-group">
                         <!-- NOMBRE EMPRESA -->
                         <div class="row justify-content-center">
                             <div class="col-8">
-                                <label for="">Nombre empresa*</label>
+                                <label for="">Nombre empresa</label>
                                 <input type="text" name="nombreEmpresa" id="nombreEmpresa" class="form-control"
                                 maxlength="128"
                                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$"  
@@ -21,7 +31,7 @@
                         <!-- RUT EMPRESA -->
                         <div class="row justify-content-center">
                             <div class="col-6">
-                                <label for="">Rut empresa*</label>
+                                <label for="">Rut empresa</label>
                                 <input type="text" name="rutEmpresa" id="rutEmpresa" class="form-control"
                                 minlength="7"
                                 maxlength="9"
@@ -53,7 +63,7 @@
                         <!-- NOMBRE REPRESENTANTE -->
                         <div class="row justify-content-center">
                             <div class="col-8">
-                                <label for="">Nombre representante*</label>
+                                <label for="">Nombre representante</label>
                                 <input type="text" name="nombreRepresentante" id="nombreRepresentante" class="form-control"
                                 maxlength=""
                                 pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$" 
@@ -68,7 +78,7 @@
                         <!-- RUT REPRESENTANTE -->
                         <div class="row justify-content-center">
                             <div class="col-6">
-                                    <label for="">Rut representante*</label>
+                                    <label for="">Rut representante</label>
                                     <input type="text" name="rutRepresentante" id="rutRepresentante" class="form-control"
                                     minlength="7"
                                     maxlength="9"
@@ -109,7 +119,7 @@
                         <!-- CORREO -->
                         <div class="row justify-content-center">
                             <div class="col-8">
-                                    <label for="">Correo electrónico**</label>
+                                    <label for="">Correo electrónico</label>
                                     <input type="email" name="emailEmpresa" id="emailEmpresa" class="form-control" 
                                     maxlength="64"
                                     pattern="^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$" 
@@ -122,7 +132,7 @@
                         <!-- NÚMERO TELEFÓNICO -->
                         <div class="row justify-content-center">
                             <div class="col-8">
-                                    <label for="">Número telefónico**</label>
+                                    <label for="">Número telefónico</label>
                                     <input type="text" name="telefonoEmpresa" id="telefonoEmpresa" class="form-control"
                                     maxlength="" 
                                     pattern="^\d{7,9}$" 
@@ -144,8 +154,7 @@
                                 
                                 <input type="button" name="btnIngresarEmpresa" id="btnIngresarEmpresa" class="form-control btn btn-primary" onclick="validarFormularioIngresarEmpresa()" 
                                     value="Grabar empresa">
-                                    <label for="">* Campos obligatorios</label><br>
-                                <label for="">** Debe rellenar al menos uno de los campos</label>
+                                 
                             </div>
                         </div>
                         

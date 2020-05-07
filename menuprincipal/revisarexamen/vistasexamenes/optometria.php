@@ -41,7 +41,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 } */
 
 $estado = 'Sin evaluar';
-$observaciones = 'Sin observaciones';
+$observaciones = '';
 
 ?>
 

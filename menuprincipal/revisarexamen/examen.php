@@ -2,9 +2,14 @@
 include '../../global/conexion.php';
 session_start();
 
-$_SESSION['fechaExamen'] = $_POST['fechaExamen'];
+
+/* $_SESSION['fechaExamen'] = $_POST['fechaExamen'];
 $_SESSION['horaExamen'] = $_POST['horaExamen'];
-$_SESSION['idEvaluacion'] = $_POST['idEvaluacion'];
+$_SESSION['idEvaluacion'] = $_POST['idEvaluacion']; */
+$fechaExamen = $_SESSION['fechaExamen'];
+$horaExamen = $_SESSION['horaExamen']; 
+
+
 $idEvaluacion = $_SESSION['idEvaluacion'];
 
 $_SESSION['anamnesis'] = '';
@@ -18,23 +23,68 @@ $_SESSION['columnaGeneral'] = '';
 $_SESSION['conclusionMedica'] = '';
 $_SESSION['recomendaciones'] = '';
 
+$_SESSION['fecha'] = '';
+$_SESSION['hora']= '';
+
+$pulso = '';
+$tensionDiastolica = '';
+$tensionSistolica ='';
+$peso = '';
+$altura = '';
+$imc = '';
+
+
+
+/* $sql = "SELECT PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, PULSO,IMC FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
+
+$sql = "SELECT ID_SIGNO_VITAL, VALOR_SIGNO_VITAL FROM `signos_vitales_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion'   
+ORDER BY `signos_vitales_evaluacion`.`FECHA` DESC, `signos_vitales_evaluacion`.`HORA` DESC, `signos_vitales_evaluacion`.`ID_SIGNO_VITAL` ASC LIMIT 6";
 
 
 
 
-$sql = "SELECT PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, PULSO,IMC FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
+if($resultado = mysqli_query($conexion,$sql)){;
+    while($row = mysqli_fetch_assoc($resultado)){
+       $idSignoVital = $row['ID_SIGNO_VITAL'];
+       
+       switch($idSignoVital){
+            case '1':
+                $_SESSION['PULSO'] = $row['VALOR_SIGNO_VITAL']; 
+                $pulso = $_SESSION['PULSO'];
+            break;
 
-$resultado = mysqli_query($conexion,$sql);
-$row = mysqli_fetch_assoc($resultado);
+            case '2': 
+                $_SESSION['TENSION_DIASTOLICA'] = $row['VALOR_SIGNO_VITAL']; 
+                $tensionDiastolica = $_SESSION['TENSION_DIASTOLICA'];
+            break;
 
-$pulso = $row['PULSO'];
-$tensionDiastolica = $row['PRESION_DIASTOLICA'];
-$tensionSistolica = $row['PRESION_SISTOLICA'];
-$peso = $row['PESO'];
-$altura = $row['ALTURA'];
-$imc = $row['IMC'];
+            case '3':
+                $_SESSION['TENSION_SISTOLICA'] = $row['VALOR_SIGNO_VITAL']; 
+                $tensionSistolica = $_SESSION['TENSION_SISTOLICA'];
+            break;
 
-//echo $idEvaluacion;
+            case '4': 
+                $_SESSION['PESO'] = $row['VALOR_SIGNO_VITAL']; 
+
+                $peso = $_SESSION['PESO'];
+            break;
+
+            case '5':
+                $_SESSION['ALTURA'] = $row['VALOR_SIGNO_VITAL']; 
+
+                $altura = $_SESSION['ALTURA'];
+            break;
+
+            case '6': 
+                $_SESSION['IMC'] = $row['VALOR_SIGNO_VITAL']; 
+
+                $imc = round($_SESSION['IMC'],1);
+            break;
+       }
+       
+    }
+}
+
 ?>
 
 
@@ -57,8 +107,8 @@ $imc = $row['IMC'];
             <div class="row py-3 fondo justify-content-center">
         
                 <div class="col-2"><?= "PULSO: "?></div>
-                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: " ?></div>
-                <div class="col-2"><?= "TENSIÓN SISTÓLICA: "?></div>        
+                <div class="col-2"><?= "TENSIÓN SISTÓLICA: " ?></div>
+                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: "?></div>        
                 <div class="col-2"><?= "PESO: "?></div>
                 <div class="col-2"><?= "ALTURA: "?></div>
                 <div class="col-2"><?= "IMC: "?></div>
@@ -67,8 +117,8 @@ $imc = $row['IMC'];
 
             <div class="row fondo justify-content-center">
                 <div class="col-2"><?= $pulso." X'"?></div>
-                <div class="col-2"><?= $tensionDiastolica ." mm/HG" ?></div>
-                <div class="col-2"><?= $tensionSistolica." mm/HG" ?></div>        
+                <div class="col-2"><?= $tensionSistolica ." mm/HG" ?></div>
+                <div class="col-2"><?= $tensionDiastolica." mm/HG" ?></div>        
                 <div class="col-2"><?= $peso . " kg" ?></div>
                 <div class="col-2"><?= $altura." cm" ?></div>
                 <div class="col-2"><?= $imc." %"?></div>
@@ -87,36 +137,39 @@ $imc = $row['IMC'];
 
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarAnamnesis()" class="btn btn-primary" style="font-size:20px;" id="btnAnamnesis">Anamnesis</button>
+            <br>
             <?php } ?>
 
-            <br>
+            
             
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarExamenFisico()" class="btn btn-primary" style="font-size:20px;" id="btnExamenFisico">Examen Físico</button>
-            <?php } ?>
-
             <br>
+            <?php } ?>
 
             <button onclick="mostrarExamenesDeApoyoClinico()" class="btn btn-primary" style="font-size:20px;" id="btnExamenesDeApoyoClinico">Exámenes de apoyo clínico</button>
             <br>
 
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarConclusionMedica()" class="btn btn-primary" style="font-size:20px;" id="btnConclusionMedica">Conclusión médica</button>
+            <br>
             <?php } ?>
 
-            <br>
+            
             
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarInterconsulta()" class="btn btn-primary" style="font-size:20px;" id="btnInterconsulta">Interconsulta</button>
+            <br>
             <?php } ?>
 
-            <br>
+            
             
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?>
             <button onclick="mostrarRecomendaciones()" class="btn btn-primary" style="font-size:20px;" id="btnRecomendaciones">Recomendaciones</button>
+            <br>
             <?php } ?>
 
-            <br>
+            
 
             <button onclick="mostrarInformes()" class="btn btn-primary" style="font-size:20px;" id="btnInformes">Informes</button>
             <br>

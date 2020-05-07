@@ -4,6 +4,22 @@ if(session_start()){
   session_destroy();
 }
 
+$resultado = '';
+
+if(isset($_POST['resultado'])){
+    $rut = $_POST['rut'];
+    $contraseña = '';
+    $resultado = $_POST['resultado'];
+    
+}else{
+  $rut = '';
+  $contraseña = '';
+}  
+
+
+
+//echo $_POST['resultado'];
+
 ?>
 
 <!doctype html>
@@ -26,16 +42,23 @@ if(session_start()){
         <!--FILA-->
         <div class="row justify-content-center">
             <!--COLUMNAS-->
-            <div class="col-4 my-5">
+            <div class="col-4">
                 <!--TÍTULO-->
-                <h1 class="text-center mb-3">LOGIN</h1>
+                <h1 class="text-center mb-3">SISTEMA GESTIÓN LABORIOSO
+<br>
+                <img src="img/logosinfondo.png" height="200" width="200" alt="">
+
+                </h1>
             
-                <form action="consultas/validarLogin.php" class="form-group" method="POST" onsubmit="return formatoRut();">
+                <form action="consultas/validarLogin.php" class="form-group" method="POST">
                         <!--RUT-->
                     
+
+
+
                     <div class="row">
                         
-                        <div class="col-8">
+                        <div class="col-12">
                             <div class="form-group">
                                     <label>RUT USUARIO</label>
                                     <input type="text" 
@@ -43,19 +66,21 @@ if(session_start()){
                                     name="rut" 
                                     id="rut" 
                                     placeholder="Ingrese su rut" 
-                                    maxlength="9" 
-                                    pattern="\d{7,9}" 
+                                    maxlength="12" 
+                                    minlength="8"
+                                     
                                     title="Debe escribir entre 7 y 9 números" 
-                                    onkeyup="limpiarNumero(this)"
-                                    onchange="limpiarNumero(this)"
+                                    onkeyup="formateaRut(this)"
+                                    onchange="formateaRut(this)"
+                                    value="<?= $rut ?>"
                                     required> 
-
+                                    <!--pattern="\d{7,3}"-->
                                     <!--<input type="text" class="form-control" onkeyup="validarRUT();" name="rut" id="rut" placeholder="Ingrese su rut">-->
 
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <div class="form-group">
                             <label>D.V.</label>
                             <select class="form-control" id="dv" name="dv">
@@ -72,7 +97,7 @@ if(session_start()){
                                 <option>K</option>
                             </select>
                             </div> 
-                        </div>
+                        </div> -->
                     </div>
 
 
@@ -86,11 +111,12 @@ if(session_start()){
                                 id="password" 
                                 placeholder="Ingrese su contraseña" 
                                 maxlength="20"
+                                value = "<?= $contraseña ?>"
                                 required>
                         </div>
 
                         <!--BOTÓN-->
-                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-5" >ENTRAR</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-5" onsubmit="return validarRut()">ENTRAR</button>
                 </form>
             </div>
             
@@ -113,15 +139,17 @@ if(session_start()){
   </body>
 </html>
 
+
+
+
 <?php
   
   if(isset($_POST['resultado'])){
-      $resultado = $_POST['resultado'];
-      if($resultado == 'credencialesInvalidas'){?>
-          <script>
-            document.getElementById('rut').value = <?=$_POST['rut']?>;
-            document.getElementById('dv').value = <?=$_POST['dv']?>;
-            mostrarMensaje("Error","Credenciales inválidas","error");
+    $resultado = $_POST['resultado'];
+    if($resultado == 'credencialesInvalidas'){?>
+        <script>
+         
+          mostrarMensaje("Error","Credenciales inválidas","error");
             function mostrarMensaje(titulo, mensaje, tipoError){
               Swal.fire(
                 titulo,
@@ -129,8 +157,10 @@ if(session_start()){
                 tipoError
               );
             }
-          </script>
-        <?php
-      }
+        </script>
+      <?php
+    }
   }
+
+  
  ?>

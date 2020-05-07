@@ -1,6 +1,12 @@
 <div class="row justify-content-center">
               <h1><div class="col-12 mt-5">Ingresar trabajador</div></h1>
 </div>
+<div class="row justify-content-center">
+                            <div class="col-4">
+                                <h6> * TODOS LOS CAMPOS SON OBLIGATORIOS </h6>
+                                
+                            </div>    
+                        </div>
 
                 <form action="" method="post" class="form-group" id="formIngresarTrabajador">
                         <!-- NOMBRE TRABAJADOR -->
@@ -32,16 +38,10 @@
                             <div class="col-2">
                                 <label for="">DV</label>
                                 <select class="form-control" id="dvTrabajador" name="dvTrabajador">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
+                                                <?php for ($i=0; $i < 10 ; $i++) { ?> 
+                                                    <option><?= $i ?></option>    
+                                                <?php ;}?>
+                                       
                                     <option>K</option>
                                 </select>
                             </div>
