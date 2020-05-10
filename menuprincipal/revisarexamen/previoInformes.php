@@ -10,7 +10,7 @@ $hora = "";
 $nombreUltimaEspecialidad = "";
 $observaciones = "";
 
-$sql="SELECT evaluacion.ID_TRABAJADOR, empresa.NOMBRE_EMPRESA, informes.CARGO, informes.FECHA, INFORMES.HORA FROM EVALUACION 
+$sql="SELECT EVALUACION.ID_TRABAJADOR, EMPRESA.NOMBRE_EMPRESA, INFORMES.CARGO, INFORMES.FECHA, INFORMES.HORA FROM EVALUACION 
 INNER JOIN INFORMES ON EVALUACION.ID_EVALUACION = INFORMES.ID_EVALUACION 
 INNER JOIN EMPRESA ON INFORMES.ID_EMPRESA = EMPRESA.ID_EMPRESA  WHERE INFORMES.ID_EVALUACION = '$idEvaluacion' AND EVALUACION.ID_TRABAJADOR = '$idTrabajador' ORDER BY INFORMES.FECHA DESC, INFORMES.HORA DESC LIMIT 1";
 //echo $sql;
@@ -142,7 +142,7 @@ if($resultado = mysqli_query($conexion,$sql)){;
                 <select onchange="obtenerParametrosInformes()" name="fechaHora" id="fechaHora" class="form-control">
                     <?php 
 
-                        $sql = "SELECT DISTINCT FECHA, HORA FROM `informes` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
+                        $sql = "SELECT DISTINCT FECHA, HORA FROM `INFORMES` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
 
                         $resultado = mysqli_query($conexion,$sql);
                         while($row = mysqli_fetch_assoc($resultado)){

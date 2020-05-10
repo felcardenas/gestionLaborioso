@@ -40,7 +40,7 @@ session_start();
                 <div class="col-2"><?= $_SESSION['tensionDiastolica']." mm/HG" ?></div>        
                 <div class="col-2"><?= $_SESSION['peso'] . " kg" ?></div>
                 <div class="col-2"><?= $_SESSION['altura']." cm" ?></div>
-                <div class="col-2"><?= substr($_SESSION['imc'],0,2)." %"?></div>
+                <div class="col-2"><?= substr($_SESSION['imc'],0,3)." %"?></div>
             </div>
 
         </div>
@@ -67,12 +67,12 @@ if(isset($_POST['submit'])) {
     }
 
 
-    $sql = "SELECT DISTINCT examen.NOMBRE_EXAMEN, examen.ID_EXAMEN 
-    FROM examen
-    INNER JOIN examenes_bateria_de_examenes 
-    ON examen.ID_EXAMEN = examenes_bateria_de_examenes.ID_EXAMEN
-    INNER JOIN bateria_de_examenes
-    ON examenes_bateria_de_examenes.ID_BATERIA_DE_EXAMENES = bateria_de_examenes.ID_BATERIA_DE_EXAMENES WHERE ";
+    $sql = "SELECT DISTINCT EXAMEN.NOMBRE_EXAMEN, EXAMEN.ID_EXAMEN 
+    FROM EXAMEN
+    INNER JOIN EXAMENES_BATERIA_DE_EXAMENES
+    ON EXAMEN.ID_EXAMEN = EXAMENES_BATERIA_DE_EXAMENES.ID_EXAMEN
+    INNER JOIN BATERIA_DE_EXAMENES
+    ON EXAMENES_BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES = BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES WHERE ";
 
     $sqlBorrarBateriaDeExamenes = "DELETE FROM EVALUACION_BATERIA_DE_EXAMENES WHERE ID_EVALUACION = '$idEvaluacion'";   
 
@@ -83,7 +83,7 @@ if(isset($_POST['submit'])) {
     
     if (isset($_POST['seleccionado'])){
 
-        $sqlEvaluacion = "UPDATE `evaluacion` SET `PENDIENTE_REVISION_MEDICA`='1' WHERE ID_EVALUACION = '$idEvaluacion'";
+        $sqlEvaluacion = "UPDATE EVALUACION SET `PENDIENTE_REVISION_MEDICA`='1' WHERE ID_EVALUACION = '$idEvaluacion'";
       
         if(mysqli_query($conexion,$sqlEvaluacion)){
             //echo 'true';
@@ -95,7 +95,7 @@ if(isset($_POST['submit'])) {
             
             //SE GUARDAN LOS DATOS DE LAS BATERIAS CORRESPONDIENTES
             
-            $sqlBateriaDeExamenes = "SELECT ID_BATERIA_DE_EXAMENES FROM `bateria_de_examenes` WHERE NOMBRE_BATERIA_DE_EXAMENES = '$selected'";
+            $sqlBateriaDeExamenes = "SELECT ID_BATERIA_DE_EXAMENES FROM BATERIA_DE_EXAMENES WHERE NOMBRE_BATERIA_DE_EXAMENES = '$selected'";
 
             $resultado = mysqli_query($conexion,$sqlBateriaDeExamenes);
             
@@ -109,7 +109,7 @@ if(isset($_POST['submit'])) {
             mysqli_query($conexion,$sqlBateriaDeExamenes);
 
             $examenes[] = utf8_decode($selected);
-            $sql .= "bateria_de_examenes.ID_BATERIA_DE_EXAMENES = (SELECT bateria_de_examenes.ID_BATERIA_DE_EXAMENES FROM bateria_de_examenes where bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES = '$selected') OR ";
+            $sql .= "BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES = (SELECT BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES FROM BATERIA_DE_EXAMENES where BATERIA_DE_EXAMENES.NOMBRE_BATERIA_DE_EXAMENES = '$selected') OR ";
             //echo $selected;
         }
     } else {

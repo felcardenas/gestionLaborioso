@@ -22,7 +22,7 @@ if(isset($_POST)){
     $nombreMedico = utf8_decode($_SESSION['usuarioNombreCompleto']);
     $clave = crearClave();
 
-    $sql = "SELECT ID_ESPECIALIDAD FROM especialidad WHERE NOMBRE_ESPECIALIDAD = '$especialidad'";
+    $sql = "SELECT ID_ESPECIALIDAD FROM ESPECIALIDAD WHERE NOMBRE_ESPECIALIDAD = '$especialidad'";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $idEspecialidad = $row['ID_ESPECIALIDAD'];
@@ -32,7 +32,7 @@ if(isset($_POST)){
     
     mysqli_free_result($resultado);
 
-    $sql = "INSERT IGNORE INTO interconsulta(FECHA_VALIDEZ, ID_EVALUACION, ID_ESPECIALIDAD, FECHA, HORA, NOMBRE_MEDICO,OBSERVACIONES, CLAVE, EDAD) VALUES ('$fechaValidez','$idEvaluacion','$idEspecialidad','$hoy','$hora','$nombreMedico','$observaciones','$clave','$edadTrabajador')";    
+    $sql = "INSERT IGNORE INTO INTERCONSULTA(FECHA_VALIDEZ, ID_EVALUACION, ID_ESPECIALIDAD, FECHA, HORA, NOMBRE_MEDICO,OBSERVACIONES, CLAVE, EDAD) VALUES ('$fechaValidez','$idEvaluacion','$idEspecialidad','$hoy','$hora','$nombreMedico','$observaciones','$clave','$edadTrabajador')";    
     
     //echo $sql;
     //mysqli_query($conexion,$sql) or die(mysqli_error($conexion));

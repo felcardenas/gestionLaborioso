@@ -40,23 +40,28 @@ if(isset($_POST['resultado'])){
     <!--CONTAINER-->
     <div class="container mt-5">
         <!--FILA-->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-top:100px">
             <!--COLUMNAS-->
-            <div class="col-4">
+            <div class="col-5">
                 <!--TÍTULO-->
-                <h1 class="text-center mb-3">SISTEMA GESTIÓN LABORIOSO
-<br>
-                <img src="img/logosinfondo.png" height="200" width="200" alt="">
+                <div class="row justify-content-center mt-2">
+                    <div class="col-12">
+                      <h1 class="text-center mb-3">SISTEMA GESTIÓN LABORIOSO</h1>
+                    </div>
 
-                </h1>
+                    <div class="col-6">
+                      <img src="img/logosinfondo.png" height="200" width="200" alt="">
+                    </div>
+                </div>
+            
+              </div>
+
+            <div class="col-5">
             
                 <form action="consultas/validarLogin.php" class="form-group" method="POST">
                         <!--RUT-->
-                    
 
-
-
-                    <div class="row">
+                    <div class="row mt-5">
                         
                         <div class="col-12">
                             <div class="form-group">
@@ -79,27 +84,7 @@ if(isset($_POST['resultado'])){
 
                             </div>
                         </div>
-
-                        <!-- <div class="col-4">
-                            <div class="form-group">
-                            <label>D.V.</label>
-                            <select class="form-control" id="dv" name="dv">
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>K</option>
-                            </select>
-                            </div> 
-                        </div> -->
                     </div>
-
 
 
                         <!--CONTRASEÑA-->
@@ -118,7 +103,9 @@ if(isset($_POST['resultado'])){
                         <!--BOTÓN-->
                         <button type="submit" class="btn btn-primary btn-lg btn-block mt-5" onsubmit="return validarRut()">ENTRAR</button>
                 </form>
+
             </div>
+            
             
         </div>
                

@@ -98,7 +98,7 @@
                                         <?php for ($i=0; $i < 10 ; $i++) { ?> 
                                                     <option><?= $i ?></option>    
                                                 <?php ;}?>
-                                                <option>K</option>
+                                        <option>K</option>
                                     </select>
                                 </div>
                         </div>

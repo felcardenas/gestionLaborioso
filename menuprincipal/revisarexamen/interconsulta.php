@@ -9,7 +9,7 @@ $hora = "";
 $nombreUltimaEspecialidad = "";
 $observaciones = "";
 
-$sql="SELECT NOMBRE_ESPECIALIDAD, OBSERVACIONES, FECHA, HORA FROM `interconsulta` INNER JOIN ESPECIALIDAD ON interconsulta.ID_ESPECIALIDAD = especialidad.ID_ESPECIALIDAD WHERE ID_EVALUACION= '$idEvaluacion' ORDER BY `interconsulta`.`FECHA` DESC, `interconsulta`.`HORA` DESC LIMIT 1";
+$sql="SELECT NOMBRE_ESPECIALIDAD, OBSERVACIONES, FECHA, HORA FROM `INTERCONSULTA` INNER JOIN ESPECIALIDAD ON INTERCONSULTA.ID_ESPECIALIDAD = ESPECIALIDAD.ID_ESPECIALIDAD WHERE ID_EVALUACION= '$idEvaluacion' ORDER BY `INTERCONSULTA`.`FECHA` DESC, `INTERCONSULTA`.`HORA` DESC LIMIT 1";
 //echo $sql;
 if($resultado = mysqli_query($conexion,$sql)){;
     if($row = mysqli_fetch_assoc($resultado)){
@@ -28,7 +28,7 @@ if($resultado = mysqli_query($conexion,$sql)){;
 
 
 
-$sql = "SELECT NOMBRE_ESPECIALIDAD FROM especialidad";
+$sql = "SELECT NOMBRE_ESPECIALIDAD FROM ESPECIALIDAD";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 
@@ -100,7 +100,7 @@ $resultado = mysqli_query($conexion, $sql);
 
                                 <?php 
 
-                                    $sql = "SELECT DISTINCT FECHA, HORA FROM `interconsulta` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
+                                    $sql = "SELECT DISTINCT FECHA, HORA FROM `INTERCONSULTA` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
                                     
                                     $resultado = mysqli_query($conexion,$sql);
                                     while($row = mysqli_fetch_assoc($resultado)){

@@ -1,5 +1,8 @@
 <?php 
 session_start();
+
+
+
 if(!isset($_SESSION['control'])){
   echo 'Usted no tiene autorización para ver esta página';
   die();

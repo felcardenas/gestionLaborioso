@@ -233,7 +233,7 @@ function validarFormularioIngresarEmpresa() {
 
         //VALIDACIONES TELEFONO EMPRESA
 
-        if (validarBlanco(telefonoEmpresa)) {
+        if (!validarBlanco(telefonoEmpresa)) {
             mensajeEnPantalla("Error", "Debe completar campo teléfono", "error");
             return valido;
         }
@@ -533,6 +533,7 @@ function validarFormularioNuevoExamen() {
             } else if (r == 'false') {
                 mensajeEnPantalla("Trabajador no existe", "Seleccione 'Ingresar trabajador' en el menú de la izquierda para agregar un nuevo trabajador", "error");
             }
+            //alert(r);
         }
     });
 
@@ -677,7 +678,6 @@ function validarSignosVitales() {
         mensajeEnPantalla("Ingrese un valor valido en el campo pulso", "", "error");
         return valido;
     }
-
 
     //VALIDACIONES CAMPO TENSION DIASTÓLICA
     if (!validarBlanco(tensionDiastolica)) {
@@ -2734,9 +2734,9 @@ function obtenerParametrosConclusionMedica(){
         data: datos,
         success: function (r) {
             
+            
             var js = JSON.parse(r);
-            //alert(r);
-                       
+            
             valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
             
             document.getElementById('conclusionMedica').selectedIndex = valor;
@@ -2834,10 +2834,10 @@ function obtenerParametrosInterconsulta(){
         url: "../../consultas/mostrarDatosEvaluacion.php",
         data: datos,
         success: function (r){
-            //alert(r);
+            
             var js = JSON.parse(r);
 
-            //alert(r);
+            
             //alert (js[0].NOMBRE_ESPECIALIDAD);
             /* valor = parseInt(js[0].ID_CONCLUSION_MEDICA) - 1;
             
@@ -2879,6 +2879,7 @@ function obtenerParametrosInformes(){
             valor = parseInt(idEmpresa) - 1;
             document.getElementById('nombreEmpresa').selectedIndex = valor;
             document.getElementById('cargoTrabajador').value = cargo; 
+            
             /*  */
         } 
 
@@ -2890,7 +2891,6 @@ function obtenerParametrosInformes(){
 
 function obtenerValorTestDeRuffier(){
     
-   
     var P1 = document.getElementById('P1').value;
     var P2 = document.getElementById('P2').value;
     var P3 = document.getElementById('P3').value;
@@ -2978,7 +2978,7 @@ function mostrarCreatinina() {
 
 
 function mostrarPerfilLipidico() {
-    $("#contenidoExamen").load("vistasexamenes/perfilLipidico.php");
+    $("#contenidoExamen").load("vistasexamenes/perfillipidico.php");
 }
 
 
@@ -3013,12 +3013,12 @@ function mostrarHemograma() {
 
 
 function mostrarCultivoNasal() {
-    $("#contenidoExamen").load("vistasexamenes/cultivoNasal.php");
+    $("#contenidoExamen").load("vistasexamenes/cultivonasal.php");
 }
 
 
 function mostrarCultivoFaringeo() {
-    $("#contenidoExamen").load("vistasexamenes/cultivoFaringeo.php");
+    $("#contenidoExamen").load("vistasexamenes/cultivofaringeo.php");
 }
 
 
@@ -3043,7 +3043,7 @@ function mostrarProtrombina() {
 
 
 function mostrarTiempoDeProtrombina() {
-    $("#contenidoExamen").load("vistasexamenes/tiempoDeProtrombina.php");
+    $("#contenidoExamen").load("vistasexamenes/tiempodeprotrombina.php");
 }
 
 

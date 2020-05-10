@@ -169,7 +169,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
     
 
-    $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
+    $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN EVALUACION_EXAMEN ON EXAMEN.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
 
     $resultado = mysqli_query($conexion,$sql);
     $i=0;

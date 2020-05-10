@@ -5,14 +5,13 @@ include '../../../global/conexion.php';
 $idExamen = '19';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
-$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+$sql = "SELECT EVALUACION_PARAMETRO.VALOR_PARAMETRO, EVALUACION_PARAMETRO.ID_PARAMETRO 
 FROM EVALUACION_PARAMETRO 
 INNER JOIN PARAMETRO 
 ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
 INNER JOIN EXAMEN 
 ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
 WHERE ID_EVALUACION = '$idEvaluacion'";
-
 
 $estado = 'Sin evaluar';
 $observaciones = '';

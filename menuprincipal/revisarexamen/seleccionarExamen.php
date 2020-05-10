@@ -74,17 +74,6 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 
     <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;' ?>">
 
-    <!-- <div class="col-1">
-         //$contador++ ?>
-    </div>
-
-    <div class="col-2">
-         //$row['RUT_TRABAJADOR'] . '-' . $row['DV_TRABAJADOR'] ?>
-    </div>
-
-    <div class="col-3">
-         //utf8_encode($row['NOMBRE_TRABAJADOR'] . " " . $row['APELLIDO_TRABAJADOR']) ?>
-    </div> -->
 
     <div class="col-2">
     <?=$contador++?>
@@ -119,8 +108,11 @@ if ($resultado = mysqli_query($conexion, $sql)) {
     <?php
     }
     /* liberar el conjunto de resultados */
+    
     mysqli_free_result($resultado);
-}?>
+}else{
+printf("Errormessage: %s\n", mysqli_error($conexion));}
+?>
 
 
 </div>

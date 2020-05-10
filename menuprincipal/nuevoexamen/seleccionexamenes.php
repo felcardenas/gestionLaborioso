@@ -22,7 +22,7 @@ session_start();
 
 <div class="row separacion"></div>
 
-<form action="ingresarDatosExamenes.php" method="post">
+<form action="ingresardatosexamenes.php" method="post">
             
             <div class="row justify-content-center py-3 fondo" style="font-size:20px;">
                 <?php include 'consultas/examenes.php'?>

@@ -50,10 +50,10 @@
     mysqli_select_db($conexion,BDD) or die("No se encuentra la tabla");
     mysqli_set_charset($conexion,"utf8");
 
-    $sql ="select PASSWORD, ID_USUARIO, NOMBRE_USUARIO, APELLIDO_USUARIO, tipo_de_usuario.NOMBRE_TIPO_USUARIO 
+    $sql ="select PASSWORD, ID_USUARIO, NOMBRE_USUARIO, APELLIDO_USUARIO, TIPO_DE_USUARIO.NOMBRE_TIPO_USUARIO 
     from USUARIO 
-    inner join tipo_de_usuario 
-    ON tipo_de_usuario.ID_TIPO_USUARIO = usuario.ID_TIPO_USUARIO 
+    inner join TIPO_DE_USUARIO
+    ON TIPO_DE_USUARIO.ID_TIPO_USUARIO = USUARIO.ID_TIPO_USUARIO 
     where RUT_USUARIO = ? and DV_USUARIO = ? ";
 
     $sentencia = mysqli_stmt_init($conexion);
@@ -64,7 +64,7 @@
         mysqli_stmt_bind_result($sentencia, $contraseñaBDD, $idUsuario, $nombreUsuario, $apellidoUsuario, $tipoUsuario);
         mysqli_stmt_fetch($sentencia);
 
-    if($contraseñaBDD == $contraseñaLogin){
+        if($contraseñaBDD == $contraseñaLogin){
             //echo $contraseñaBDD."<br>";
             //echo "Correcto";
             
@@ -94,6 +94,7 @@
             
         }
     }else{
+        
         echo "error";
     }
 

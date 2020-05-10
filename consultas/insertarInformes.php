@@ -22,7 +22,7 @@ if(isset($_POST)){
 $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
 //OBTENER EMPRESA
-    $sql = "SELECT ID_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM empresa WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
+    $sql = "SELECT ID_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $rutEmpresaCompleto = $row['RUT_EMPRESA']."-".$row['DV_EMPRESA'];
@@ -30,7 +30,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
     mysqli_free_result($resultado);
 
 //OBTENER BATERIAS DE EXAMENES
-    $sql = "SELECT NOMBRE_BATERIA_DE_EXAMENES FROM bateria_de_examenes INNER JOIN evaluacion_bateria_de_examenes ON bateria_de_examenes.ID_BATERIA_DE_EXAMENES = evaluacion_bateria_de_examenes.ID_BATERIA_DE_EXAMENES WHERE evaluacion_bateria_de_examenes.ID_EVALUACION = '$idEvaluacion'";
+    $sql = "SELECT NOMBRE_BATERIA_DE_EXAMENES FROM BATERIA_DE_EXAMENES INNER JOIN EVALUACION_BATERIA_DE_EXAMENES ON BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES = EVALUACION_BATERIA_DE_EXAMENES.ID_BATERIA_DE_EXAMENES WHERE EVALUACION_BATERIA_DE_EXAMENES.ID_EVALUACION = '$idEvaluacion'";
     $resultado = mysqli_query($conexion,$sql);
 
     $riesgos='';
@@ -44,7 +44,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
     mysqli_free_result($resultado);
 
 //OBTENER SIGNOS VITALES
-    $sql = "SELECT `FECHA`, `HORA` FROM `signos_vitales_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `signos_vitales_evaluacion`.`FECHA` DESC, `signos_vitales_evaluacion`.`HORA` DESC, `signos_vitales_evaluacion`.`ID_SIGNO_VITAL` ASC LIMIT 1";
+    $sql = "SELECT `FECHA`, `HORA` FROM `SIGNOS_VITALES_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `SIGNOS_VITALES_EVALUACION`.`FECHA` DESC, `SIGNOS_VITALES_EVALUACION`.`HORA` DESC, `SIGNOS_VITALES_EVALUACION`.`ID_SIGNO_VITAL` ASC LIMIT 1";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $fecha = $row['FECHA'];
@@ -52,7 +52,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
     mysqli_free_result($resultado);
 
-    $sql = "SELECT ID_SIGNO_VITAL, VALOR_SIGNO_VITAL FROM signos_vitales_evaluacion WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora' LIMIT 6";
+    $sql = "SELECT ID_SIGNO_VITAL, VALOR_SIGNO_VITAL FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora' LIMIT 6";
 
     $resultado = mysqli_query($conexion,$sql);
 
@@ -94,7 +94,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
 
 //OBTENER RECOMENDACIONES
-    $sql = "SELECT FECHA, HORA FROM recomendaciones_evaluacion WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_RECOMENDACIONES` ASC LIMIT 1";
+    $sql = "SELECT FECHA, HORA FROM RECOMENDACIONES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_RECOMENDACIONES` ASC LIMIT 1";
 
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
@@ -102,7 +102,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
     $hora = $row['HORA'];
 
 
-    $sql = "SELECT RECOMENDACIONES.RECOMENDACIONES FROM recomendaciones INNER JOIN recomendaciones_evaluacion ON RECOMENDACIONES.ID_RECOMENDACIONES = recomendaciones_evaluacion.ID_RECOMENDACIONES WHERE recomendaciones_evaluacion.ID_EVALUACION = '$idEvaluacion' AND recomendaciones_evaluacion.FECHA = '$fecha' AND recomendaciones_evaluacion.HORA = '$hora' LIMIT 7;";
+    $sql = "SELECT RECOMENDACIONES.RECOMENDACIONES FROM RECOMENDACIONES INNER JOIN RECOMENDACIONES_EVALUACION ON RECOMENDACIONES.ID_RECOMENDACIONES = RECOMENDACIONES_EVALUACION.ID_RECOMENDACIONES WHERE RECOMENDACIONES_EVALUACION.ID_EVALUACION = '$idEvaluacion' AND RECOMENDACIONES_EVALUACION.FECHA = '$fecha' AND RECOMENDACIONES_EVALUACION.HORA = '$hora' LIMIT 7;";
     $recomendaciones = '';
     $resultado = mysqli_query($conexion,$sql);
     while($row = mysqli_fetch_assoc($resultado)){
@@ -114,26 +114,26 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
 
 //OBTENER EXAMEN FISICO GENERAL
-    $sql = "SELECT FECHA, HORA FROM examen_fisico_evaluacion WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_EXAMEN_FISICO` ASC LIMIT 1";
+    $sql = "SELECT FECHA, HORA FROM EXAMEN_FISICO_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_EXAMEN_FISICO` ASC LIMIT 1";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $fecha = $row['FECHA'];
     $hora = $row['HORA'];
 
-    $sql = "SELECT VALOR_EXAMEN_FISICO FROM examen_fisico_evaluacion WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora' LIMIT 1";
+    $sql = "SELECT VALOR_EXAMEN_FISICO FROM EXAMEN_FISICO_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora' LIMIT 1";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $examenFisicoGeneral = utf8_encode($row['VALOR_EXAMEN_FISICO']);
     
 
 //OBTENER CONCLUSIÓN MÉDICA
-    $sql = "SELECT FECHA, HORA FROM conclusion_medica_evaluacion WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_CONCLUSION_MEDICA` ASC LIMIT 1";
+    $sql = "SELECT FECHA, HORA FROM CONCLUSION_MEDICA_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_CONCLUSION_MEDICA` ASC LIMIT 1";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $fecha = $row['FECHA'];
     $hora = $row['HORA'];
 
-    $sql = "SELECT TEXTO_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA INNER JOIN conclusion_medica_evaluacion ON conclusion_medica.ID_CONCLUSION_MEDICA = conclusion_medica_evaluacion.ID_CONCLUSION_MEDICA WHERE ID_EVALUACION = '$idEvaluacion' AND HORA = '$hora' AND FECHA = '$fecha' LIMIT 1";
+    $sql = "SELECT TEXTO_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA INNER JOIN CONCLUSION_MEDICA_EVALUACION ON CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA = CONCLUSION_MEDICA_EVALUACION.ID_CONCLUSION_MEDICA WHERE ID_EVALUACION = '$idEvaluacion' AND HORA = '$hora' AND FECHA = '$fecha' LIMIT 1";
     
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
@@ -170,7 +170,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
     
 
-    $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN evaluacion_examen ON examen.ID_EXAMEN = evaluacion_examen.ID_EXAMEN WHERE evaluacion_examen.ID_EVALUACION ='$idEvaluacion'";
+    $sql = "SELECT EXAMEN.NOMBRE_EXAMEN FROM EXAMEN INNER JOIN EVALUACION_EXAMEN ON EXAMEN.ID_EXAMEN = EVALUACION_EXAMEN.ID_EXAMEN WHERE EVALUACION_EXAMEN.ID_EVALUACION ='$idEvaluacion'";
 
     $resultado = mysqli_query($conexion,$sql);
     $i=0;
@@ -198,12 +198,12 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
         $observaciones = 'Sin observaciones';
         $estado = 'Sin evaluar';
 
-        $sql = "SELECT parametro.ID_PARAMETRO, evaluacion_parametro.VALOR_PARAMETRO 
+        $sql = "SELECT PARAMETRO.ID_PARAMETRO, EVALUACION_PARAMETRO.VALOR_PARAMETRO 
         FROM EVALUACION_PARAMETRO 
-        INNER JOIN parametro
-        ON evaluacion_parametro.ID_PARAMETRO = parametro.ID_PARAMETRO
-        INNER JOIN examen
-        ON parametro.ID_EXAMEN = examen.ID_EXAMEN
+        INNER JOIN PARAMETRO
+        ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO
+        INNER JOIN EXAMEN
+        ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
         WHERE "  ;  
 
         switch($examen)
@@ -771,7 +771,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
      "Codigo descarga empresa $codigoEmpresa ". strlen($codigoEmpresa) . "<br>".
      "CadenaExamenes: $cadenaExamenes"; */
      
-$sql = "INSERT INTO `informes`(
+$sql = "INSERT INTO `INFORMES`(
     `ID_EVALUACION`, 
     `ID_EMPRESA`, 
     `FECHA_VALIDEZ`, 

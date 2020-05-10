@@ -410,7 +410,7 @@ function nuevoExamen(){
         
         session_start();
         date_default_timezone_set("America/Santiago");  
-        
+        $valido = 'false';
         $row = mysqli_fetch_assoc($resultado);
         
         $fechaNacimiento = new DateTime($row['FECHA_NACIMIENTO_TRABAJADOR']);
@@ -419,7 +419,6 @@ function nuevoExamen(){
         $edadAños = $edad->y;
         $edadMeses = $edad->m;
         $edadDias = $edad->d;
-        
 
         $_SESSION['idTrabajador'] = $row['ID_TRABAJADOR'];
         $idTrabajador = $row['ID_TRABAJADOR'];
@@ -446,13 +445,12 @@ function nuevoExamen(){
 
         $sql = "INSERT INTO EVALUACION (ID_TRABAJADOR, PENDIENTE_REVISION_MEDICA, ID_USUARIO,FECHA_CREACION,HORA_CREACION) VALUES ('$idTrabajador','true','$idUsuario','$fechaActual','$horaActual')";
         
-        if(mysqli_query($conexion,$sql)){
-          
-            $valido = 'true';
-          
-        } 
+        //echo $sql;
 
-        $valido = 'true';
+        if(mysqli_query($conexion,$sql)){
+            $valido = 'true';
+        } 
+        //$valido = 'true';
         
         
         //$row = mysqli_fetch_row($resultado);
@@ -571,7 +569,7 @@ function signosVitales(){
         
 
 
-    $sql = "INSERT INTO `signos_vitales_evaluacion` (`ID_SIGNO_VITAL`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_SIGNO_VITAL`) VALUES 
+    $sql = "INSERT INTO SIGNOS_VITALES_EVALUACION (`ID_SIGNO_VITAL`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_SIGNO_VITAL`) VALUES 
     ('1', '$idEvaluacion', '$fechaExamen','$horaExamen','$pulso'), 
     ('2', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionDiastolica'), 
     ('3', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionSistolica'), 
@@ -581,7 +579,7 @@ function signosVitales(){
 
     if(mysqli_query($conexion,$sql)){
 
-      $sql = "UPDATE `evaluacion` SET `PENDIENTE_REVISION_MEDICA`='0' WHERE ID_EVALUACION = '$idEvaluacion'";
+      $sql = "UPDATE EVALUACION SET `PENDIENTE_REVISION_MEDICA`='0' WHERE ID_EVALUACION = '$idEvaluacion'";
       
       if(mysqli_query($conexion,$sql)){
         echo 'true';
@@ -2122,7 +2120,7 @@ function ingresarAnamnesis(){
     $fechaActual = obtenerFechaActual();
     $horaActual = obtenerHoraActual();
 
-    $sql = "INSERT INTO `anamnesis_evaluacion`(`ID_ANAMNESIS`, `ID_EVALUACION`, `FECHA`, `HORA`, `TEXTO_ANAMNESIS`) VALUES 
+    $sql = "INSERT INTO `ANAMNESIS_EVALUACION`(`ID_ANAMNESIS`, `ID_EVALUACION`, `FECHA`, `HORA`, `TEXTO_ANAMNESIS`) VALUES 
     ('1','$idEvaluacion','$fechaActual','$horaActual','$anamnesis');";
 
     //$sql = "UPDATE EVALUACION SET ANAMNESIS = '$anamnesis' WHERE ID_EVALUACION = '$idEvaluacion'";
@@ -2162,7 +2160,7 @@ function ingresarExamenFisico(){
     $fechaActual = obtenerFechaActual();
     
     //UPDATE tabla SET campo = ‘valor’, campo2 = ‘valor2’ WHERE condición
-   $sql = "INSERT INTO `examen_fisico_evaluacion`(`ID_EXAMEN_FISICO`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_EXAMEN_FISICO`) VALUES 
+   $sql = "INSERT INTO `EXAMEN_FISICO_EVALUACION`(`ID_EXAMEN_FISICO`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_EXAMEN_FISICO`) VALUES 
    ('1','$idEvaluacion','$fechaActual','$horaActual','$examenFisicoGeneral'),
    ('2','$idEvaluacion','$fechaActual','$horaActual','$cabeza'),
    ('3','$idEvaluacion','$fechaActual','$horaActual','$torax'),
@@ -2257,7 +2255,7 @@ function ingresarConclusionMedica(){
       break;
     }
 
-    $sql = "INSERT INTO `conclusion_medica_evaluacion`(`ID_CONCLUSION_MEDICA`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES 
+    $sql = "INSERT INTO `CONCLUSION_MEDICA_EVALUACION`(`ID_CONCLUSION_MEDICA`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES 
     ('$idConclusionMedica','$idEvaluacion','$fechaActual','$horaActual')";
 
     /* $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$texto' WHERE ID_EVALUACION = '$idEvaluacion'";
@@ -2288,7 +2286,7 @@ function ingresarRecomendaciones(){
   $fechaActual = obtenerFechaActual();
 
 
-  $sql = "INSERT INTO `recomendaciones_evaluacion`(`ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES ";
+  $sql = "INSERT INTO `RECOMENDACIONES_EVALUACION`(`ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES ";
 
   foreach ($_POST['seleccionado'] as $selected){
 

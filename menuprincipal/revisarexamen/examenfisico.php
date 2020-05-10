@@ -3,12 +3,12 @@ session_start();
 include '../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
-$tabla = "examen_fisico_evaluacion";
+$tabla = "EXAMEN_FISICO_EVALUACION";
 $campoId = "ID_EXAMEN_FISICO";  
 
 /* $sql = "SELECT EXAMEN_FISICO_GENERAL, CABEZA, TORAX, ABDOMEN, EXTREMIDADES_SUPERIORES, EXTREMIDADES_INFERIORES, COLUMNA_GENERAL FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
 
-$sql = "SELECT ID_EXAMEN_FISICO, VALOR_EXAMEN_FISICO FROM `examen_fisico_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_EXAMEN_FISICO` ASC LIMIT 7";
+$sql = "SELECT ID_EXAMEN_FISICO, VALOR_EXAMEN_FISICO FROM `EXAMEN_FISICO_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_EXAMEN_FISICO` ASC LIMIT 7";
 
 $examenFisicoGeneral = '';
 $cabeza = '';

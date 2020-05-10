@@ -10,6 +10,8 @@ $fecha = $_SESSION['fecha'];
 $hora = $_SESSION['hora'];
 $idEvaluacion = $_SESSION['idEvaluacion'];
 
+//echo $fecha ."-" .$hora;
+
 $sql = "SELECT * FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'";
     //echo $sql;
     $resultado = mysqli_query($conexion,$sql);
@@ -38,7 +40,7 @@ $sql = "SELECT * FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA =
     $codigoDescargaEmpresa = $row['CODIGO_DESCARGA_EMPRESA'];
     $codigoDescargaTrabajador = $row['CODIGO_DESCARGA_TRABAJADOR'];
 
-
+//echo $cadenaExamenes;
 mysqli_free_result($resultado);
 
 $sql = "SELECT NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
@@ -123,9 +125,12 @@ while($row = mysqli_fetch_assoc($resultado)){
 /* $cadenaBateriaDeExamenes = substr($cadenaBateriaDeExamenes,0,-2);
 mysqli_free_result($resultado); */
 
-/* 
-$fecha = date("d/m/Y");
-$validoHasta = date("m/d/Y",strtotime($fecha."+ 1 year")); */
+ 
+$fecha = date("d/m/Y",strtotime($fecha));
+$fechaValidez = date("d/m/Y",strtotime($fechaValidez));  
+
+
+//$fechaDMA = date("d-m-Y",strtotime($fecha));
 
 
 $html = "<table>
@@ -346,14 +351,14 @@ $html .= "
 
 //$nombreSalida = $trabajador.".php";
 
- $mpdf = new \Mpdf\Mpdf();
+$mpdf = new \Mpdf\Mpdf();
 
 $mpdf->AddPage('', // L - landscape, P - portrait 
 '', '', '', '',
 15, // margin_left
 15, // margin right
 15, // margin top
-25, // margin bottom
+30, // margin bottom
 5, // margin header
 5); // margin footer
 
@@ -369,10 +374,10 @@ $mpdf->SetHTMLFooter("
     <tr>
 </table>
 ");
-$mpdf->WriteHTML($html);
+$mpdf->WriteHTML($html); 
 
 
 
-$mpdf->Output(); 
+$mpdf->Output();
 
 ?>

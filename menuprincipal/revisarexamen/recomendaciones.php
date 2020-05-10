@@ -3,21 +3,21 @@ session_start();
 include '../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
-$tabla = "recomendaciones_evaluacion";
+$tabla = "RECOMENDACIONES_EVALUACION";
 $campoId = "ID_RECOMENDACIONES";  
 
 
 
 /* $sql = "SELECT EXAMEN_FISICO_GENERAL, CABEZA, TORAX, ABDOMEN, EXTREMIDADES_SUPERIORES, EXTREMIDADES_INFERIORES, COLUMNA_GENERAL FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
 
-$sql = "SELECT FECHA, HORA FROM `recomendaciones_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_RECOMENDACIONES` ASC LIMIT 1";
+$sql = "SELECT FECHA, HORA FROM `RECOMENDACIONES_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC, `ID_RECOMENDACIONES` ASC LIMIT 1";
 
 $resultado = mysqli_query($conexion,$sql);
 $row = mysqli_fetch_assoc($resultado);
 $fecha = $row['FECHA'];
 $hora = $row['HORA'];
 
-$sql = "SELECT `ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA` FROM `recomendaciones_evaluacion` WHERE FECHA = '$fecha' AND HORA = '$hora' AND ID_EVALUACION ='$idEvaluacion'";
+$sql = "SELECT `ID_RECOMENDACIONES`, `ID_EVALUACION`, `FECHA`, `HORA` FROM `RECOMENDACIONES_EVALUACION` WHERE FECHA = '$fecha' AND HORA = '$hora' AND ID_EVALUACION ='$idEvaluacion'";
 
 $resultado = mysqli_query($conexion,$sql);
 

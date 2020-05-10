@@ -8,9 +8,13 @@ while($row = mysqli_fetch_assoc($resultado)){
                                             
     $fecha = $row['FECHA'];
     $hora = $row['HORA'];
-    $fechaHora = $fecha . " " . $hora;
+    //$fechaHora = $fecha . " " . $hora;
+    $fechaDMA = date("d-m-Y",strtotime($fecha));
+                            
+                            $fechaHora = $fecha . " " . $hora;
+                            $fechaHoraDMA = $fechaDMA . " " . $hora;
 ?>        
 
-<option value="<?=$fechaHora?>"><?=$fechaHora?></option>
+<option value="<?=$fechaHora?>"><?=$fechaHoraDMA?></option>
                                        
 <?php } ?>

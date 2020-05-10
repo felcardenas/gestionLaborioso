@@ -3,12 +3,12 @@ session_start();
 include '../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
-$tabla = "conclusion_medica_evaluacion";
+$tabla = "CONCLUSION_MEDICA_EVALUACION";
 $campoId = "ID_CONCLUSION_MEDICA";  
 
 
 $sql = "SELECT CONCLUSION_MEDICA.NOMBRE_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA WHERE ID_CONCLUSION_MEDICA = (
-    SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC LIMIT 1)";
+    SELECT ID_CONCLUSION_MEDICA FROM `CONCLUSION_MEDICA_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `CONCLUSION_MEDICA_EVALUACION`.`FECHA` DESC, `CONCLUSION_MEDICA_EVALUACION`.`HORA` DESC LIMIT 1)";
 
 $conclusionMedica = '';
 

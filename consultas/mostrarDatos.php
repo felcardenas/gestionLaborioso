@@ -213,8 +213,8 @@ function enviar($idExamen,$limit){
   $sql = "SELECT VALOR_PARAMETRO 
   FROM EVALUACION_PARAMETRO 
   INNER JOIN PARAMETRO 
-  ON evaluacion_parametro.ID_PARAMETRO = parametro.ID_PARAMETRO
-  WHERE evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND PARAMETRO.ID_EXAMEN = '$idExamen' AND FECHA = '$fecha' AND HORA = '$hora' ORDER BY FECHA DESC LIMIT $limit;";
+  ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO
+  WHERE EVALUACION_PARAMETRO.ID_EVALUACION = '$idEvaluacion' AND PARAMETRO.ID_EXAMEN = '$idExamen' AND FECHA = '$fecha' AND HORA = '$hora' ORDER BY FECHA DESC LIMIT $limit;";
 
     if ($resultado = mysqli_query($conexion, $sql)) {
       while ($fila = mysqli_fetch_assoc($resultado)) {

@@ -63,8 +63,8 @@ function selectAnamnesis(){
     $fecha = $cadenaFechaHora[0];
     $hora = $cadenaFechaHora[1];
 
-    $sql=  "SELECT TEXTO_ANAMNESIS FROM `anamnesis_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
-    ORDER BY `anamnesis_evaluacion`.`FECHA` DESC, `anamnesis_evaluacion`.`HORA` DESC, `anamnesis_evaluacion`.`ID_ANAMNESIS` ASC LIMIT 1";
+    $sql=  "SELECT TEXTO_ANAMNESIS FROM `ANAMNESIS_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
+    ORDER BY `ANAMNESIS_EVALUACION`.`FECHA` DESC, `ANAMNESIS_EVALUACION`.`HORA` DESC, `ANAMNESIS_EVALUACION`.`ID_ANAMNESIS` ASC LIMIT 1";
 
     if ($resultado = mysqli_query($conexion, $sql)) {
         while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -102,8 +102,8 @@ function selectExamenFisico(){
     $fecha = $cadenaFechaHora[0];
     $hora = $cadenaFechaHora[1];
 
-    $sql=  "SELECT VALOR_EXAMEN_FISICO FROM `examen_fisico_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
-    ORDER BY `examen_fisico_evaluacion`.`FECHA` DESC, `examen_fisico_evaluacion`.`HORA` DESC, `examen_fisico_evaluacion`.`ID_EXAMEN_FISICO` ASC LIMIT 7";
+    $sql=  "SELECT VALOR_EXAMEN_FISICO FROM `EXAMEN_FISICO_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
+    ORDER BY `EXAMEN_FISICO_EVALUACION`.`FECHA` DESC, `EXAMEN_FISICO_EVALUACION`.`HORA` DESC, `EXAMEN_FISICO_EVALUACION`.`ID_EXAMEN_FISICO` ASC LIMIT 7";
 
     if ($resultado = mysqli_query($conexion, $sql)) {
         while ($fila = mysqli_fetch_assoc($resultado)) {
@@ -111,7 +111,7 @@ function selectExamenFisico(){
         } 
       /* liberar el conjunto de resultados */
       //mysqli_free_result($resultado);
-      }   
+    }   
   
     
     echo json_encode($array); // Parse to JSON and print.
@@ -141,20 +141,32 @@ function selectConclusionMedica(){
 
       
   
-      $sql = "SELECT `ID_CONCLUSION_MEDICA`,`NOMBRE_CONCLUSION_MEDICA` FROM `conclusion_medica` WHERE CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA = (SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
-      ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC, `conclusion_medica_evaluacion`.`ID_CONCLUSION_MEDICA` ASC)";
+      $sql = "SELECT `ID_CONCLUSION_MEDICA`,`NOMBRE_CONCLUSION_MEDICA` 
+      FROM `CONCLUSION_MEDICA` 
+      WHERE CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA = (
+        SELECT ID_CONCLUSION_MEDICA 
+        FROM `CONCLUSION_MEDICA_EVALUACION` 
+        WHERE ID_EVALUACION = '$idEvaluacion'
+        AND `FECHA` = '$fecha' 
+        AND `HORA` = '$hora' 
+        ORDER BY `CONCLUSION_MEDICA_EVALUACION`.`FECHA` DESC, 
+        `CONCLUSION_MEDICA_EVALUACION`.`HORA` DESC, 
+        `CONCLUSION_MEDICA_EVALUACION`.`ID_CONCLUSION_MEDICA` ASC)";
 
        /* $sql=  "SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
       ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC, `conclusion_medica_evaluacion`.`ID_EXAMEN_FISICO` ASC LIMIT 7";  */
-  
+      $i=0;
       if ($resultado = mysqli_query($conexion, $sql)) {
           while ($row = mysqli_fetch_assoc($resultado)) {
+              
               $array[]= $row;
+              
+               
           } 
         /* liberar el conjunto de resultados */
         //mysqli_free_result($resultado);
         }   
-    
+        
       
       echo json_encode($array); // Parse to JSON and print.*/
       
@@ -176,23 +188,22 @@ function selectRecomendaciones(){
     /* $sql = "SELECT EXAMEN_FISICO_GENERAL, CABEZA, TORAX, ABDOMEN, EXTREMIDADES_SUPERIORES, EXTREMIDADES_INFERIORES, COLUMNA_GENERAL FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
 
     
-    $sql = "SELECT `ID_CONCLUSION_MEDICA`,`NOMBRE_CONCLUSION_MEDICA` FROM `conclusion_medica` WHERE CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA = (SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
-    ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC, `conclusion_medica_evaluacion`.`ID_CONCLUSION_MEDICA` ASC)";
+    //$sql = "SELECT `ID_CONCLUSION_MEDICA`,`NOMBRE_CONCLUSION_MEDICA` FROM `conclusion_medica` WHERE CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA = (SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora' ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC, `conclusion_medica_evaluacion`.`ID_CONCLUSION_MEDICA` ASC)";
 
     /* $sql=  "SELECT ID_CONCLUSION_MEDICA FROM `conclusion_medica_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'
     ORDER BY `conclusion_medica_evaluacion`.`FECHA` DESC, `conclusion_medica_evaluacion`.`HORA` DESC, `conclusion_medica_evaluacion`.`ID_EXAMEN_FISICO` ASC LIMIT 7"; */
 
-    if ($resultado = mysqli_query($conexion, $sql)) {
-        while ($row = mysqli_fetch_assoc($resultado)) {
-            $array[]= $row;
-        } 
+    //if ($resultado = mysqli_query($conexion, $sql)) {
+      //  while ($row = mysqli_fetch_assoc($resultado)) {
+        //    $array[]= $row;
+        //} 
       /* liberar el conjunto de resultados */
       //mysqli_free_result($resultado);
-      }   
+      //}   
 
     //var_dump($array);
 
-    $sql = "SELECT `ID_RECOMENDACIONES`, `ID_EVALUACION` FROM `recomendaciones_evaluacion` WHERE FECHA = '$fecha' AND HORA = '$hora' AND ID_EVALUACION ='$idEvaluacion'";
+    $sql = "SELECT `ID_RECOMENDACIONES`, `ID_EVALUACION` FROM `RECOMENDACIONES_EVALUACION` WHERE FECHA = '$fecha' AND HORA = '$hora' AND ID_EVALUACION ='$idEvaluacion'";
 
     $resultado = mysqli_query($conexion,$sql);
 
@@ -317,8 +328,8 @@ function enviar($idExamen,$limit){
   $sql = "SELECT VALOR_PARAMETRO 
   FROM EVALUACION_PARAMETRO 
   INNER JOIN PARAMETRO 
-  ON evaluacion_parametro.ID_PARAMETRO = parametro.ID_PARAMETRO
-  WHERE evaluacion_parametro.ID_EVALUACION = '$idEvaluacion' AND PARAMETRO.ID_EXAMEN = '$idExamen' AND FECHA = '$fecha' AND HORA = '$hora' ORDER BY FECHA DESC LIMIT $limit;";
+  ON EVALUACION_PARAMETRO.ID_PARAMETRO = parametro.ID_PARAMETRO
+  WHERE EVALUACION_PARAMETRO.ID_EVALUACION = '$idEvaluacion' AND PARAMETRO.ID_EXAMEN = '$idExamen' AND FECHA = '$fecha' AND HORA = '$hora' ORDER BY FECHA DESC LIMIT $limit;";
 
     if ($resultado = mysqli_query($conexion, $sql)) {
       while ($fila = mysqli_fetch_assoc($resultado)) {

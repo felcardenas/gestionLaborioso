@@ -5,13 +5,13 @@ include '../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
 
 //VARIABLES QUE VAN A SELECTDATOSANTERIORES
-$tabla = "anamnesis_evaluacion";
+$tabla = "ANAMNESIS_EVALUACION";
 $campoId = "ID_ANAMNESIS";  
 
 //$sql = "SELECT ANAMNESIS FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
 
-$sql=  "SELECT ID_ANAMNESIS, TEXTO_ANAMNESIS FROM `anamnesis_evaluacion` WHERE ID_EVALUACION = '$idEvaluacion'
-ORDER BY `anamnesis_evaluacion`.`FECHA` DESC, `anamnesis_evaluacion`.`HORA` DESC, `anamnesis_evaluacion`.`ID_ANAMNESIS` ASC LIMIT 1";
+$sql=  "SELECT ID_ANAMNESIS, TEXTO_ANAMNESIS FROM `ANAMNESIS_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion'
+ORDER BY `ANAMNESIS_EVALUACION`.`FECHA` DESC, `ANAMNESIS_EVALUACION`.`HORA` DESC, `ANAMNESIS_EVALUACION`.`ID_ANAMNESIS` ASC LIMIT 1";
 
 $anamnesis = '';
 

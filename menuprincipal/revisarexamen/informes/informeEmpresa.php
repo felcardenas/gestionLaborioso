@@ -27,7 +27,11 @@ $sql = "SELECT ID_EMPRESA, FECHA_VALIDEZ, FECHA, NOMBRE_MEDICO, NOMBRE_TRABAJADO
     $cadenaExamenes = $row['CADENA_EXAMENES'];
     $conclusionMedica = $row['CONCLUSION_MEDICA'];
     $codigoDescargaEmpresa = $row['CODIGO_DESCARGA_EMPRESA'];
-    
+
+        
+    $fecha = date("d/m/Y",strtotime($fecha));
+    $fechaValidez = date("d/m/Y",strtotime($fechaValidez));  
+        
 
 
 mysqli_free_result($resultado);
