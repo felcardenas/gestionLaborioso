@@ -451,55 +451,54 @@ while($row = mysqli_fetch_assoc($resultado)){
 
     <?php include 'estado.php' ?>
 
-    
     <div class="row justify-content-center mb-5">
         <div class="col-2 mb-4">V.A.OD</div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD125" name="VAOD125" maxlength="3" value="<?=$VAOD125?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD250" name="VAOD250" maxlength="3" value="<?=$VAOD250?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD500" name="VAOD500" maxlength="3" value="<?=$VAOD500?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD1000" name="VAOD1000" maxlength="3" value="<?=$VAOD1000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD2000" name="VAOD2000" maxlength="3" value="<?=$VAOD2000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD3000" name="VAOD3000" maxlength="3" value="<?=$VAOD3000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD4000" name="VAOD4000" maxlength="3" value="<?=$VAOD4000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD6000" name="VAOD6000" maxlength="3" value="<?=$VAOD6000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOD8000" name="VAOD8000" maxlength="3" value="<?=$VAOD8000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD125" name="VAOD125" maxlength="3" value="<?=$VAOD125?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD250" name="VAOD250" maxlength="3" value="<?=$VAOD250?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD500" name="VAOD500" maxlength="3" value="<?=$VAOD500?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD1000" name="VAOD1000" maxlength="3" value="<?=$VAOD1000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD2000" name="VAOD2000" maxlength="3" value="<?=$VAOD2000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD3000" name="VAOD3000" maxlength="3" value="<?=$VAOD3000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD4000" name="VAOD4000" maxlength="3" value="<?=$VAOD4000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD6000" name="VAOD6000" maxlength="3" value="<?=$VAOD6000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOD8000" name="VAOD8000" maxlength="3" value="<?=$VAOD8000?>" onkeyup="graficoAudiometria()"></div>
         <div class="col-1"></div>
 
         <div class="col-2 mb-4">V.A.OI</div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI125" name="VAOI125" maxlength="3" value="<?=$VAOI125?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI250" name="VAOI250" maxlength="3" value="<?=$VAOI250?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI500" name="VAOI500" maxlength="3" value="<?=$VAOI500?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI1000" name="VAOI1000" maxlength="3" value="<?=$VAOI1000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI2000" name="VAOI2000" maxlength="3" value="<?=$VAOI2000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI3000" name="VAOI3000" maxlength="3" value="<?=$VAOI3000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI4000" name="VAOI4000" maxlength="3" value="<?=$VAOI4000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI6000" name="VAOI6000" maxlength="3" value="<?=$VAOI6000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VAOI8000" name="VAOI8000" maxlength="3" value="<?=$VAOI8000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI125" name="VAOI125" maxlength="3" value="<?=$VAOI125?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI250" name="VAOI250" maxlength="3" value="<?=$VAOI250?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI500" name="VAOI500" maxlength="3" value="<?=$VAOI500?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI1000" name="VAOI1000" maxlength="3" value="<?=$VAOI1000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI2000" name="VAOI2000" maxlength="3" value="<?=$VAOI2000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI3000" name="VAOI3000" maxlength="3" value="<?=$VAOI3000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI4000" name="VAOI4000" maxlength="3" value="<?=$VAOI4000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI6000" name="VAOI6000" maxlength="3" value="<?=$VAOI6000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VAOI8000" name="VAOI8000" maxlength="3" value="<?=$VAOI8000?>" onkeyup="graficoAudiometria()"></div>
         <div class="col-1"></div>
 
 
         <div class="col-2 mb-4">V.O.OD</div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD125" name="VOOD125" maxlength="3" value="<?=$VOOD125?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD250" name="VOOD250" maxlength="3" value="<?=$VOOD250?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD500" name="VOOD500" maxlength="3" value="<?=$VOOD500?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD1000" name="VOOD1000" maxlength="3" value="<?=$VOOD1000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD2000" name="VOOD2000" maxlength="3" value="<?=$VOOD2000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD3000" name="VOOD3000" maxlength="3" value="<?=$VOOD3000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD4000" name="VOOD4000" maxlength="3" value="<?=$VOOD4000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD6000" name="VOOD6000" maxlength="3" value="<?=$VOOD6000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOD8000" name="VOOD8000" maxlength="3" value="<?=$VOOD8000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD125" name="VOOD125" maxlength="3" value="<?=$VOOD125?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD250" name="VOOD250" maxlength="3" value="<?=$VOOD250?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD500" name="VOOD500" maxlength="3" value="<?=$VOOD500?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD1000" name="VOOD1000" maxlength="3" value="<?=$VOOD1000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD2000" name="VOOD2000" maxlength="3" value="<?=$VOOD2000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD3000" name="VOOD3000" maxlength="3" value="<?=$VOOD3000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD4000" name="VOOD4000" maxlength="3" value="<?=$VOOD4000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD6000" name="VOOD6000" maxlength="3" value="<?=$VOOD6000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOD8000" name="VOOD8000" maxlength="3" value="<?=$VOOD8000?>" onkeyup="graficoAudiometria()"></div>
         <div class="col-1"></div>
 
         <div class="col-2 mb-4">V.O.OI</div>
-        <div class="col-1"><input class="form-control" type="text" id='VOOI125' name='VOOI125' maxlength="3" value="<?=$VOOI125?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id='VOOI250' name='VOOI250' maxlength="3" value="<?=$VOOI250?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI500" name="VOOI500" maxlength="3" value="<?=$VOOI500?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI1000" name="VOOI1000" maxlength="3" value="<?=$VOOI1000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI2000" name="VOOI2000" maxlength="3" value="<?=$VOOI2000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI3000" name="VOOI3000" maxlength="3" value="<?=$VOOI3000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI4000" name="VOOI4000" maxlength="3" value="<?=$VOOI4000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI6000" name="VOOI6000" maxlength="3" value="<?=$VOOI6000?>" onkeyup="graficoAudiometria()"></div>
-        <div class="col-1"><input class="form-control" type="text" id="VOOI8000" name="VOOI8000" maxlength="3" value="<?=$VOOI8000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id='VOOI125' name='VOOI125' maxlength="3" value="<?=$VOOI125?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id='VOOI250' name='VOOI250' maxlength="3" value="<?=$VOOI250?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI500" name="VOOI500" maxlength="3" value="<?=$VOOI500?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI1000" name="VOOI1000" maxlength="3" value="<?=$VOOI1000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI2000" name="VOOI2000" maxlength="3" value="<?=$VOOI2000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI3000" name="VOOI3000" maxlength="3" value="<?=$VOOI3000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI4000" name="VOOI4000" maxlength="3" value="<?=$VOOI4000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI6000" name="VOOI6000" maxlength="3" value="<?=$VOOI6000?>" onkeyup="graficoAudiometria()"></div>
+        <div class="col-1"><input class="form-control" style="width: 60px;" type="text" id="VOOI8000" name="VOOI8000" maxlength="3" value="<?=$VOOI8000?>" onkeyup="graficoAudiometria()"></div>
         <div class="col-1"></div>
 
         <div class="col-2">Hz</div>
