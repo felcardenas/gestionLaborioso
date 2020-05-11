@@ -23,65 +23,78 @@ $estado = 'Sin evaluar';
 $observaciones = '';
 
 $resultado = mysqli_query($conexion,$sql);
-
-
-while($row = mysqli_fetch_assoc($resultado)){
-    
-    $idParametro = $row['ID_PARAMETRO'];
-    
-    switch($idParametro){
-
-        case '43':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $P1 = $valorParametro;
-        break;   
-            
-        case '44':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $P2 = $valorParametro;
-        break;
-
-        case '45':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $P3 = $valorParametro;
-        break;
+if(mysqli_num_rows($resultado) > 0){
+    while($row = mysqli_fetch_assoc($resultado)){
         
-        case '47':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $observaciones = $valorParametro;
-        break;   
+        $idParametro = $row['ID_PARAMETRO'];
+        
+        switch($idParametro){
+
+            case '43':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $P1 = $valorParametro;
+            break;   
+                
+            case '44':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $P2 = $valorParametro;
+            break;
+
+            case '45':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $P3 = $valorParametro;
+            break;
             
-        case '48':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $estado = $valorParametro;
-        break;
+            case '47':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $observaciones = $valorParametro;
+            break;   
+                
+            case '48':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $estado = $valorParametro;
+            break;
+        }
+    
     }
-   
-}
+
+    $valor = ($P1 + $P2 + $P3-200)/10; 
+
+    if(!is_numeric($valor)){
+        $texto = 'INVÁLIDO';
+    }
+
+    if($P1 == '' || $P2 == '' || $P3 ==''){
+        $texto = 'INVÁLIDO';
+    }
+
+    if($valor <= 0){
+        $texto = 'EXCELENTE';
+    }else if($valor >= 0.1 && $valor <= 5){
+        $texto = 'BUENO';
+    }else if($valor >= 5.1 && $valor <= 10){
+        $texto = 'MEDIO';
+    }else if($valor >= 10.1 && $valor <= 15){
+        $texto = 'INSUFICIENTE';
+    }else if($valor >= 15.1){
+        $texto = 'MALO';
+    }
 
 
-
-$valor = ($P1 + $P2 + $P3-200)/10; 
-
-if(!is_numeric($valor)){
+}else{
+    $P1 = 0;
+    $P2 = 0;
+    $P3 = 0;
+    $valor = 0;
     $texto = 'INVÁLIDO';
+
+    $estado = 'Sin evaluar';
+    $observaciones = '';
 }
 
-if($P1 == '' || $P2 == '' || $P3 ==''){
-    $texto = 'INVÁLIDO';
-}
 
-if($valor <= 0){
-    $texto = 'EXCELENTE';
-}else if($valor >= 0.1 && $valor <= 5){
-    $texto = 'BUENO';
-}else if($valor >= 5.1 && $valor <= 10){
-    $texto = 'MEDIO';
-}else if($valor >= 10.1 && $valor <= 15){
-    $texto = 'INSUFICIENTE';
-}else if($valor >= 15.1){
-    $texto = 'MALO';
-}
+
+
 
 ?>
 <div class="container" >

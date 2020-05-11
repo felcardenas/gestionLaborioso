@@ -28,7 +28,6 @@
                         echo "selected";
                     }
                 ?>
-
                 >Alterado</option>
 
                 

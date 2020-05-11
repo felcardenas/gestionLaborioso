@@ -775,46 +775,32 @@ function ingresarEspirometriaBasal(){
     $fechaActual = obtenerFechaActual();
     $horaActual = obtenerHoraActual();
 
-    $cvflPromedio = $_POST['cvflPromedio'];
+    /* $cvflPromedio = $_POST['cvflPromedio'];
     $cvflLimiteInferior = $_POST['cvflLimiteInferior'];
     $vef1lPromedio = $_POST['vef1lPromedio'];
     $vef1lLimiteInferior = $_POST['vef1lLimiteInferior'];
     $fef2575Promedio = $_POST['fef2575Promedio'];
     $fef2575LimiteInferior = $_POST['fef2575LimiteInferior'];
     $vef1cvfPromedio = $_POST['vef1cvfPromedio'];
-    $vef1cvfLimiteInferior = $_POST['vef1cvfLimiteInferior'];
+    $vef1cvfLimiteInferior = $_POST['vef1cvfLimiteInferior']; */
 
     $absoluto1 = $_POST['absoluto1'];    
-    $teorico1 = $_POST['teorico1'];
+    $teorico1 = round($absoluto1*100/4.67,2);
     $absoluto2 = $_POST['absoluto2'];
-    $teorico2 = $_POST['teorico2'];
+    $teorico2 = round($absoluto2*100/3.89,2);
     $absoluto3 = $_POST['absoluto3'];
-    $teorico3 = $_POST['teorico3'];
-    $absoluto4 = $_POST['absoluto4'];
+    $teorico3 = round($absoluto3*100/4.19,2);
+    $absoluto4 = round($absoluto2/$absoluto1,2);
+    $estado = $_POST['estado'];
+    //$absoluto4 = $_POST['absoluto4'];
         
     $observaciones = $_POST['observaciones'];
-    $estado = 'Sin evaluar';
+    //$estado = 'Sin evaluar';
 
     
     //$estado = $_POST['estado'];
     
-    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','6','$fechaActual','$horaActual','$cvflPromedio'), ";
-
-    $sql .= "('$idEvaluacion','7','$fechaActual','$horaActual','$cvflLimiteInferior'), ";
-
-    $sql .= "('$idEvaluacion','8','$fechaActual','$horaActual','$vef1lPromedio'), ";
-
-    $sql .= "('$idEvaluacion','9','$fechaActual','$horaActual','$vef1lLimiteInferior'), ";
-
-    $sql .= "('$idEvaluacion','10','$fechaActual','$horaActual','$fef2575Promedio'), ";
-
-    $sql .= "('$idEvaluacion','11','$fechaActual','$horaActual','$fef2575LimiteInferior'), ";
-
-    $sql .= "('$idEvaluacion','12','$fechaActual','$horaActual','$vef1cvfPromedio'), ";
-
-    $sql .= "('$idEvaluacion','13','$fechaActual','$horaActual','$vef1cvfLimiteInferior'), ";
-
-    $sql .= "('$idEvaluacion','14','$fechaActual','$horaActual','$absoluto1'), ";
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','14','$fechaActual','$horaActual','$absoluto1'), ";
 
     $sql .= "('$idEvaluacion','15','$fechaActual','$horaActual','$teorico1'), ";
 
@@ -835,7 +821,7 @@ function ingresarEspirometriaBasal(){
     //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 
   
-
+  //echo $sql;
     $sql = utf8_decode($sql);
     if(mysqli_query($conexion, $sql)){
         echo 'true';
@@ -1351,14 +1337,14 @@ function ingresarOptometria(){
   ('$idEvaluacion','96','$fechaActual','$horaActual','$encandilamiento'), 
   ('$idEvaluacion','97','$fechaActual','$horaActual','$recuperacionEncandilamiento'), 
   ('$idEvaluacion','98','$fechaActual','$horaActual','$visionNocturna'), 
-  ('$idEvaluacion','99','$fechaActual','$horaActual','$estado '), 
+  ('$idEvaluacion','99','$fechaActual','$horaActual','$estado'), 
   ('$idEvaluacion','100','$fechaActual','$horaActual','$observaciones')";
 
   //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
   
 
   $sql = utf8_decode($sql);
-  echo $sql;
+  //echo $sql;
   if(mysqli_query($conexion, $sql)){
       echo 'true';
   }else{
@@ -1380,99 +1366,152 @@ function ingresarAudiometria(){
   $fechaActual = obtenerFechaActual();
   $horaActual = obtenerHoraActual();
 
+  //PASO A VARIABLES POR POST
+    $VAOD125 = $_POST['VAOD125'];
+    $VAOD250 = $_POST['VAOD250'];
+    $VAOD500 = $_POST['VAOD500'];
+    $VAOD1000 = $_POST['VAOD1000'];
+    $VAOD2000 = $_POST['VAOD2000'];
+    $VAOD3000 = $_POST['VAOD3000'];
+    $VAOD4000 = $_POST['VAOD4000'];
+    $VAOD6000 = $_POST['VAOD6000'];
+    $VAOD8000 = $_POST['VAOD8000'];
+    $VAOI125 = $_POST['VAOI125'];
+    $VAOI250 = $_POST['VAOI250'];
+    $VAOI500 = $_POST['VAOI500'];
+    $VAOI1000 = $_POST['VAOI1000'];
+    $VAOI2000 = $_POST['VAOI2000'];
+    $VAOI3000 = $_POST['VAOI3000'];
+    $VAOI4000 = $_POST['VAOI4000'];
+    $VAOI6000 = $_POST['VAOI6000'];
+    $VAOI8000 = $_POST['VAOI8000'];
+    $VOOD125 = $_POST['VOOD125'];
+    $VOOD250 = $_POST['VOOD250'];
+    $VOOD500 = $_POST['VOOD500'];
+    $VOOD1000 = $_POST['VOOD1000'];
+    $VOOD2000 = $_POST['VOOD2000'];
+    $VOOD3000 = $_POST['VOOD3000'];
+    $VOOD4000 = $_POST['VOOD4000'];
+    $VOOD6000 = $_POST['VOOD6000'];
+    $VOOD8000 = $_POST['VOOD8000'];
+    $VOOI125 = $_POST['VOOI125'];
+    $VOOI250 = $_POST['VOOI250'];
+    $VOOI500 = $_POST['VOOI500'];
+    $VOOI1000 = $_POST['VOOI1000'];
+    $VOOI2000 = $_POST['VOOI2000'];
+    $VOOI3000 = $_POST['VOOI3000'];
+    $VOOI4000 = $_POST['VOOI4000'];
+    $VOOI6000 = $_POST['VOOI6000'];
+    $VOOI8000 = $_POST['VOOI8000'];
+    $estado = $_POST['estado'];
+    $observaciones = $_POST['observaciones'];
 
-  $VAOD125 = $_POST['VAOD125'];
-  $VAOD250 = $_POST['VAOD250'];
-  $VAOD500 = $_POST['VAOD500'];
-  $VAOD1000 = $_POST['VAOD1000'];
-  $VAOD2000 = $_POST['VAOD2000'];
-  $VAOD3000 = $_POST['VAOD3000'];
-  $VAOD4000 = $_POST['VAOD4000'];
-  $VAOD6000 = $_POST['VAOD6000'];
-  $VAOD8000 = $_POST['VAOD8000'];
-  $VAOI125 = $_POST['VAOI125'];
-  $VAOI250 = $_POST['VAOI250'];
-  $VAOI500 = $_POST['VAOI500'];
-  $VAOI1000 = $_POST['VAOI1000'];
-  $VAOI2000 = $_POST['VAOI2000'];
-  $VAOI3000 = $_POST['VAOI3000'];
-  $VAOI4000 = $_POST['VAOI4000'];
-  $VAOI6000 = $_POST['VAOI6000'];
-  $VAOI8000 = $_POST['VAOI8000'];
-  $VOOD125 = $_POST['VOOD125'];
-  $VOOD250 = $_POST['VOOD250'];
-  $VOOD500 = $_POST['VOOD500'];
-  $VOOD1000 = $_POST['VOOD1000'];
-  $VOOD2000 = $_POST['VOOD2000'];
-  $VOOD3000 = $_POST['VOOD3000'];
-  $VOOD4000 = $_POST['VOOD4000'];
-  $VOOD6000 = $_POST['VOOD6000'];
-  $VOOD8000 = $_POST['VOOD8000'];
-  $VOOI125 = $_POST['VOOI125'];
-  $VOOI250 = $_POST['VOOI250'];
-  $VOOI500 = $_POST['VOOI500'];
-  $VOOI1000 = $_POST['VOOI1000'];
-  $VOOI2000 = $_POST['VOOI2000'];
-  $VOOI3000 = $_POST['VOOI3000'];
-  $VOOI4000 = $_POST['VOOI4000'];
-  $VOOI6000 = $_POST['VOOI6000'];
-  $VOOI8000 = $_POST['VOOI8000'];
-  $estado = $_POST['estado'];
-  $observaciones = $_POST['observaciones'];
-  
-  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES
-  ('$idEvaluacion','101','$fechaActual','$horaActual','$VAOD125'),
-  ('$idEvaluacion','102','$fechaActual','$horaActual','$VAOD250'),
-  ('$idEvaluacion','103','$fechaActual','$horaActual','$VAOD500'),
-  ('$idEvaluacion','104','$fechaActual','$horaActual','$VAOD1000'),
-  ('$idEvaluacion','105','$fechaActual','$horaActual','$VAOD2000'),
-  ('$idEvaluacion','106','$fechaActual','$horaActual','$VAOD3000'),
-  ('$idEvaluacion','107','$fechaActual','$horaActual','$VAOD4000'),
-  ('$idEvaluacion','108','$fechaActual','$horaActual','$VAOD6000'),
-  ('$idEvaluacion','109','$fechaActual','$horaActual','$VAOD8000'),
-  ('$idEvaluacion','110','$fechaActual','$horaActual','$VAOI125'),
-  ('$idEvaluacion','111','$fechaActual','$horaActual','$VAOI250'),
-  ('$idEvaluacion','112','$fechaActual','$horaActual','$VAOI500'),
-  ('$idEvaluacion','113','$fechaActual','$horaActual','$VAOI1000'),
-  ('$idEvaluacion','114','$fechaActual','$horaActual','$VAOI2000'),
-  ('$idEvaluacion','115','$fechaActual','$horaActual','$VAOI3000'),
-  ('$idEvaluacion','116','$fechaActual','$horaActual','$VAOI4000'),
-  ('$idEvaluacion','117','$fechaActual','$horaActual','$VAOI6000'),
-  ('$idEvaluacion','118','$fechaActual','$horaActual','$VAOI8000'),
-  ('$idEvaluacion','119','$fechaActual','$horaActual','$VOOD125'),
-  ('$idEvaluacion','120','$fechaActual','$horaActual','$VOOD250'),
-  ('$idEvaluacion','121','$fechaActual','$horaActual','$VOOD500'),
-  ('$idEvaluacion','122','$fechaActual','$horaActual','$VOOD1000'),
-  ('$idEvaluacion','123','$fechaActual','$horaActual','$VOOD2000'),
-  ('$idEvaluacion','124','$fechaActual','$horaActual','$VOOD3000'),
-  ('$idEvaluacion','125','$fechaActual','$horaActual','$VOOD4000'),
-  ('$idEvaluacion','126','$fechaActual','$horaActual','$VOOD6000'),
-  ('$idEvaluacion','127','$fechaActual','$horaActual','$VOOD8000'),
-  ('$idEvaluacion','128','$fechaActual','$horaActual','$VOOI125'),
-  ('$idEvaluacion','129','$fechaActual','$horaActual','$VOOI250'),
-  ('$idEvaluacion','130','$fechaActual','$horaActual','$VOOI500'),
-  ('$idEvaluacion','131','$fechaActual','$horaActual','$VOOI1000'),
-  ('$idEvaluacion','132','$fechaActual','$horaActual','$VOOI2000'),
-  ('$idEvaluacion','133','$fechaActual','$horaActual','$VOOI3000'),
-  ('$idEvaluacion','134','$fechaActual','$horaActual','$VOOI4000'),
-  ('$idEvaluacion','135','$fechaActual','$horaActual','$VOOI6000'),
-  ('$idEvaluacion','136','$fechaActual','$horaActual','$VOOI8000'),
-  ('$idEvaluacion','137','$fechaActual','$horaActual','$observaciones'),
-  ('$idEvaluacion','138','$fechaActual','$horaActual','$estado')";
-
-
- //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
-
+  //VALIDACION BLANCOS
+    if($VAOD125 == ''){$VAOD125 = 'null';}
+    if($VAOD250 == ''){$VAOD250 = 'null';}
+    if($VAOD500 == ''){$VAOD500 = 'null';}
+    if($VAOD1000 == ''){$VAOD1000 = 'null';}
+    if($VAOD2000 == ''){$VAOD2000 = 'null';}
+    if($VAOD3000 == ''){$VAOD3000 = 'null';}
+    if($VAOD4000 == ''){$VAOD4000 = 'null';}
+    if($VAOD6000 == ''){$VAOD6000 = 'null';}
+    if($VAOD8000 == ''){$VAOD8000 = 'null';}
+    if($VAOI125 == ''){$VAOI125 = 'null';}
+    if($VAOI250 == ''){$VAOI250 = 'null';}
+    if($VAOI500 == ''){$VAOI500 = 'null';}
+    if($VAOI1000 == ''){$VAOI1000 = 'null';}
+    if($VAOI2000 == ''){$VAOI2000 = 'null';}
+    if($VAOI3000 == ''){$VAOI3000 = 'null';}
+    if($VAOI4000 == ''){$VAOI4000 = 'null';}
+    if($VAOI6000 == ''){$VAOI6000 = 'null';}
+    if($VAOI8000 == ''){$VAOI8000 = 'null';}
+    if($VOOD125 == ''){$VOOD125 = 'null';}
+    if($VOOD250 == ''){$VOOD250 = 'null';}
+    if($VOOD500 == ''){$VOOD500 = 'null';}
+    if($VOOD1000 == ''){$VOOD1000 = 'null';}
+    if($VOOD2000 == ''){$VOOD2000 = 'null';}
+    if($VOOD3000 == ''){$VOOD3000 = 'null';}
+    if($VOOD4000 == ''){$VOOD4000 = 'null';}
+    if($VOOD6000 == ''){$VOOD6000 = 'null';}
+    if($VOOD8000 == ''){$VOOD8000 = 'null';}
+    if($VOOI125 == ''){$VOOI125 = 'null';}
+    if($VOOI250 == ''){$VOOI250 = 'null';}
+    if($VOOI500 == ''){$VOOI500 = 'null';}
+    if($VOOI1000 == ''){$VOOI1000 = 'null';}
+    if($VOOI2000 == ''){$VOOI2000 = 'null';}
+    if($VOOI3000 == ''){$VOOI3000 = 'null';}
+    if($VOOI4000 == ''){$VOOI4000 = 'null';}
+    if($VOOI6000 == ''){$VOOI6000 = 'null';}
+    if($VOOI8000 == ''){$VOOI8000 = 'null';}
   
 
-  $sql = utf8_decode($sql);
-  if(mysqli_query($conexion, $sql)){
-      echo 'true';
-  }else{
-      echo 'false';
-  }
+
+    
+
+
   
-  mysqli_close($conexion);
+  
+  
+  
+  
+  
+  
+  
+  //CONSTRUCCION Y EJECUCION DE LA CONSULTA
+  
+    $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES
+    ('$idEvaluacion','101','$fechaActual','$horaActual','$VAOD125'),
+    ('$idEvaluacion','102','$fechaActual','$horaActual','$VAOD250'),
+    ('$idEvaluacion','103','$fechaActual','$horaActual','$VAOD500'),
+    ('$idEvaluacion','104','$fechaActual','$horaActual','$VAOD1000'),
+    ('$idEvaluacion','105','$fechaActual','$horaActual','$VAOD2000'),
+    ('$idEvaluacion','106','$fechaActual','$horaActual','$VAOD3000'),
+    ('$idEvaluacion','107','$fechaActual','$horaActual','$VAOD4000'),
+    ('$idEvaluacion','108','$fechaActual','$horaActual','$VAOD6000'),
+    ('$idEvaluacion','109','$fechaActual','$horaActual','$VAOD8000'),
+    ('$idEvaluacion','110','$fechaActual','$horaActual','$VAOI125'),
+    ('$idEvaluacion','111','$fechaActual','$horaActual','$VAOI250'),
+    ('$idEvaluacion','112','$fechaActual','$horaActual','$VAOI500'),
+    ('$idEvaluacion','113','$fechaActual','$horaActual','$VAOI1000'),
+    ('$idEvaluacion','114','$fechaActual','$horaActual','$VAOI2000'),
+    ('$idEvaluacion','115','$fechaActual','$horaActual','$VAOI3000'),
+    ('$idEvaluacion','116','$fechaActual','$horaActual','$VAOI4000'),
+    ('$idEvaluacion','117','$fechaActual','$horaActual','$VAOI6000'),
+    ('$idEvaluacion','118','$fechaActual','$horaActual','$VAOI8000'),
+    ('$idEvaluacion','119','$fechaActual','$horaActual','$VOOD125'),
+    ('$idEvaluacion','120','$fechaActual','$horaActual','$VOOD250'),
+    ('$idEvaluacion','121','$fechaActual','$horaActual','$VOOD500'),
+    ('$idEvaluacion','122','$fechaActual','$horaActual','$VOOD1000'),
+    ('$idEvaluacion','123','$fechaActual','$horaActual','$VOOD2000'),
+    ('$idEvaluacion','124','$fechaActual','$horaActual','$VOOD3000'),
+    ('$idEvaluacion','125','$fechaActual','$horaActual','$VOOD4000'),
+    ('$idEvaluacion','126','$fechaActual','$horaActual','$VOOD6000'),
+    ('$idEvaluacion','127','$fechaActual','$horaActual','$VOOD8000'),
+    ('$idEvaluacion','128','$fechaActual','$horaActual','$VOOI125'),
+    ('$idEvaluacion','129','$fechaActual','$horaActual','$VOOI250'),
+    ('$idEvaluacion','130','$fechaActual','$horaActual','$VOOI500'),
+    ('$idEvaluacion','131','$fechaActual','$horaActual','$VOOI1000'),
+    ('$idEvaluacion','132','$fechaActual','$horaActual','$VOOI2000'),
+    ('$idEvaluacion','133','$fechaActual','$horaActual','$VOOI3000'),
+    ('$idEvaluacion','134','$fechaActual','$horaActual','$VOOI4000'),
+    ('$idEvaluacion','135','$fechaActual','$horaActual','$VOOI6000'),
+    ('$idEvaluacion','136','$fechaActual','$horaActual','$VOOI8000'),
+    ('$idEvaluacion','137','$fechaActual','$horaActual','$observaciones'),
+    ('$idEvaluacion','138','$fechaActual','$horaActual','$estado')";
+
+
+    //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
+
+    
+
+    $sql = utf8_decode($sql);
+    if(mysqli_query($conexion, $sql)){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    
+    mysqli_close($conexion);
 }
 
 
@@ -2203,6 +2242,7 @@ function ingresarConclusionMedica(){
     $horaActual = $_SESSION['horaActual'];
     $fechaActual = $_SESSION['fechaActual'];
     $conclusionMedica = $_POST['conclusionMedica'];
+    $observaciones = $_POST['observaciones'];
     $horaActual = obtenerHoraActual();
     $fechaActual = obtenerFechaActual();
     
@@ -2255,8 +2295,8 @@ function ingresarConclusionMedica(){
       break;
     }
 
-    $sql = "INSERT INTO `CONCLUSION_MEDICA_EVALUACION`(`ID_CONCLUSION_MEDICA`, `ID_EVALUACION`, `FECHA`, `HORA`) VALUES 
-    ('$idConclusionMedica','$idEvaluacion','$fechaActual','$horaActual')";
+    $sql = "INSERT INTO `CONCLUSION_MEDICA_EVALUACION`(`ID_CONCLUSION_MEDICA`, `ID_EVALUACION`, `FECHA`, `HORA`,`OBSERVACIONES`) VALUES 
+    ('$idConclusionMedica','$idEvaluacion','$fechaActual','$horaActual','$observaciones')";
 
     /* $sql = "UPDATE EVALUACION SET CONCLUSION_MEDICA = '$texto' WHERE ID_EVALUACION = '$idEvaluacion'";
     //AND HORA_CREACION = '$horaActual' AND FECHA_CREACION = '$fechaActual' */

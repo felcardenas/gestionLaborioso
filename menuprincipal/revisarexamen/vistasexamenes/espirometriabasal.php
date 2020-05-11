@@ -2,125 +2,99 @@
 <?php session_start();
 include '../../../global/conexion.php';
 $idEvaluacion = $_SESSION["idEvaluacion"];
+$idExamen = '4';
+$limit = '9';
 
-$sql = "SELECT EVALUACION_PARAMETRO.VALOR_PARAMETRO, EVALUACION_PARAMETRO.ID_PARAMETRO 
+    
+    //$observaciones = '';
+
+
+$sql = "SELECT PARAMETRO.ID_PARAMETRO, EVALUACION_PARAMETRO.VALOR_PARAMETRO 
 FROM EVALUACION_PARAMETRO 
-INNER JOIN PARAMETRO 
-ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
-INNER JOIN EXAMEN 
-ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
-WHERE ID_EVALUACION = '$idEvaluacion'";
-
-
-$v1 = '';
-$v2 = '';
-$v3 = '';
-$v4 = '';
-$v5 = '';
-$v6 = '';
-$v7 = '';
-$v8 = '';
-$v9 = '';
-$v10 = '';
-$v11 = '';
-$v12 = '';
-$v13 = '';
-$v14 = '';
-$v15 = '';
-$estado = 'Sin evaluar';
-$observaciones = '';
+INNER JOIN PARAMETRO ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO
+INNER JOIN EXAMEN ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN 
+WHERE EXAMEN.ID_EXAMEN = '$idExamen' AND EVALUACION_PARAMETRO.ID_EVALUACION = '$idEvaluacion'
+ORDER BY `FECHA` DESC, `HORA` DESC, PARAMETRO.`ID_PARAMETRO` ASC LIMIT $limit";
 
 
 $resultado = mysqli_query($conexion,$sql);
 
-
-while($row = mysqli_fetch_assoc($resultado)){
+if(mysqli_num_rows($resultado) > 0){
+    while($row = mysqli_fetch_assoc($resultado)){
     
-    $idParametro = $row['ID_PARAMETRO'];
-    
-    switch($idParametro){
-        case '6':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v1 = $valorParametro;
-        break;   
-            
-        case '7':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v2 = $valorParametro;
-        break;
-        case '8':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v3 = $valorParametro;
-        break;   
-            
-        case '9':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v4 = $valorParametro;
-        break;
-        case '10':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v5 = $valorParametro;
-        break;   
-            
-        case '11':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v6 = $valorParametro;
-        break;
-        case '12':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v7 = $valorParametro;
-        break;   
-            
-        case'13':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v8 = $valorParametro;
-        break;
-        case '14':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v9 = $valorParametro;
-        break;   
-            
-        case'15':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v10 = $valorParametro;
-        break;
-        case '16':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v11 = $valorParametro;
-        break;   
-            
-        case'17':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v12 = $valorParametro;
-        break;
-        case '18':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v13 = $valorParametro;
-        break;   
-            
-        case'19':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v14 = $valorParametro;
-        break;
-        case '20':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $v15 = $valorParametro;
-        break;   
-            
-        case '22':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $observaciones = $valorParametro;
-        break;   
-            
-        case'23':
-            $valorParametro = $row['VALOR_PARAMETRO'];
-            $estado = $valorParametro;
-        break;
+        $idParametro = $row['ID_PARAMETRO'];
         
-
+        switch($idParametro){
+            case '14':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $absoluto1 = $valorParametro;
+            break;   
+                
+            case '15':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $teorico1 = $valorParametro;
+            break;
+            case '16':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $absoluto2 = $valorParametro;
+            break;   
+                
+            case '17':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $teorico2 = $valorParametro;
+            break;
+            case '18':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $absoluto3 = $valorParametro;
+            break;   
+                
+            case '19':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $teorico3 = $valorParametro;
+            break;
+            case '20':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $absoluto4 = $valorParametro;
+            break;   
+                
+            case '22':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $observaciones = $valorParametro;
+            break;   
+                
+            case '23':
+                $valorParametro = $row['VALOR_PARAMETRO'];
+                $estado = $valorParametro;
+            break;
+            
+    
+        }
+       
     }
-   
+}else{
+    $absoluto1 = '';
+    $teorico1 = '';
+    $absoluto2 = '';
+    $teorico2 = '';
+    $absoluto3 = '';
+    $teorico3 = '';
+    $absoluto4 = '';
+    $observaciones = '';
+    $estado = 'Sin evaluar';
 }
+
+//echo $observaciones . " " . $estado;
+/* 
+$absoluto1 = $_POST['absoluto1'];    
+$teorico1 = round($absoluto1*100/4.67,2);
+$absoluto2 = $_POST['absoluto2'];
+$teorico2 = round($absoluto2*100/3.89,2);
+$absoluto3 = $_POST['absoluto3'];
+$teorico3 = round($absoluto3*100/4.19,2);
+$absoluto4 = round($absoluto2/$absoluto1,2);
+$estado = $_POST['estado']; */
+
+
 ?>
 
 <div class="container" >
@@ -133,106 +107,60 @@ while($row = mysqli_fetch_assoc($resultado)){
 
     <form action="" method="POST" class="" id="formIngresarEspirometriaBasal" name="formIngresarEspirometriaBasal">
 
-    <div class="container borderedondeado">
+    
+    <?php include 'estado.php'?>
+    
+
+
+    <div class="container py-3 mb-5 borderedondeado">
+            
         
-    <div class="row justify-content-center my-3">
-        <div class="col-6">
-            <h3 class="text-center">TEÓRICO</h3>
+        <?php //include 'estado.php' ?>
+            <div class="row justify-content-center">
+                <div class="col-12"><h3 class="text-center">TEÓRICO</h3></div>
+            </div>
+
+            <div class="row justify-content-center">
+                
+                <div class="col-3"></div>
+                <div class="col-2">PROMEDIO</div>
+                <div class="col-2">LIMITE INFERIOR**</div>
+                
+            </div>
+
+            <div class="row justify-content-center">
+                
+                <div class="col-3">CVF(L)</div>
+                <div class="col-2">4.67L</div>
+                <div class="col-2">81.1%</div>
+                
+            </div>
+
+            <div class="row justify-content-center">
+                
+                <div class="col-3">VEF1(L/s)</div>
+                <div class="col-2">3.89L/s</div>
+                <div class="col-2">79.1%</div>
+                
+            </div>
+
+            <div class="row justify-content-center">
+                
+                <div class="col-3">FEF 25-75(L/s)</div>
+                <div class="col-2">4.19L/s</div>
+                <div class="col-2">55.3%</div>
+                
+            </div>
+
+            <div class="row justify-content-center">
+                
+                <div class="col-3">VEF1/CVF 25-75(L/s)</div>
+                <div class="col-2">83.3%</div>
+                <div class="col-2"></div>
+                
+            </div>
+
         </div>
-    </div>
-
-    
-        
-
-        
-            <?php //include 'estado.php' ?>
-
-            <div class="row justify-content-center mb-3">
-                <div class="col-2" style="margin-top:5px;">
-                    
-                </div>
-
-                <div class="col-2" style="margin-top:5px;">
-                    PROMEDIO
-                </div>
-
-                <div class="col-2" style="margin-top:5px;">
-                    LÍMITE** INFERIOR
-                </div>
-
-            </div>
-
-
-
-
-            <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-2">
-                    CVF(L)
-                </div>
-
-                <div class="col-2">
-                    <input type="text" class="form-control" name="cvflPromedio" id="cvflPromedio" maxlength="5" value="<?=$v1?>">
-                </div>
-
-                <div class="col-2">
-                    <input type="text" class="form-control" name="cvflLimiteInferior" id="cvflLimiteInferior" maxlength="5" value="<?=$v2?>">
-                </div>
-
-            </div>
-
-
-            <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-2">
-                    VEF1(L)
-                </div>
-
-                <div class="col-2">
-                    <input type="text" class="form-control" name="vef1lPromedio" id="vef1lPromedio" maxlength="5" value="<?=$v3?>">
-                </div>
-
-                <div class="col-2">
-                <input type="text" class="form-control" name="vef1lLimiteInferior" id="vef1lLimiteInferior" maxlength="5" value="<?=$v4?>">
-                </div>
-
-            </div> 
-
-
-
-            <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-2">
-                    FEF25-75(L/s)
-                </div>
-
-                <div class="col-2">
-                    <input type="text" class="form-control" name="fef2575Promedio" id="fef2575Promedio" maxlength="5" value="<?=$v5?>">
-                </div>
-
-                <div class="col-2">
-                <input type="text" class="form-control" name="fef2575LimiteInferior" id="fef2575LimiteInferior" maxlength="5" value="<?=$v6?>">
-                </div>
-
-            </div> 
-
-
-
-
-
-            <div class="row justify-content-center mb-3" style="margin-top:5px;">
-                <div class="col-2">
-                    VEF1/CVF (%)
-                </div>
-
-                <div class="col-2">
-                    <input type="text" class="form-control" name="vef1cvfPromedio" id="vef1cvfPromedio" maxlength="5" value="<?=$v7?>">
-                </div>
-
-                <div class="col-2">
-                <input type="text" class="form-control" name="vef1cvfLimiteInferior" id="vef1cvfLimiteInferior" maxlength="5" value="<?=$v8?>">
-                </div>
-
-            </div> 
-    
-    </div>
 
 
     <!-- ************************************************* -->
@@ -255,13 +183,17 @@ while($row = mysqli_fetch_assoc($resultado)){
             <?php //include 'estado.php' ?>
 
             <div class="row justify-content-center mb-3">
+                <div class="col-3"></div>
+
                 <div class="col-2" style="margin-top:5px;">
                     ABSOLUTO
                 </div>
+                <div class="col-1"></div>
 
                 <div class="col-2" style="margin-top:5px;">
                     % TEÓRICO
                 </div>
+                <div class="col-1"></div>
 
             </div>
 
@@ -269,50 +201,63 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 
             <div class="row justify-content-center mb-3" style="margin-top:5px;">
+                <div class="col-3">CVF(L)</div>
+                
                 <div class="col-2">
-                    <input type="text" class="form-control" name="absoluto1" id="absoluto1" maxlength="5" value="<?=$v9?>">
+                    <input type="text" class="form-control" name="absoluto1" id="absoluto1" maxlength="3" value="<?=$absoluto1?>" onchange="calcularPorcentajeCVF()" onkeyup="calcularPorcentajeCVF()">
                 </div>
-
+                <div class="col-1">L</div>
                 <div class="col-2">
-                    <input type="text" class="form-control" name="teorico1" id="teorico1" maxlength="5" value="<?=$v10?>">
+                    <input type="text" class="form-control" name="teorico1" id="teorico1" maxlength="3" value="<?=$teorico1?>" disabled>
                 </div>
+                <div class="col-1">%</div>
 
             </div>
 
 
             <div class="row justify-content-center mb-3" style="margin-top:5px;">
+                <div class="col-3">VEF1(L/s)</div>
                 <div class="col-2">
-                    <input type="text" class="form-control" name="absoluto2" id="absoluto2" maxlength="5"value="<?=$v11?>">
+                    <input type="text" class="form-control" name="absoluto2" id="absoluto2" maxlength="3" value="<?=$absoluto2?>" onchange="calcularPorcentajeVEF()" onkeyup="calcularPorcentajeVEF()" >
                 </div>
+                <div class="col-1">L/s</div>
 
                 <div class="col-2">
-                    <input type="text" class="form-control" name="teorico2" id="teorico2" maxlength="5" value="<?=$v12?>">
+                    <input type="text" class="form-control" name="teorico2" id="teorico2" maxlength="3" value="<?=$teorico2?>" disabled>
                 </div>
+                <div class="col-1">%</div>
 
             </div>
 
 
 
             <div class="row justify-content-center mb-3" style="margin-top:5px;">
+                <div class="col-3">FEF 25-75(L/s)</div>
+                
                 <div class="col-2">
-                    <input type="text" class="form-control" name="absoluto3" id="absoluto3" maxlength="5" value="<?=$v13?>">
+                    <input type="text" class="form-control" name="absoluto3" id="absoluto3" maxlength="3" value="<?=$absoluto3?>" onchange="calcularPorcentajeFEF()" onkeyup="calcularPorcentajeFEF()">
                 </div>
+                <div class="col-1">L/s</div>
 
                 <div class="col-2">
-                    <input type="text" class="form-control" name="teorico3" id="teorico3" maxlength="5" value="<?=$v14?>">
+                    <input type="text" class="form-control" name="teorico3" id="teorico3" maxlength="3" value="<?=$teorico3?>" disabled>
                 </div>
+                <div class="col-1">%</div>
 
             </div>
 
 
             <div class="row justify-content-center mb-3" style="margin-top:5px;">
+                <div class="col-3">VEF1/CVF</div>
+                
                 <div class="col-2">
-                    <input type="text" class="form-control" name="absoluto4" id="absoluto4" maxlength="5" value="<?=$v15?>">
+                    <input type="text" class="form-control" name="absoluto4" id="absoluto4" maxlength="5" value="<?=$absoluto4?>" disabled>
                 </div>
+                
+                <div class="col-1">%</div>
 
-                <div class="col-2">
-                   
-                </div>
+                <div class="col-2"></div>
+                <div class="col-1"></div>
 
             </div> 
 
@@ -324,6 +269,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 
     <?php 
+     
       include 'observaciones.php';
     ?>
 
@@ -342,13 +288,18 @@ while($row = mysqli_fetch_assoc($resultado)){
 
         
         <input type="text" name="consulta" id="consulta" value="ingresarEspirometriaBasal" hidden>
-        <input type="text" name="select" id="select" value="ingresarEspirometriaBasal" hidden>
+        <input type="text" name="select" id="select" value="selectEspirometriaBasal" hidden>
         
 
         <div class="row justify-content-center mb-3">
 
             <div class="col-4">
                 <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarEspirometriaBasal()" id="btnGuardarEspirometriaBasal">
+            </div>
+            <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosEspirometria()" name="fechaHora" id="fechaHora">
+                <?php include 'selectDatosAnteriores.php' ?>
+                </select>
             </div>
 
         </div>

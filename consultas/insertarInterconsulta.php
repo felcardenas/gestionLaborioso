@@ -20,7 +20,20 @@ if(isset($_POST)){
     $especialidad = $_POST['especialidad'];
     $observaciones = $_POST['observaciones'];
     $nombreMedico = utf8_decode($_SESSION['usuarioNombreCompleto']);
-    $clave = crearClave();
+    
+    $flag = true;
+
+    while($flag){
+        $clave = crearClave();
+        
+        $sql = "SELECT CLAVE FROM INTERCONSULTA WHERE CLAVE = '$clave'";
+
+        $resultado = mysqli_query($conexion,$sql);
+        if(mysqli_num_rows($resultado) == 0){
+            $flag = false;
+        }
+    }
+    
 
     $sql = "SELECT ID_ESPECIALIDAD FROM ESPECIALIDAD WHERE NOMBRE_ESPECIALIDAD = '$especialidad'";
     $resultado = mysqli_query($conexion,$sql);

@@ -54,10 +54,7 @@ $html = "<table>
                 <td style='font-family:arial; font-size:14;'>FECHA EMISIÓN: </td>
                 <td style='font-family:arial; font-size:14;'>$fecha</td>
             </tr>
-            <tr>
-                <td style='font-family:arial; font-size:14;'>VÁLIDO HASTA: </td>
-                <td style='font-family:arial; font-size:14;'>$validoHasta</td>
-            </tr>
+            
         </table>
     </td>
 </tr>
@@ -65,29 +62,32 @@ $html = "<table>
 
 </table>
 
-<h1 style='font-family:arial; text-align:center;'> INTERCONSULTA</h1>
+<h1 style='font-family:arial; text-align:center;'>INTERCONSULTA</h1>
 
 
 
-<table style='font-family:arial; font-size:16;'> 
+<table style='font-family:arial; font-size:16; text-align:justify;'> 
     <title>Resultado exámenes de: $nombreCompletoTrabajador</title>
 
     <tr>
+        <td style='width:70'>
         <td>Trabajador: <td>
         <td>$nombreCompletoTrabajador<td>
         <td style='width:100'></td>
     </tr>
 
     <tr>
+        <td style='width:70'>
         <td>RUN: <td>
         <td>$rut<td>
-        <td></td>
+        <td style='width:100'></td>
     </tr>
 
     <tr>
+        <td style='width:70'>
         <td>Edad: <td>
         <td>$edad<td>
-        <td></td>
+        <td style='width:100'></td>
     </tr>
 
 
@@ -95,14 +95,24 @@ $html = "<table>
 
 
 <br>
-            <p class='text-justify-center' style='font-family:arial; font-size:20; width=300px'>
+<table>
+    <tr>
+        <td style='font-family:arial; font-size:20; width:50'></td>
+        <td style='font-family:arial; font-size:20; width:600; text-align:justify'>
+            <p class='text-justify-center'>
             El/la sr/sra ". $nombreCompletoTrabajador .", RUT: ". $rut . " con fecha ".$fecha.", ha sido sometido a evaluación preventiva de salud, en relacion a la cual se solicita control por su sistema previsional de salud con especialidad ". $nombreEspecialidad .", de acuerdo a los siguientes antecedentes:  
-         
-            <p class='text-justify-center' style='font-family:arial; font-size:20; width=300px'> 
+        <td>
+    </tr>
+
+    <tr>
+    <td style='font-family:arial; font-size:20; width:50'></td>
+    <td style='font-family:arial; font-size:20; width:600; text-align:justify'>
+            <p class='text-justify-center' style='font-family:arial; font-size:20; width=500'> 
             $observaciones
             </p>
-
-
+        </td>
+    </tr>
+</table>
 ";
 
 

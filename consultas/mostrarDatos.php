@@ -31,7 +31,7 @@ if(isset($_POST)){
     case 'selectEspirometriaBasal':
       //selectEspirometriaBasal();
       $idExamen = '4';
-      $limit = '18';
+      $limit = '9';
 
       enviar($idExamen,$limit);
     break;
@@ -39,7 +39,7 @@ if(isset($_POST)){
     case 'selectAudiometria':
       //selectAudiometria();
       $idExamen = '5';
-      $limit = '41';
+      $limit = '38';
 
       enviar($idExamen,$limit);
     break;
@@ -191,15 +191,16 @@ function enviar($idExamen,$limit){
   
     //OBTIENE LA ULTIMA EVALUACION DEL TRABAJADOR
     $idTrabajador = $_SESSION['idTrabajador'];
-    $sql = "SELECT ID_EVALUACION FROM EVALUACION WHERE ID_TRABAJADOR = '$idTrabajador' ORDER BY ID_EVALUACION DESC LIMIT 1";
-
+   /*  $sql = "SELECT ID_EVALUACION FROM EVALUACION WHERE ID_TRABAJADOR = '$idTrabajador' ORDER BY ID_EVALUACION DESC LIMIT 1";
+    
     
     if($resultado = mysqli_query($conexion,$sql)){
       $row = mysqli_fetch_assoc($resultado);
       $idEvaluacion = $row['ID_EVALUACION'];
     }
+ */
 
-  
+  $idEvaluacion = $_SESSION['idEvaluacion'];
 
   $fechaHora = $_POST['fechaHora'];
 
@@ -210,7 +211,7 @@ function enviar($idExamen,$limit){
 
   
   //echo $idEvaluacion . " " . $idExamen . " " . $fecha . "-".$hora;
-  $sql = "SELECT VALOR_PARAMETRO 
+  $sql = "SELECT VALOR_PARAMETRO, EVALUACION_PARAMETRO.ID_PARAMETRO 
   FROM EVALUACION_PARAMETRO 
   INNER JOIN PARAMETRO 
   ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO

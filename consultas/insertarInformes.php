@@ -159,10 +159,39 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
     //echo $edad;
 
-    $codigoTrabajador = crearClave();
-    $codigoEmpresa = crearClave();
+    $flag = true;
+
+    while($flag){
+        $codigoTrabajador = crearClave();
+        
+        $sql = "SELECT CODIGO_DESCARGA_TRABAJADOR FROM INFORMES WHERE CODIGO_DESCARGA_EMPRESA = '$codigoTrabajador' OR CODIGO_DESCARGA_TRABAJADOR = '$codigoTrabajador'";
+
+        $resultado = mysqli_query($conexion,$sql);
+        if(mysqli_num_rows($resultado) == 0){
+            $flag = false;
+            //mysqli_free_result($resultado);
+            
+        }
+    }
+    
 
 
+    $flag = true;
+
+    while($flag){
+        $codigoEmpresa = crearClave();
+        
+        $sql = "SELECT CODIGO_DESCARGA_EMPRESA FROM INFORMES WHERE CODIGO_DESCARGA_EMPRESA = '$codigoEmpresa' OR CODIGO_DESCARGA_TRABAJADOR = '$codigoEmpresa'";
+
+        $resultado = mysqli_query($conexion,$sql);
+        if(mysqli_num_rows($resultado) == 0){
+            $flag = false;
+            //mysqli_free_result($resultado);
+        }
+    }
+
+    
+//echo $codigoTrabajador . " " . $codigoEmpresa;
 
 
 
@@ -210,7 +239,23 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
                 {case 'Optometria':
                     
                     $idExamen = '1';
+                    
                     include 'consultasExamenes.php';
+
+                    $resultado = mysqli_query($conexion,$sql);
+
+                    while($row = mysqli_fetch_assoc($resultado)){
+                        $idParametro = $row['ID_PARAMETRO'];
+                        switch($idParametro){
+                            case '100':
+                                $observaciones = $row['VALOR_PARAMETRO'];
+                            break;
+
+                            case '99':
+                                $estado = $row['VALOR_PARAMETRO'];
+                            break;
+                        }
+                    }
                 break;
 
                 case 'Electrocardiograma':
@@ -287,9 +332,29 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
                     
                 break;
 
+
+
+
                 case 'Audiometria':
                     $idExamen = '5';
                     include 'consultasExamenes.php';
+                    //echo $sql;
+                    $resultado = mysqli_query($conexion,$sql);
+                    while($row = mysqli_fetch_assoc($resultado)){
+                        $idParametro = $row['ID_PARAMETRO'];
+                        switch($idParametro){
+
+                            case '137':
+                                $observaciones = $row['VALOR_PARAMETRO'];
+                            break;
+
+                            case '138':
+                                $estado = $row['VALOR_PARAMETRO'];
+                            break;
+
+                            //echo $observaciones . " " . $estado;
+                        }
+                    }
                     
                 break;
 
@@ -717,7 +782,7 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
 
 
-
+//echo $cadenaExamenes;
 
 
 

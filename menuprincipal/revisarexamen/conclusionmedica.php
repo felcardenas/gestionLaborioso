@@ -7,15 +7,21 @@ $tabla = "CONCLUSION_MEDICA_EVALUACION";
 $campoId = "ID_CONCLUSION_MEDICA";  
 
 
-$sql = "SELECT CONCLUSION_MEDICA.NOMBRE_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA WHERE ID_CONCLUSION_MEDICA = (
-    SELECT ID_CONCLUSION_MEDICA FROM `CONCLUSION_MEDICA_EVALUACION` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `CONCLUSION_MEDICA_EVALUACION`.`FECHA` DESC, `CONCLUSION_MEDICA_EVALUACION`.`HORA` DESC LIMIT 1)";
-
+$sql = "SELECT CONCLUSION_MEDICA_EVALUACION.ID_CONCLUSION_MEDICA, CONCLUSION_MEDICA.NOMBRE_CONCLUSION_MEDICA,CONCLUSION_MEDICA_EVALUACION.OBSERVACIONES 
+FROM `CONCLUSION_MEDICA_EVALUACION` 
+INNER JOIN CONCLUSION_MEDICA ON CONCLUSION_MEDICA_EVALUACION.ID_CONCLUSION_MEDICA = 		 CONCLUSION_MEDICA.ID_CONCLUSION_MEDICA
+WHERE ID_EVALUACION = '$idEvaluacion' 
+ORDER BY `CONCLUSION_MEDICA_EVALUACION`.`FECHA` DESC, 
+`CONCLUSION_MEDICA_EVALUACION`.`HORA` DESC LIMIT 1";
+//echo $sql;
 $conclusionMedica = '';
+$observaciones = '';
 
 $resultado = mysqli_query($conexion, $sql); 
     
 if($row = mysqli_fetch_assoc($resultado)){
     $conclusionMedica = $row['NOMBRE_CONCLUSION_MEDICA'];
+    $observaciones = $row['OBSERVACIONES'];
 }
 
 $cadenaConclusionMedica = substr($conclusionMedica,0,2);
@@ -66,9 +72,16 @@ $cadenaConclusionMedica = substr($conclusionMedica,0,2);
                                 </select>
                             </div>
                             
+                            
+</div> 
 
-
-
+<div class="row justify-content-center mb-3" style="margin-top:5px;">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                    <label for="observaciones">Observaciones</label>
+                                    <textarea class="form-control" name="observaciones" id="observaciones" rows="4" placeholder="Sin observaciones" maxlength="310"><?= utf8_encode($observaciones)?></textarea>
+                                </div>
+                            </div>
 
     </div>
 

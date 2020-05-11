@@ -18,7 +18,7 @@ $anamnesis = '';
 $resultado = mysqli_query($conexion, $sql); 
     
 if($row = mysqli_fetch_assoc($resultado)){
-    $anamnesis = $row['TEXTO_ANAMNESIS'];
+    $anamnesis = utf8_encode($row['TEXTO_ANAMNESIS']);
 }
 
 ?>
