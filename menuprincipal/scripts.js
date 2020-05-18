@@ -321,6 +321,20 @@ function validarFormularioIngresarEmpresa() {
     });
 }
 
+function validarRutEmpresa(){
+    var datos = $('#formIngresarEmpresa').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/validarRut.php",
+        data: datos,
+        success: function (r) {
+            if (r == 2) {
+                mensajeEnPantalla("Error", "Rut de empresa ya se encuentra en uso", "error");
+            }
+        }
+    });
+}
+
 function validarFormularioIngresarTrabajador() {
     var valido = false;
     var nombreTrabajador = document.getElementById("nombreTrabajador").value;
@@ -503,6 +517,31 @@ function validarFormularioIngresarTrabajador() {
     return valido;
 }
 
+function funcionesRutEmpresa(valor){
+    limpiarNumero(valor);
+    validarRutEmpresa();
+}
+
+function validarRutTrabajador(){
+    var datos = $('#formIngresarTrabajador').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/validarRut.php",
+        data: datos,
+        success: function (r) {
+            if (r == 2) {
+                mensajeEnPantalla("Error", "Rut de trabajador ya se encuentra en uso", "error");
+            }
+        }
+    });
+}
+
+function funcionesRutTrabajador(valor){
+    limpiarNumero(valor);
+    validarRutTrabajador();
+}
+
+
 function validarFormularioNuevoExamen() {
 
     valido = false;
@@ -653,6 +692,55 @@ function validarFormularioInformes(){
     return valido;
 }
 
+function validarEmpresaYCargo(){
+    
+    var cargoTrabajador = document.getElementById('cargoTrabajador').value;
+    var nombreEmpresa = document.getElementById('nombreEmpresa').value;
+
+    if(!validarBlanco(cargoTrabajador)){
+        mensajeEnPantalla("Campo cargo es obligatorio","","error");
+        return false;
+    }
+
+    if(!validarBlanco(nombreEmpresa)){
+        mensajeEnPantalla("Campo empresa no puede estar en blanco");
+        return false;
+    }
+
+    Swal.fire({
+        title: "Confirmación",
+        text: "¿Desea ingresar los datos?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {        
+            var datos = $('#formEmpresaYCargo').serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../consultas/insert.php",
+                data: datos,
+                success: function (r) {
+                    
+                    if (r == 'true') {
+                        window.location.replace("signosvitales.php");
+                        
+                    }
+                    
+                }
+            });
+        
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+        }
+})
+  
+    
+} 
+
 
 function validarSignosVitales() {
     var valido = false;
@@ -784,10 +872,195 @@ function validarSignosVitales() {
                 data: datos,
                 success: function (r) {
                     if (r == 'true') {
+                        //document.getElementById("formSignosVitales").submit(); 
                         window.location.replace("seleccionexamenes.php");
                     } else if (r == 'false') {
                         mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                    } else if( r== 'maxSignosVitales'){
+                        mensajeEnPantalla("Se ha llegado al límite de ingreso de Signos Vitales (3)")
                     }
+                    //alert(r);
+                }
+            });
+
+
+
+        } else {
+            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+            return false;
+        }
+
+    })
+
+
+
+
+    /*  */
+
+    /*alert(confirmacion);
+
+    if(confirmacion == true){
+        mensajeEnPantalla("ok","ok","success");
+    }else{
+        mensajeEnPantalla("no ok","no ok","error");
+    } */
+
+
+
+
+
+    /* if(mensajeConfirmacion(pregunta,texto)==true){
+        alert("a");
+    }else{
+        alert("b");
+    } */
+
+
+
+
+}
+
+function examenSignosVitales() {
+    var valido = false;
+
+    var pulso = document.getElementById("pulso").value;
+    var tensionDiastolica = document.getElementById("tensionDiastolica").value;
+    var tensionSistolica = document.getElementById("tensionSistolica").value;
+    var peso = document.getElementById("peso").value;
+    var altura = document.getElementById("altura").value;
+
+
+
+
+    //VALIDACIONES CAMPO PULSO
+    if (!validarBlanco(pulso)) {
+        mensajeEnPantalla("Debe rellenar el campo pulso", "", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(pulso, /^\d{1,3}$/)) {
+        mensajeEnPantalla("Campo pulso debe ser rellenado con un número entero", "", "error");
+        return valido;
+    }
+
+    if (pulso > 200 || pulso < 1) {
+        mensajeEnPantalla("Ingrese un valor valido en el campo pulso", "", "error");
+        return valido;
+    }
+
+    //VALIDACIONES CAMPO TENSION DIASTÓLICA
+    if (!validarBlanco(tensionDiastolica)) {
+        mensajeEnPantalla("Debe rellenar el campo tensión diastólica", "", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(tensionDiastolica, /^\d{1,3}$/)) {
+        mensajeEnPantalla("Campo tensión diastólica debe ser rellenado con un número entero", "", "error");
+        return valido;
+    }
+
+    if (tensionDiastolica > 300 || tensionDiastolica < 1) {
+        mensajeEnPantalla("Ingrese un valor valido en el campo tensión diastólica", "", "error");
+        return valido;
+    }
+
+
+
+    //VALIDACION CAMPO TENSION SISTÓLICA
+    if (!validarBlanco(tensionSistolica)) {
+        mensajeEnPantalla("Debe rellenar el campo tensión sistólica", "", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(tensionSistolica, /^\d{1,3}$/)) {
+        mensajeEnPantalla("Campo tensión sistólica debe ser rellenado con un número entero", "", "error");
+        return valido;
+    }
+
+    if (tensionSistolica > 300 || tensionSistolica < 1) {
+        mensajeEnPantalla("Ingrese un valor valido en el campo tensión sistólica", "", "error");
+        return valido;
+    }
+
+
+    //VALIDACIONES CAMPO PESO
+    if (!validarBlanco(peso)) {
+        mensajeEnPantalla("Debe rellenar el campo peso", "", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(peso, /^\d{1,3}\.{0,1}\d{1}$/)) {
+        mensajeEnPantalla("Campo peso debe ser rellenado con un número entero o un número con un decimal separado por un punto. <br><br><br><br>Ej:'100.1'", "", "error");
+        return valido;
+    }
+
+
+    if (peso > 300 || peso < 1) {
+        mensajeEnPantalla("Ingrese un valor valido en el campo peso", "", "error");
+        return valido;
+    }
+
+
+
+    //VALIDACIONES CAMPO ALTURA
+    if (!validarBlanco(altura)) {
+        mensajeEnPantalla("Debe rellenar el campo altura", "", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(altura, /^\d{1,3}$/)) {
+        mensajeEnPantalla("Campo altura debe ser rellenado con un número entero", "", "error");
+        return valido;
+    }
+
+    if (altura > 300 || altura < 1) {
+        mensajeEnPantalla("Ingrese un valor valido en el campo altura", "", "error");
+        return valido;
+    }
+
+    pregunta = "¿Segur@ que desea ingresar los siguientes datos?";
+    texto = "Pulso: " + pulso + " - Tensión diastólica: " + tensionDiastolica + " - Tensión sistólica: " + tensionSistolica + "- Peso: " + peso + "- Altura: " + altura;
+
+    Swal.fire({
+        title: pregunta,
+        text: texto,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+
+            confirmacion = true;
+
+        } else {
+            confirmacion = false;
+        }
+
+        if (confirmacion) {
+
+            //mensajeEnPantalla("Se ingresaron los datos","","success");
+
+            var datos = $('#formSignosVitales').serialize();
+            $.ajax({
+                type: "POST",
+                url: "../../consultas/insert.php",
+                data: datos,
+                success: function (r) {
+                    if (r == 'true') {
+                        //document.getElementById("formSignosVitales").submit(); 
+                        //window.location.replace("seleccionexamenes.php");
+                        //mensajeEnPantalla("Se han ingresado los datos", "", "success");
+                        location.reload();
+                        mostrarSignosVitales();
+                    } else if (r == 'false') {
+                        mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                    }else if( r== 'maxSignosVitales'){
+                        mensajeEnPantalla("Se ha llegado al límite de ingreso de Signos Vitales (3)","","error");
+                    }
+                    
                 }
             });
 
@@ -3220,7 +3493,7 @@ function mostrarEspirometriaBasal() {
 
 function mostrarAudiometria() {
     $("#contenidoExamen").load("vistasexamenes/audiometria.php");
-    graficoAudiometria();
+    //graficoAudiometria();
 }
 
 
@@ -4240,7 +4513,7 @@ var chart = new Chart(ctx, {
         borderWidth:'2',
         pointRadius:tamañoPunto,
             pointHoverRadius:tamañoPuntoHover,
-          pointBackgroundColor: 'rgb(0, 200, 0)',
+          pointBackgroundColor: 'rgb(0, 200, 0)', 
           fill:false
           
         
@@ -4256,6 +4529,22 @@ var chart = new Chart(ctx, {
         pointHoverRadius:tamañoPuntoHover,
         pointBackgroundColor: 'rgb(200, 200, 0)',
         fill:false
+        
+    }
+
+    ,{
+        label: 'LÍMITE',
+        backgroundColor: 'rgb(255, 255, 255, 0)',
+        borderColor: 'rgb(0, 0, 0)',
+        data: [25,25,25,25,25,25,25,25,25,25,25],
+        tension:0,
+        pointStyle:'none',
+        borderWidth:'3',
+        pointRadius:0,
+        pointHoverRadius:0,
+        pointBackgroundColor: 'rgb(255,255,255)',
+        fill:false,
+        borderDash:[20,10]
         
     }
       

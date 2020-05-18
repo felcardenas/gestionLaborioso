@@ -24,6 +24,11 @@ $_SESSION['pulso'] = '';
 $_SESSION['tensionDiastolica'] = '';
 $_SESSION['tensionSistolica'] = '';
 
+$_SESSION['cargoTrabajador'] = '';
+$_SESSION['nombreEmpresa'] = '';
+
+$_SESSION['fecha'] = '';
+$_SESSION['hora'] = '';
 
 
 ?>

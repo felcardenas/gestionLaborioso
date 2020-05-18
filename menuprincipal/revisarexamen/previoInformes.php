@@ -49,24 +49,26 @@ if($resultado = mysqli_query($conexion,$sql)){;
             </div>
         </div>
 
-        <form action="" name="formInformes" id="formInformes" class="form-group" method="post">
+        <form action="" name="formInformes" id="formInformes"  class="form-group" method="post">
             <div class="row justify-content-center">
                 <div class="col-8">
                     <label for="">Seleccione empresa</label>
-                <select name="nombreEmpresa" id="nombreEmpresa" class="form-control">
+                <select data-live-search="true" name="nombreEmpresa" id="nombreEmpresa" class="form-control selectpicker show-tick selectEmpresa">
                     <?php
                     
-                        $sql = "SELECT NOMBRE_EMPRESA FROM EMPRESA";
+                        $sql = "SELECT RUT_EMPRESA, DV_EMPRESA, NOMBRE_EMPRESA FROM EMPRESA";
                         $resultado = mysqli_query($conexion,$sql);
                         while($row = mysqli_fetch_assoc($resultado)){
                             $nombreEmpresa = utf8_encode($row['NOMBRE_EMPRESA']);
+                            $rutEmpresa = $row['RUT_EMPRESA'];
+                            $dvEmpresa = $row['DV_EMPRESA'];
                         ?>
                         <option value="<?=$nombreEmpresa?>" <?php 
                             if($nombreEmpresaUltimoRegistro == $nombreEmpresa){
                                 echo 'selected';
                             }
                         ?>
-                        ><?=$nombreEmpresa?></option>
+                        ><?=$rutEmpresa."-".$dvEmpresa." - ".$nombreEmpresa?></option>
                             <?php
                         } 
                         mysqli_free_result($resultado);
@@ -196,9 +198,6 @@ if($resultado = mysqli_query($conexion,$sql)){;
     
 </div>
 
-
+<script>$('.selectEmpresa').selectpicker();</script>
 
 <?php include '../plantillas/footer.php' ?>
-
-
-

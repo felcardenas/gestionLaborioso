@@ -37,6 +37,10 @@ if(isset($_POST)){
             signosVitales();
     break;
     
+    case 'ingresarEmpresaYCargo':
+      
+          ingresarEmpresaYCargo();
+    break;
 
 
 
@@ -274,7 +278,9 @@ function ingresoEmpresa(){
     $emailEmpresa = $_POST['emailEmpresa'];
     $telefonoEmpresa = $_POST['telefonoEmpresa'];
     
-    
+    $nombreRepresentante = ucwords(strtolower($nombreRepresentante));  
+    $direccionEmpresa = ucwords(strtolower($direccionEmpresa));
+    $emailEmpresa = strtolower($emailEmpresa);
 
     $sql = "SELECT ID_EMPRESA FROM EMPRESA WHERE RUT_EMPRESA = '$rutEmpresa'";
   
@@ -323,13 +329,16 @@ function ingresoTrabajador(){
 
     $valido = false;
     $nombreTrabajador = $_POST['nombreTrabajador'];
+    $nombreTrabajador = ucwords(strtolower($nombreTrabajador));
     $apellidosTrabajador = $_POST['apellidosTrabajador'];
+    $apellidosTrabajador = ucwords(strtolower($apellidosTrabajador));
     $rutTrabajador = $_POST['rutTrabajador'];
     $dvTrabajador = $_POST['dvTrabajador'];
     $fechaNacimientoTrabajador = $_POST['fechaNacimientoTrabajador'];
     $sexoTrabajador = $_POST['sexoTrabajador'];
     $direccionTrabajador = $_POST['direccionTrabajador'];
-    $emailTrabajador = $_POST['emailTrabajador'];
+    $direccionTrabajador = ucwords(strtolower($direccionTrabajador));
+    $emailTrabajador = strtolower($_POST['emailTrabajador']);
     $telefonoTrabajador = $_POST['telefonoTrabajador'];
     
     switch($sexoTrabajador){
@@ -537,7 +546,7 @@ function revisarExamen(){
 
 function signosVitales(){
     include '../global/conexion.php';
-    
+    date_default_timezone_set("America/Santiago");  
     $valido = false;
 
     $pulso = $_POST['pulso'];
@@ -546,16 +555,15 @@ function signosVitales(){
     $peso = $_POST['peso'];
     $altura = $_POST['altura'];
 
-    $imc = $peso / (($altura * $altura)/10000);
+    $imc = round($peso / (($altura * $altura)/10000),2);
 
     session_start();
+    //$idEvaluacion = $_SESSION['idEvaluacion'];
+    
+    //echo $idEvaluacion;
 
-    $_SESSION['pulso'] = $pulso;
-    $_SESSION['tensionDiastolica']=$tensionDiastolica;
-    $_SESSION['tensionSistolica']=$tensionSistolica;
-    $_SESSION['peso']=$peso;
-    $_SESSION['altura']=$altura;
-    $_SESSION['imc']=$imc;
+    $hora = obtenerHoraActual();
+    $fecha = obtenerFechaActual();
 
     $horaExamen = $_SESSION['horaActual'];
     $fechaExamen = $_SESSION['fechaActual'];
@@ -566,17 +574,39 @@ function signosVitales(){
     $row = mysqli_fetch_assoc($resultado);
     $_SESSION['idEvaluacion'] = $row['ID_EVALUACION'];
     $idEvaluacion = $_SESSION['idEvaluacion'];
+
+
+    $sql = "SELECT DISTINCT FECHA, HORA FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `SIGNOS_VITALES_EVALUACION`.`FECHA` DESC, `SIGNOS_VITALES_EVALUACION`.`HORA` DESC";
+
+    $resultado = mysqli_query($conexion,$sql);
+    $cantidadSignosVitales = mysqli_num_rows($resultado);
+
+    if($cantidadSignosVitales > 2){
+        echo 'maxSignosVitales';
+        die();
+    }
+
+    /* $_SESSION['pulso'] = $pulso;
+    $_SESSION['tensionDiastolica']=$tensionDiastolica;
+    $_SESSION['tensionSistolica']=$tensionSistolica;
+    $_SESSION['peso']=$peso;
+    $_SESSION['altura']=$altura;
+    $_SESSION['imc']=$imc; */
+
+
+    
         
 
 
     $sql = "INSERT INTO SIGNOS_VITALES_EVALUACION (`ID_SIGNO_VITAL`, `ID_EVALUACION`, `FECHA`, `HORA`, `VALOR_SIGNO_VITAL`) VALUES 
-    ('1', '$idEvaluacion', '$fechaExamen','$horaExamen','$pulso'), 
-    ('2', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionDiastolica'), 
-    ('3', '$idEvaluacion', '$fechaExamen','$horaExamen','$tensionSistolica'), 
-    ('4', '$idEvaluacion', '$fechaExamen','$horaExamen','$peso'), 
-    ('5', '$idEvaluacion', '$fechaExamen','$horaExamen','$altura'), 
-    ('6', '$idEvaluacion', '$fechaExamen','$horaExamen','$imc')";
+    ('1', '$idEvaluacion', '$fecha','$hora','$pulso'), 
+    ('2', '$idEvaluacion', '$fecha','$hora','$tensionDiastolica'), 
+    ('3', '$idEvaluacion', '$fecha','$hora','$tensionSistolica'), 
+    ('4', '$idEvaluacion', '$fecha','$hora','$peso'), 
+    ('5', '$idEvaluacion', '$fecha','$hora','$altura'), 
+    ('6', '$idEvaluacion', '$fecha','$hora','$imc')";
 
+    //echo $sql;
     if(mysqli_query($conexion,$sql)){
 
       $sql = "UPDATE EVALUACION SET `PENDIENTE_REVISION_MEDICA`='0' WHERE ID_EVALUACION = '$idEvaluacion'";
@@ -586,39 +616,55 @@ function signosVitales(){
       }else{
         echo 'false';
       }
-//      echo 'true';
+    //      echo 'true';
     }else{
       echo 'false';
     }
 }
+
+
+function ingresarEmpresaYCargo(){
+  include '../global/conexion.php';
+  session_start();
+
+  $horaExamen = $_SESSION['horaActual'];
+  $fechaExamen = $_SESSION['fechaActual'];
+
+  $sql = "SELECT ID_EVALUACION FROM EVALUACION WHERE FECHA_CREACION = '$fechaExamen' AND HORA_CREACION = '$horaExamen'";
+
+  $resultado = mysqli_query($conexion, $sql);
+  $row = mysqli_fetch_assoc($resultado);
+  $_SESSION['idEvaluacion'] = $row['ID_EVALUACION'];
+  $idEvaluacion = $_SESSION['idEvaluacion'];
+
+  $valido = false;
+  $idEmpresa = $_POST['nombreEmpresa'];
+  $cargoTrabajador = $_POST['cargoTrabajador'];
+  
+
+  $sql = "SELECT NOMBRE_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
+  $resultado = mysqli_query($conexion,$sql);
+  $row = mysqli_fetch_assoc($resultado);
+  $nombreEmpresa = $row['NOMBRE_EMPRESA'];  
+
+  $_SESSION['cargoTrabajador'] = $cargoTrabajador;
+  $_SESSION['nombreEmpresa'] = $nombreEmpresa;
+
+  mysqli_free_result($resultado);
+
+  $sql = "UPDATE EVALUACION SET ID_EMPRESA='$idEmpresa',CARGO='$cargoTrabajador' WHERE ID_EVALUACION = '$idEvaluacion'";
+//echo $sql;
+
+  if(mysqli_query($conexion,$sql)){
+    echo 'true';
+  }else{
+    echo 'false';
+  }
+
+
+}
+
         
-    /* 1	PULSO
-    2	PRESION_DIASTOLICA  
-    3	PRESION_SISTOLICA
-    4	PESO
-    5	ALTURA
-    6	IMC */
-
-    
-
-/* 
-    $sql = "UPDATE EVALUACION
-    SET 
-    PULSO = '$pulso', 
-    PRESION_DIASTOLICA = '$tensionDiastolica',
-    PRESION_SISTOLICA = '$tensionSistolica',
-    PESO = '$peso',
-    ALTURA = '$altura',
-    IMC = '$imc'
-    WHERE FECHA_CREACION = '$fechaExamen' && HORA_CREACION = '$horaExamen'";
-
-    if(mysqli_query($conexion,$sql)){
-      echo 'true';
-    }else{
-      echo 'false';
-    } */
-
-
 
 function ingresarPerfilLipidico(){
 

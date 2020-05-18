@@ -14,8 +14,8 @@ session_start();
 <div class="row separacion"></div>
 
 <div class="row justify-content-center fondo">
-    <div class="col-4"></div>
-    <div class="col-8">                          
+    <!-- <div class="col-4"></div> -->
+    <div class="col-12">                          
         <?php include 'datostrabajador.php' ?>
     </div>
 </div>

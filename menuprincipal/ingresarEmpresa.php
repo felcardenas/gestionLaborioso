@@ -38,7 +38,7 @@
                                 pattern="^\d{7,9}$" 
                                 title="El campo puede contener solo números" 
                                 onkeyup="limpiarNumero(this)"
-                                onchange="limpiarNumero(this)"
+                                onchange="funcionesRutEmpresa(this)"
                                 required
                                 >
                                 
@@ -145,7 +145,7 @@
                         </div>
 
                         <input type="text" name="consulta" id="consulta" value="ingresarEmpresa" hidden>
-
+                        <input type="text" name="validarRut" id="validarRut" value="validarRutEmpresa" hidden>
                         
                         
 

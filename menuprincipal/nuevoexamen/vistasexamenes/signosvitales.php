@@ -138,7 +138,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 <div class="row justify-content-center my-5">
         <div class="col-4">
-            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="validarSignosVitales()">CONTINUAR</button>
+            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="examenSignosVitales()">CONTINUAR</button>
             
         </div>
 

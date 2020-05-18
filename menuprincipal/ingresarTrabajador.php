@@ -31,7 +31,7 @@
                                 <input type="text" name="rutTrabajador" id="rutTrabajador"class="form-control"
                                 maxlength="9"
                                 onkeyup="limpiarNumero(this)"
-                                onchange="limpiarNumero(this)">
+                                onchange="funcionesRutTrabajador(this)">
                             </div>
 
                             <!-- DV TRABAJADOR -->
@@ -98,6 +98,7 @@
                         </div>
 
                         <input type="text" name="consulta" id="consulta" value="ingresarTrabajador" hidden>
+                        <input type="text" name="validarRut" id="validarRut" value="validarRutTrabajador" hidden>
 
                         <div class="row justify-content-center mt-5">
                             <div class="col-8">
