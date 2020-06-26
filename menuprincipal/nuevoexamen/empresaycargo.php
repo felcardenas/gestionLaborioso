@@ -5,7 +5,7 @@ session_start();
 $cargo = '';
 ?>
 
-
+<script>$('.selectEmpresa').selectpicker();</script>
 <div class="container">
 
     
@@ -19,7 +19,7 @@ $cargo = '';
 <div class="row separacion"></div>
 
 <div class="row justify-content-center fondo">
-    <div class="col-4"></div>
+    
     <div class="col-8">                     
         <?php include 'datostrabajador.php' ?>
     </div>
@@ -40,7 +40,7 @@ $cargo = '';
                     <div class="col-8">
                             <label for="">Seleccione empresa</label>
 
-                            <select name="nombreEmpresa" id="nombreEmpresa" class="form-control selectEmpresa">
+                            <select name="nombreEmpresa" id="nombreEmpresa" class="form-control selectEmpresa selectpicker" data-live-search="true">
                     <?php
                     
                         $sql = "SELECT ID_EMPRESA,RUT_EMPRESA, DV_EMPRESA, NOMBRE_EMPRESA FROM EMPRESA";
@@ -87,5 +87,11 @@ $cargo = '';
 </div>
 
 </div>
-<script>$('.selectEmpresa').selectpicker();</script>
+
+<script>
+$(document).ready(function(){
+    $('.selectpicker').selectpicker(); 
+});
+</script>
+
 <?php include '../plantillas/footer.php'; ?>

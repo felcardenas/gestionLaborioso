@@ -9,9 +9,8 @@ date_default_timezone_set("America/Santiago");
 $idEvaluacion = $_SESSION['idEvaluacion'];
 
 if(isset($_POST)){
-    $nombreEmpresa = $_POST['nombreEmpresa'];
-    $cargoTrabajador = $_POST['cargoTrabajador'];
-    //$nombreMedico = $_POST['nombreMedico'];
+    $nombreEmpresa = $_SESSION['nombreEmpresa'];    
+    $cargoTrabajador = $_SESSION['cargoTrabajador'];
     
 }else{
     $nombreEmpresa = "Empresa Prueba";
@@ -21,8 +20,13 @@ if(isset($_POST)){
 }
 $nombreMedico = $_SESSION['usuarioNombreCompleto'];
 
+
+
+//OBTENER NOMBRE EMPRESA 
+
+
 //OBTENER EMPRESA
-    $sql = "SELECT RUT_EMPRESA, DV_EMPRESA FROM empresa WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
+    $sql = "SELECT ID_EMPRESA, NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM empresa WHERE ID_EMPRESA = '$nombreEmpresa'";
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $rutEmpresaCompleto = $row['RUT_EMPRESA']."-".$row['DV_EMPRESA'];

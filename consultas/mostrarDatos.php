@@ -87,7 +87,7 @@ if(isset($_POST)){
     case 'selectEncuestaDeLakeLouis':
         //selectEncuestaDeLakeLouis();
         $idExamen = '11';
-        $limit = '3';
+        $limit = '6';
   
         enviar($idExamen,$limit);
     break;

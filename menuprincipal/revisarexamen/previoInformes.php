@@ -49,14 +49,14 @@ if($resultado = mysqli_query($conexion,$sql)){;
             </div>
         </div>
 
-        <form action="" name="formInformes" id="formInformes"  class="form-group" method="post">
-            <div class="row justify-content-center">
+        
+            <!-- <div class="row justify-content-center">
                 <div class="col-8">
                     <label for="">Seleccione empresa</label>
                 <select data-live-search="true" name="nombreEmpresa" id="nombreEmpresa" class="form-control selectpicker show-tick selectEmpresa">
                     <?php
                     
-                        $sql = "SELECT RUT_EMPRESA, DV_EMPRESA, NOMBRE_EMPRESA FROM EMPRESA";
+                        /* $sql = "SELECT RUT_EMPRESA, DV_EMPRESA, NOMBRE_EMPRESA FROM EMPRESA";
                         $resultado = mysqli_query($conexion,$sql);
                         while($row = mysqli_fetch_assoc($resultado)){
                             $nombreEmpresa = utf8_encode($row['NOMBRE_EMPRESA']);
@@ -71,7 +71,7 @@ if($resultado = mysqli_query($conexion,$sql)){;
                         ><?=$rutEmpresa."-".$dvEmpresa." - ".$nombreEmpresa?></option>
                             <?php
                         } 
-                        mysqli_free_result($resultado);
+                        mysqli_free_result($resultado); */
                         ?>
                     
                 </select>
@@ -83,7 +83,7 @@ if($resultado = mysqli_query($conexion,$sql)){;
                     <label for="">Ingrese cargo</label>
                     <input type="text" class="form-control" name="cargoTrabajador" id="cargoTrabajador" value="<?= $cargo ?>" maxlength="50">
                 </div>
-            </div>    
+            </div>   -->  
 
             <!--<div class="col-8">
                 <label for="">Seleccione médico</label>
@@ -113,86 +113,111 @@ if($resultado = mysqli_query($conexion,$sql)){;
                 <div class="col-8 my-3">
                     
                     <input type="button" 
-                            class="form-control btn btn-primary" 
-                            value="GENERAR INFORMES"
+                            class="form-control btn btn-primary btn-lg" 
+                            value="GENERAR NUEVO INFORME"
                             onclick="ingresarDatosInformes()"
+                            style="height:100px; width:600px;"
                             >
                 </div>
-
-                
-
-
             </div>
+
 
             <hr>
 
             <div class="row justify-content-center">
-
-                <div class="col-4 my-3">
-                    <input class="form-control btn btn-primary" 
-                    type="button" 
-                    value="REVISAR PDF TRABAJADOR"
-                    onclick="revisarPDFTrabajador()">
-                </div>
-
-
-                <input type="text" name="select" id="select" value="selectInformes" hidden>
+                                    <h1><div class="col-12 mt-5">LISTADO INFORMES</div></h1>
+            </div>
+            
+            <div class="row justify-content-center mt-5">
+        
+                            <!-- <div class="col-4">
+                                <input type="button" class="form-control btn btn-primary" value="REVISAR PDF" onclick="revisarPDFInterconsulta()">
+                            </div> -->
 
 
-                <div class="col-4 my-3">
-                <!-- <label for="">Fecha y hora</label> -->
-                <select onchange="obtenerParametrosInformes()" name="fechaHora" id="fechaHora" class="form-control">
-                    <?php 
-
-                        $sql = "SELECT DISTINCT FECHA, HORA FROM `INFORMES` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
-
-                        $resultado = mysqli_query($conexion,$sql);
-                        while($row = mysqli_fetch_assoc($resultado)){
-                        $fecha = $row['FECHA'];
-                        $hora = $row['HORA']; 
-
-                            $fechaDMA = date("d-m-Y",strtotime($fecha));
+                            <!-- <input type="text" name="select" id="select" value="selectInterconsulta" hidden> -->
                             
-                            $fechaHora = $fecha . " " . $hora;
-                            $fechaHoraDMA = $fechaDMA . " " . $hora;
-                    ?>
+                            
 
-                        <option value="<?=$fechaHora?>"><?=$fechaHoraDMA?></option>
+                            <div class="col-12">
+                             
 
-                    <?php } ?>
-                </select>
-                </div>
+                                <!-- <select class="form-control" name="fechaHora" id="fechaHora" onchange="obtenerParametrosInterconsulta()"> -->
 
+                                <div class="row justify-content-center text-center">
+                                        
+                                        <div class="col-2">#</div>
+                                        <div class="col-2">FECHA</div>
+                                        <div class="col-2">HORA</div>
+                                        <div class="col-3">PDF TRABAJADOR</div>
+                                        <div class="col-2">PDF EMPRESA</div>
+                                        <div class="col-1"></div>
+                                        
+
+                                </div>
+
+                                <?php 
+
+                                    $sql = "SELECT DISTINCT INFORMES.CARGO, INFORMES.FECHA, INFORMES.HORA FROM `INFORMES` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
+                                    
+                                    $resultado = mysqli_query($conexion,$sql);
+
+                                    $i = 1;
+                                                                       
+                                    while($row = mysqli_fetch_assoc($resultado)){
+                                      
+                                    
+                                    $nameId='formRevisarPDF'.$i;
+                                    $fecha = $row['FECHA'];
+                                    $hora = $row['HORA']; 
+                                    
+                                    $fechaHora = $fecha . " " . $hora;
+                                    $fechaDMA = date("d-m-Y",strtotime($fecha));
+                                    $fechaHoraDMA = $fechaDMA . " " . $hora;
+                                    
+                                    
+                                ?>
+
+                                    <hr style="border-top:1px solid black">
+
+                                    <form action="" method="POST" class="form-group" id="<?=$nameId?>" name="<?=$nameId?>">
+
+                                        <?php if($i){
+                                            /* echo $nameId;
+                                            echo $fechaHora; */
+                                        }?>
+                                        
+                                        <div class="row text-center">
+                                            <input type="text" id="fechaHora" name="fechaHora" value="<?=$fechaHora?>" hidden>
+                                            <div class="col-2"><?=$i?></div>
+                                            <div class="col-2"><?=$fechaDMA?></div>
+                                            <div class="col-2"><?=$hora?></div>
+                                            <div class="col-3">
+                                                <input type="button" class="form-control btn btn-primary" value="PDF TRABAJADOR" onclick="revisarPDFTrabajador('<?='#'.$nameId?>')">
+                                            </div>
+                                            <div class="col-2">
+                                                <input type="button" class="form-control btn btn-primary" value="PDF EMPRESA" onclick="revisarPDFEmpresa('<?='#'.$nameId?>')">
+                                            </div>
+                                            <div class="col-1"></div>
+                                            
+                                        </div>
+                                        
+                                        
+                                    </form> 
+                                    
+                                
+                                    <?php $i++; } ?>
+                                
+                                <!-- </select> -->
+                            </div>
             </div>
 
 
-            <div class="row justify-content-center">
-                <div class="col-4 my-3">
-                        <input class="form-control btn btn-primary" 
-                        type="button" 
-                        value="REVISAR PDF EMPRESA"
-                        onclick="revisarPDFEmpresa()">
-                </div>
-                
-                <div class="col-4">
-
-                </div>
-
-
-            </div>
-            <!-- onclick="generarInformes()" -->
-
-
-           <!--  <div class="col-8 my-3">
-                <button type="submit" class="btn btn-primary btn-block" onclick="return generarInformeEmpresa()">GENERAR INFORME EMPRESA</button>
-            </div>
-
-            <div class="col-8 my-3">
-                <button type="submit" class="btn btn-primary btn-block" onclick="return generarInformeTrabajador()">GENERAR INFORME TRABAJADOR</button>
-            </div> -->
 
             
-        </form>
+
+            
+        
 
     
     

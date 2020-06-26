@@ -48,7 +48,7 @@ $VOOI2000= '';
 $VOOI3000= '';
 $VOOI4000= '';
 $VOOI6000= '';
-$VOOI8000= '';
+$VOOI8000= '0';
 $valor = '';
 $estado = 'Sin evaluar';
 $observaciones = '';
@@ -434,7 +434,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 }
 ?>
 
-<script>graficoAudiometria();</script>
+<script>obtenerParametrosAudiometria();</script>
 
 <div class="container" >
 

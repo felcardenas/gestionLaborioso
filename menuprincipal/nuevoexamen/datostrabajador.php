@@ -5,4 +5,4 @@
     <div class="col-12" style="font-size:25px">EDAD: <?= $_SESSION['edadTrabajador']?></div>
     <div class="col-12" style="font-size:25px">CARGO: <?= $_SESSION['cargoTrabajador']?></div>
     <div class="col-12" style="font-size:25px">EMPRESA: <?= $_SESSION['nombreEmpresa']?></div>
-    </h3>
+</h3>

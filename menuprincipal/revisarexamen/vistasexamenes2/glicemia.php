@@ -1,8 +1,12 @@
 <?php
 session_start();
 include '../../../global/conexion.php';
+
 $idEvaluacion = $_SESSION["idEvaluacion"];
-$idExamen = '8';
+$idExamen = '3';
+$fechaActual = $_SESSION ['fechaActual'];
+$horaActual = $_SESSION["horaActual"];
+
 
 $sql = "SELECT EVALUACION_PARAMETRO.VALOR_PARAMETRO, EVALUACION_PARAMETRO.ID_PARAMETRO 
 FROM EVALUACION_PARAMETRO 
@@ -12,13 +16,7 @@ INNER JOIN EXAMEN
 ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
 WHERE ID_EVALUACION = '$idEvaluacion'";
 
-
-/* 8 	36 	VALOR 	Hemoglobina
-8 	37 	DESCRIPCION 	Hemoglobina
-8 	38 	OBSERVACION 	Hemoglobina
-8 	39 	ESTADO 	Hemoglobina */
-
-
+//49valor 50estado 51observaciones
 $valor = '';
 $estado = 'Sin evaluar';
 $observaciones = '';
@@ -31,17 +29,17 @@ while($row = mysqli_fetch_assoc($resultado)){
     $idParametro = $row['ID_PARAMETRO'];
     
     switch($idParametro){
-        case '36':
+        case '49':
             $valorParametro = $row['VALOR_PARAMETRO'];
             $valor= $valorParametro;
         break;   
 
-        case '39':
+        case '50':
             $valorParametro = $row['VALOR_PARAMETRO'];
             $estado = $valorParametro;
         break;
 
-        case '38':
+        case '51':
             $valorParametro = $row['VALOR_PARAMETRO'];
             $observaciones = $valorParametro;
         break;   
@@ -57,18 +55,19 @@ while($row = mysqli_fetch_assoc($resultado)){
 
 <div class="row justify-content-center my-5">
     <div class="col-6">
-        <h1 class="text-center">Hemoglobina</h1>
+        <h1 class="text-center">GLICEMIA</h1>
     </div>
 </div>
 
 
 
-<form action="" method="POST" class="" id="formIngresarHemoglobina" name="formIngresarHemoglobina">
+<form action="" method="POST" class="" id="formIngresarGlicemia" name="formIngresarGlicemia">
 
 
     <?php include 'estado.php' ?>
 
     
+
 
     <div class="row justify-content-center mb-3">
         <div class="col-1 mt-2">
@@ -87,8 +86,8 @@ while($row = mysqli_fetch_assoc($resultado)){
     
 
     
-    <input type="text" name="consulta" id="consulta" value="ingresarHemoglobina" hidden>
-    <input type="text" name="select" id="select" value="selectHemoglobina" hidden> 
+    <input type="text" name="consulta" id="consulta" value="ingresarGlicemia" hidden>
+    <input type="text" name="select" id="select" value="selectGlicemia" hidden>
     
 
     <div class="row justify-content-center mb-3">
@@ -98,14 +97,18 @@ while($row = mysqli_fetch_assoc($resultado)){
         </div> -->
 
         <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarHemoglobina()" id="btnGuardarHemoglobina" name="btnGuardarHemoglobina">
+            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarGlicemia()" id="btnGuardarGlicemia" name="btnGuardarGlicemia">
         </div>
 
-        <div class="col-4">
-                <select class="form-control" onchange="obtenerParametrosHemoglobina()" name="fechaHora" id="fechaHora">
+
+            <div class="col-4">
+                <select class="form-control" onchange="obtenerParametrosGlicemia()" name="fechaHora" id="fechaHora">
                <?php include 'selectDatosAnteriores.php' ?>
                 </select>
             </div>
+
+
+        
 
     </div>
 

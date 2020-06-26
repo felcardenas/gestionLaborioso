@@ -78,49 +78,86 @@ $resultado = mysqli_query($conexion, $sql);
                                     <input type="button" 
                                     name="siguiente" 
                                     id="siguiente" 
-                                    class="form-control btn btn-primary" 
-                                    value="GENERAR INFORME"
-                                    onclick="validarInterconsulta()">
+                                    class="form-control btn btn-primary btn-lg" 
+                                    value="GENERAR NUEVO INFORME DE INTERCONSULTA"
+                                    onclick="validarInterconsulta()"
+                                    style="height:100px; width:600px;">
                             </div>
                         </div>
-
+</form>
                         <hr>
 
+
+                        <div class="row justify-content-center">
+                                    <h1><div class="col-12 mt-5">LISTADO INFORMES INTERCONSULTA</div></h1>
+                        </div>
+
                         <div class="row justify-content-center mt-5">
-                            <div class="col-4">
+                            <!-- <div class="col-4">
                                 <input type="button" class="form-control btn btn-primary" value="REVISAR PDF" onclick="revisarPDFInterconsulta()">
-                            </div>
+                            </div> -->
 
 
                             <input type="text" name="select" id="select" value="selectInterconsulta" hidden>
 
 
-                            <div class="col-4">
-                                <select class="form-control" name="fechaHora" id="fechaHora" onchange="obtenerParametrosInterconsulta()">
+                            <div class="col-12">
+
+                                
+
+                                <!-- <select class="form-control" name="fechaHora" id="fechaHora" onchange="obtenerParametrosInterconsulta()"> -->
+
+                                <div class="row justify-content-center text-center">
+                                        <div class="col-1">#</div>
+                                        <div class="col-4">ESPECIALIDAD</div>
+                                        <div class="col-2">FECHA</div>
+                                        <div class="col-2">HORA</div>
+                                        <div class="col-3">INFORME</div>
+
+                                </div>
 
                                 <?php 
 
-                                    $sql = "SELECT DISTINCT FECHA, HORA FROM `INTERCONSULTA` WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC";
+                                    $sql = "SELECT DISTINCT ESPECIALIDAD.NOMBRE_ESPECIALIDAD, INTERCONSULTA.FECHA, INTERCONSULTA.HORA FROM `INTERCONSULTA` INNER JOIN ESPECIALIDAD ON INTERCONSULTA.ID_ESPECIALIDAD = ESPECIALIDAD.ID_ESPECIALIDAD WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `FECHA` DESC, `HORA` DESC ";
                                     
                                     $resultado = mysqli_query($conexion,$sql);
+
+                                    $i = 1;
                                     while($row = mysqli_fetch_assoc($resultado)){
                                     $fecha = $row['FECHA'];
                                     $hora = $row['HORA']; 
+                                    $nombreEspecialidad = $row['NOMBRE_ESPECIALIDAD'];
 
                                         $fechaDMA = date("d-m-Y",strtotime($fecha));
                                         
                                         $fechaHora = $fecha . " " . $hora;
                                         $fechaHoraDMA = $fechaDMA . " " . $hora;
+
+                                    $nameId='formRevisarPDF'.$i;    
                                 ?>
 
-                                    <option value="<?=$fechaHora?>"><?=$fechaHoraDMA?></option>
+                                    <hr style="border-top:1px solid black">
+
+                                    <form action="" method="post" class="form-group" id="<?=$nameId?>" name="<?=$nameId?>">
+                                        <input type="text" id="fechaHora" name="fechaHora" value="<?=$fechaHora?>" hidden>
+                                        <div class="row text-center">
+                                            <div class="col-1"><?=$i?></div>
+                                            <div class="col-4"><?=$nombreEspecialidad?></div>
+                                            <div class="col-2"><?=$fechaDMA?></div>
+                                            <div class="col-2"><?=$hora?></div>
+                                            <div class="col-3"><input type="button" class="form-control btn btn-primary" value="REVISAR PDF" onclick="revisarPDFInterconsulta('#<?=$nameId?>')"></div>
+                                        </div>
+                                    </form> 
+                                    
                                 
-                                    <?php } ?>
+                                    
+                                    <!-- <option value="<?=$fechaHora?>"><?=$fechaHoraDMA?></option> -->
+
+                                    <?php ;$i++; } ?>
                                 
-                                </select>
+                                <!-- </select> -->
                             </div>
                         </div>
 
 
                         
-</form>

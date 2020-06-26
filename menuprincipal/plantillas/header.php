@@ -1,3 +1,13 @@
+<?php 
+/* if(!isset($_SESSION['control'])){
+  echo 'Usted no tiene autorización para ver esta página';
+  die();
+}else{
+
+} */
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +21,16 @@
   <title>Bienvenid@</title>
 
   <!-- Bootstrap core CSS -->
+  
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap select -->
    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">  -->
    
   <link rel="stylesheet" href="../../bootstrap/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css"> 
 
+  
   <!-- Estilos -->
   <link href="../css/estilos.css" rel="stylesheet">
 

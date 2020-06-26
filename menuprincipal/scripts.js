@@ -1049,7 +1049,9 @@ function examenSignosVitales() {
                 url: "../../consultas/insert.php",
                 data: datos,
                 success: function (r) {
+                    
                     if (r == 'true') {
+                        
                         //document.getElementById("formSignosVitales").submit(); 
                         //window.location.replace("seleccionexamenes.php");
                         //mensajeEnPantalla("Se han ingresado los datos", "", "success");
@@ -1063,9 +1065,6 @@ function examenSignosVitales() {
                     
                 }
             });
-
-
-
         } else {
             mensajeEnPantalla("No se han ingresado los datos", "", "error");
             return false;
@@ -1716,6 +1715,45 @@ function guardarEncuestaDeLakeLouis(){
         return false;
     } */
 
+    var dolorDeCabeza = document.getElementById('dolorDeCabeza').value;
+    var disminucionDeApetito = document.getElementById('disminucionDeApetito').value;
+    var fatigaDebilidad = document.getElementById('fatigaDebilidad').value;
+    var mareoVertigo = document.getElementById('mareoVertigo').value;
+    var dificultadParaDormir = document.getElementById('dificultadParaDormir').value;
+
+    alert(dolorDeCabeza + disminucionDeApetito + fatigaDebilidad + mareoVertigo + dificultadParaDormir);
+    //dolorDeCabeza = 1;
+
+    return false;
+    if(dolorDeCabeza != 1 && dolorDeCabeza !=2 && dolorDeCabeza !=3){
+        mensajeEnPantalla("No se puede ingresar","","error");    
+        return false;
+    }
+
+    if(disminucionDeApetito != 1 && disminucionDeApetito !=2 && disminucionDeApetito !=3){
+        mensajeEnPantalla("No se puede ingresar","","error");    
+        return false;
+    }
+
+    if(fatigaDebilidad != 1 && fatigaDebilidad !=2 && fatigaDebilidad !=3){
+        mensajeEnPantalla("No se puede ingresar","","error");    
+        return false;
+    }
+
+    if(mareoVertigo != 1 && mareoVertigo !=2 && mareoVertigo !=3){
+        mensajeEnPantalla("No se puede ingresar","","error");    
+        return false;
+    }
+
+    if(dificultadParaDormir != 1 && dificultadParaDormir !=2 && dificultadParaDormir !=3){
+        mensajeEnPantalla("No se puede ingresar","","error");    
+        return false;
+    }
+    
+
+
+
+    
     
 
      Swal.fire({
@@ -2997,10 +3035,72 @@ function obtenerParametrosEncuestaDeLakeLouis(){
         success: function (r) {
 
             
+            
             var js = JSON.parse(r);
 
-            document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO;
+            var dolorDeCabeza = js[0].VALOR_PARAMETRO;
+            var disminucionDeApetito = js[1].VALOR_PARAMETRO;
+            var fatigaDebilidad = js[2].VALOR_PARAMETRO;
+            var mareoVertigo = js[3].VALOR_PARAMETRO;
+            var dificultadParaDormir = js[4].VALOR_PARAMETRO;
             
+            
+            
+            var radioDolorDeCabeza = document.getElementsByName('dolorDeCabeza');
+            
+                for (i=0;i<radioDolorDeCabeza.length;i++) {
+                    if(radioDolorDeCabeza[i].value == dolorDeCabeza) {
+                        radioDolorDeCabeza[i].checked = true;
+                    }
+                }
+
+            var radioDisminucionDeApetito = document.getElementsByName('disminucionDeApetito');
+            
+                for (i=0;i<radioDisminucionDeApetito.length;i++) {
+                    if(radioDisminucionDeApetito[i].value == disminucionDeApetito) {
+                        radioDisminucionDeApetito[i].checked = true;
+                    }
+                }
+
+            var radioFatigaDebilidad = document.getElementsByName('fatigaDebilidad');
+            
+                for (i=0;i<radioFatigaDebilidad.length;i++) {
+                    if(radioFatigaDebilidad[i].value == fatigaDebilidad) {
+                        radioFatigaDebilidad[i].checked = true;
+                    }
+                }
+
+            var radioMareoVertigo = document.getElementsByName('mareoVertigo');
+            
+                for (i=0;i<radioMareoVertigo.length;i++) {
+                    if(radioMareoVertigo[i].value == mareoVertigo) {
+                        radioMareoVertigo[i].checked = true;
+                    }
+                }
+            
+           
+            
+            var radioDificultadParaDormir = document.getElementsByName('dificultadParaDormir');
+            
+                for (i=0;i<radioDificultadParaDormir.length;i++) {
+                    if(radioDificultadParaDormir[i].value == dificultadParaDormir) {
+                        radioDificultadParaDormir[i].checked = true;
+                    }
+                }
+
+            var radioDisminucionDeApetito = document.getElementsByName('disminucionDeApetito');
+            
+                for (i=0;i<radioDisminucionDeApetito.length;i++) {
+                    if(radioDisminucionDeApetito[i].value == disminucionDeApetito) {
+                        radioDisminucionDeApetito[i].checked = true;
+                    }
+                }
+
+            document.getElementById('observaciones').value = js[5].VALOR_PARAMETRO;
+
+            var puntaje = parseInt(js[0].VALOR_PARAMETRO) + parseInt(js[1].VALOR_PARAMETRO) + parseInt(js[2].VALOR_PARAMETRO) + parseInt(js[3].VALOR_PARAMETRO) + parseInt(js[4].VALOR_PARAMETRO);
+
+            document.getElementById('puntaje').value = puntaje;
             
         }
         
@@ -3320,6 +3420,8 @@ function obtenerParametrosRecomendaciones(){
 
 function obtenerParametrosInterconsulta(){
     
+    var fecha = document.getElementById("");
+
     var datos = $('#formInterconsulta').serialize();
     $.ajax({
         type: "POST",
@@ -3374,6 +3476,54 @@ function obtenerParametrosInformes(){
 }
 
 
+function obtenerPuntajeLakeLouis(){
+
+    //var dolorDeCabeza = document.getElementById('dolorDeCabeza').value;
+    
+    var radioDolorDeCabeza = document.getElementsByName('dolorDeCabeza');
+
+    for (i=0;i<radioDolorDeCabeza.length;i++){
+        if(radioDolorDeCabeza[i].checked) {
+            dolorDeCabeza = i+1;
+        }
+    }
+
+    var radioDisminucionDeApetito = document.getElementsByName('disminucionDeApetito');
+
+    for (i=0;i<radioDisminucionDeApetito.length;i++){
+        if(radioDisminucionDeApetito[i].checked) {
+            disminucionDeApetito = i+1;
+        }
+    }
+
+    var radioFatigaDebilidad = document.getElementsByName('fatigaDebilidad');
+
+    for (i=0;i<radioFatigaDebilidad.length;i++){
+        if(radioFatigaDebilidad[i].checked) {
+            fatigaDebilidad = i+1;
+        }
+    }
+
+    var radioMareoVertigo = document.getElementsByName('mareoVertigo');
+
+    for (i=0;i<radioMareoVertigo.length;i++){
+        if(radioMareoVertigo[i].checked) {
+            mareoVertigo = i+1;
+        }
+    }
+
+    var radioDificultadParaDormir = document.getElementsByName('dificultadParaDormir');
+
+    for (i=0;i<radioDificultadParaDormir.length;i++){
+        if(radioDificultadParaDormir[i].checked) {
+            dificultadParaDormir = i+1;
+        }
+    }
+
+    var puntaje = parseInt(dolorDeCabeza) + parseInt(disminucionDeApetito) + parseInt(fatigaDebilidad) + parseInt(mareoVertigo) + parseInt(dificultadParaDormir);
+
+    document.getElementById('puntaje').value = puntaje;
+}
 
 function obtenerValorTestDeRuffier(){
     
@@ -3468,6 +3618,10 @@ function obtenerIMC() {
         document.getElementById('imc').value = imc.toFixed(2);
     }
 
+}
+
+function mostrarSignosVitales2(){
+    $("#contenido").load("vistasexamenes/signosvitales.php");
 }
 
 function mostrarSignosVitales(){
@@ -3660,44 +3814,31 @@ function generarInformeTrabajador(){
     document.getElementById("formInformes").action = "informes/informeTrabajador.php"; 
 }
 
-function revisarPDFTrabajador(){
-
-    var fechaHora = document.getElementById("fechaHora").value;
-
-    if(!validarBlanco(fechaHora)){
-        mensajeEnPantalla("No hay informes para mostrar. Si desea generar un informe, seleccione una empresa, rellene el campo Cargo y presione Generar informes","","error");
-        return false;
-    }
-
-    var datos = $('#formInformes').serialize();
+function revisarPDFTrabajador(nameId){
+    
+    //nameId='#formInformes1';
+    
+    var datos = $(nameId).serialize();
     $.ajax({
         type: "POST",
         url: "ingresarDatosInformes.php",
         data: datos,
         success: function (r) {
+            
             if (r == 'true') {
                 window.open("informes/informeTrabajador.php","Informe trabajador","fullscreen=yes");
-                //width=700,height=700,scrollbars=NO
             } else if (r == 'false') {
                 //mensajeEnPantalla("No se han ingresado los datos", "", "error");
             }
-            //alert(r);
+            
         }
     });
 
-    /* window.open('ingresarDatosInformes.php', 'formInformes', 'width=450,height=300,status=yes,resizable=yes,scrollbars=yes'); */
-    //ingresarDatosInformes.php
 }
 
-function revisarPDFEmpresa(){
+function revisarPDFEmpresa(nameId){
 
-    var fechaHora = document.getElementById("fechaHora").value;
-
-    if(!validarBlanco(fechaHora)){
-        mensajeEnPantalla("No hay informes para mostrar. Si desea generar informe, seleccione una empresa y rellene el campo Cargo","","error");
-        return false;
-    }
-    var datos = $('#formInformes').serialize();
+    var datos = $(nameId).serialize();
     $.ajax({
         type: "POST",
         url: "ingresarDatosInformes.php",
@@ -3709,21 +3850,34 @@ function revisarPDFEmpresa(){
             } else if (r == 'false') {
                 //mensajeEnPantalla("No se han ingresado los datos", "", "error");
             }
-            //alert(r);
+            
         }
     });
 }
 
-function revisarPDFInterconsulta(){
-    
-    var fechaHora = document.getElementById("fechaHora").value;
+function revisarPDFInterconsulta(nameId){
+//    alert("hola");
 
-    if(!validarBlanco(fechaHora)){
+    //var form = document.getElementById().value;
+    /* var 
+    
+    alert(fechaHora); */
+    //var nombreForm = "#"+fechaHora;
+    //alert(nombreForm);
+    //alert("hola2");
+
+    /* if(!validarBlanco(fechaHora)){
         mensajeEnPantalla("No hay informes para mostrar. Si desea generar un informe de Interconsulta, seleccione una especialidad, rellene el campo Observaciones y presione Generar informe","","error");
         return false;
-    }
+    } */
+    
 
-    var datos = $('#formInterconsulta').serialize();
+
+    //var fechaHora = document.getElementById("fechaHora").value;
+    //var nameId = document.getElementById("nameId").value;
+    //alert(fechaHora + " - " + nameId);
+
+    var datos = $(nameId).serialize();
     $.ajax({
         type: "POST",
         url: "ingresarDatosInterconsulta.php",
@@ -4074,6 +4228,7 @@ function ingresarDatosInformes(){
         url: "../../consultas/insertarInformes.php",
         data: datos,
         success: function (r) {
+            alert(r);
             if (r == 'true') {
 
                 mensajeEnPantalla("Se ingresaron los datos","","success");

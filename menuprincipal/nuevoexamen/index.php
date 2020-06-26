@@ -1,4 +1,9 @@
-<?php include '../plantillas/header.php';
+
+
+<?php 
+
+
+include '../plantillas/header.php';
 //session_start(); 
 
  ?>

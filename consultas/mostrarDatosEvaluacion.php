@@ -287,7 +287,7 @@ function selectInterconsulta(){
         } 
       
       
-      }   
+    }   
     /* liberar el conjunto de resultados */
     //mysqli_free_result($resultado); 
     

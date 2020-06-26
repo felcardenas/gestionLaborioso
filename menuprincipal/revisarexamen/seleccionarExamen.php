@@ -68,11 +68,16 @@ if ($resultado = mysqli_query($conexion, $sql)) {
     $horaCreacion = $row['HORA_CREACION'];
     $fechaCreacion = $row['FECHA_CREACION'];
     $idEvaluacion = $row['ID_EVALUACION'];
-        
+       
+    if($contador%2){
+        $fondo = '';
+    }else{
+        $fondo = '#e5e5e5;';
+    }
     ?>
     
 
-    <div class="row justify-content-center py-2" style="border:1px solid; <?php if($contador%2==0)echo 'background-color:#e5e5e5;' ?>">
+    <div class="row justify-content-center py-2" style="border:1px solid; background-color:<?=$fondo?>">
 
 
     <div class="col-2">

@@ -3,6 +3,9 @@
 include '../../plantillas/header.php';
 include "../../../global/conexion.php";
 require_once __DIR__ . '../../../../plugins/mpdf/vendor/autoload.php';
+
+
+
 session_start();
 date_default_timezone_set("America/Santiago");  
 $fecha = $_SESSION['fecha'];
@@ -48,25 +51,62 @@ $rutEmpresa = $row['RUT_EMPRESA'] . "-" . $row['DV_EMPRESA'];
 mysqli_free_result($resultado);
 
 
+
+$sql = "SELECT ID_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA WHERE TEXTO_CONCLUSION_MEDICA = '$conclusionMedica'";
+
+// 2,4,5,6,7
+$resultado = mysqli_query($conexion,$sql);
+$row = mysqli_fetch_assoc($resultado);
+$idConclusionMedica = $row['ID_CONCLUSION_MEDICA'];
+$cantidadResultadosConclusionMedica = mysqli_num_rows($resultado);
+
+if($idConclusionMedica == 1 || $idConclusionMedica == 3 || $conclusionMedica == ''){
+    $mostrarFechaValidez = true;
+}else{
+    $mostrarFechaValidez = false;
+}
+
+
+mysqli_free_result($resultado);
+
+
+
+
+
 $html = "<table>
 
-<tr>
+<tr> 
     <td style='width:105'><img src='../../../img/logosinfondo.png' width='100' height='100'></td>
     <td style='width:340'><img src='../../../img/logoazul.png' width='250' height='80'></td>
     <td>
         <table>
             <tr>
                 <td style='font-family:arial; font-size:14;'>FECHA EMISIÓN: </td>
-                <td style='font-family:arial; font-size:14;'>$fecha</td>
+                <td style='font-family:arial; font-size:14;'>$fecha </td>
             </tr>
-            <tr>
+";
+
+if($mostrarFechaValidez){
+    $html .= "  <tr>
                 <td style='font-family:arial; font-size:14;'>VÁLIDO HASTA: </td>
                 <td style='font-family:arial; font-size:14;'>$fechaValidez</td>
-            </tr>
-            <tr>
-                <td style='font-family:arial; font-size:14;'>CODIGO: </td>
-                <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
-            </tr>
+            </tr>";
+
+    
+};
+
+$html .= "  <tr>
+            <td style='font-family:arial; font-size:14;'>CÓDIGO TRABAJADOR: </td>
+            <td style='font-family:arial; font-size:14;'>$codigoDescargaTrabajador</td>
+        </tr>";
+        
+    $html .= "  <tr>
+            <td style='font-family:arial; font-size:14;'>CÓDIGO EMPRESA: </td>
+            <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
+        </tr>";
+
+
+$html .= "
         </table>
     </td>
 </tr>
@@ -182,7 +222,7 @@ $html .= "
 </tr>
 
 <tr>
-    <td style='text-align:center'>Dr(a). $nombreMedico</td>
+    <td style='text-align:center'>NOMBRE Y TIMBRE DEL MÉDICO</td>
 </tr>
 </table>
 
@@ -192,11 +232,20 @@ $html .= "
 ";
 
 
+ob_clean();
+
 
 
 //$nombreSalida = $trabajador.".php";
-
 $mpdf = new \Mpdf\Mpdf();
+$mpdf->AddPage('', // L - landscape, P - portrait 
+'', '', '', '',
+15, // margin_left
+15, // margin right
+15, // margin top
+40, // margin bottom
+5, // margin header
+15); // margin footer
 $mpdf->SetHTMLFooter("
 <table style='font-family:arial; width:700; font-size:12;'>
     <tr>
@@ -208,15 +257,11 @@ $mpdf->SetHTMLFooter("
             <p>-Si el empleador requiere el detalle de la evaluación, solo puede ser entregada con autorización  explícita por el trabajador, con documento que lleve nombre firma y rut.</p>
             <p>-La adulteración de este certificado es un delito penado por ley.</p>
 
-            
-
-
-
         </td>
     <tr>
 </table>
 ");
 $mpdf->WriteHTML($html);
-$mpdf->Output(); 
+$mpdf->Output("Informe empresa - $nombreTrabajador",'I'); 
 
 ?>

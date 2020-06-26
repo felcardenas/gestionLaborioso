@@ -2,6 +2,43 @@
 
 session_start();
 include '../../../global/conexion.php';
+/* $idExamen = '19';
+$idEvaluacion = $_SESSION["idEvaluacion"];
+
+$sql = "SELECT evaluacion_parametro.VALOR_PARAMETRO, evaluacion_parametro.ID_PARAMETRO 
+FROM EVALUACION_PARAMETRO 
+INNER JOIN PARAMETRO 
+ON EVALUACION_PARAMETRO.ID_PARAMETRO = PARAMETRO.ID_PARAMETRO 
+INNER JOIN EXAMEN 
+ON PARAMETRO.ID_EXAMEN = EXAMEN.ID_EXAMEN
+WHERE ID_EVALUACION = '$idEvaluacion'"; */
+/* 
+
+$estado = 'Sin evaluar';
+$observaciones = 'Sin observaciones';
+
+$resultado = mysqli_query($conexion,$sql);
+
+
+while($row = mysqli_fetch_assoc($resultado)){
+    
+    $idParametro = $row['ID_PARAMETRO'];
+    
+    switch($idParametro){
+        
+        case '77':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $observaciones = $valorParametro;
+        break;   
+            
+        case'78':
+            $valorParametro = $row['VALOR_PARAMETRO'];
+            $estado = $valorParametro;
+        break;
+    }
+   
+} */
+
 ?>
 
 <div class="container">
@@ -100,16 +137,16 @@ include '../../../global/conexion.php';
 </div> 
 
 <div class="row justify-content-center my-5">
-        <div class="col-8">
-            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="examenSignosVitales()">CONTINUAR</button>
+        <div class="col-4">
+            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="validarSignosVitales()">CONTINUAR</button>
             
         </div>
 
-       <!--  <div class="col-4">
+        <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosTestDeRuffier()" name="fechaHora" id="fechaHora">
                <?php include 'selectDatosAnteriores.php' ?>
                 </select>
-        </div> -->
+        </div>
 </div>
 
 </div>

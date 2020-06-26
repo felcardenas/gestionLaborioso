@@ -6,12 +6,13 @@ include "../global/conexion.php";
 session_start();
 date_default_timezone_set("America/Santiago");  
 
-$idEvaluacion = $_SESSION['idEvaluacion'];
+
 
 if(isset($_POST)){
-    $nombreEmpresa = $_POST['nombreEmpresa'];
-    $cargoTrabajador = $_POST['cargoTrabajador'];
-    //$nombreMedico = $_POST['nombreMedico'];
+    $idEvaluacion = $_SESSION['idEvaluacion'];
+    $nombreEmpresa = $_SESSION['nombreEmpresa'];    
+    $cargoTrabajador = $_SESSION['cargoTrabajador'];
+    $nombreMedico = $_SESSION['usuarioNombreCompleto'];
     
 }else{
     $nombreEmpresa = "Empresa Prueba";
@@ -19,7 +20,7 @@ if(isset($_POST)){
     $cargoTrabajador = "Cargo";
     $nombreMedico = "Nombre Médico";
 }
-$nombreMedico = $_SESSION['usuarioNombreCompleto'];
+
 
 //OBTENER EMPRESA
     $sql = "SELECT ID_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
@@ -482,11 +483,11 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
                             break;
 
                             case '42':
-                                $estado = $row['VALOR_PARAMETRO'];
+                                $estado = '';
                             break;
                         }
                     }
-
+                    $estado = '';
                 break;
 
                 case 'Encuesta de Lake Louis':
@@ -509,11 +510,11 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
                             break;
 
                             case '60':
-                                $estado = $row['VALOR_PARAMETRO'];
+                                $estado = '';
                             break;
                         }
                     }
-                    
+                    $estado = '';
                 break;
 
                 case 'Test de Ruffier':
@@ -536,11 +537,13 @@ $nombreMedico = $_SESSION['usuarioNombreCompleto'];
                             break;
 
                             case '48':
-                                $estado = $row['VALOR_PARAMETRO'];
+                                
                             break;
                         }
+                        
+                        
                     }
-                    
+                    $estado = '';                    
                 break;
 
                 case 'Hemograma':

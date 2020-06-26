@@ -516,6 +516,9 @@ function revisarExamen(){
         $_SESSION['rutTrabajador'] = $rutTrabajador;
         $_SESSION['dvTrabajador'] = $dvTrabajador;
         $_SESSION['rutCompletoTrabajador'] = $rutTrabajador . "-" . $dvTrabajador;
+        
+
+        
 
         $dia = date("d");
         $mes = date("m");
@@ -528,6 +531,10 @@ function revisarExamen(){
         $segundos = date("s");
         $horaActual = $hora . ":" . $minutos . ":" . $segundos;
         $_SESSION['horaActual'] = $horaActual;   
+
+
+        
+
 
         $valido = 'true';
           
@@ -575,12 +582,13 @@ function signosVitales(){
     $_SESSION['idEvaluacion'] = $row['ID_EVALUACION'];
     $idEvaluacion = $_SESSION['idEvaluacion'];
 
-
+    //echo $sql;
     $sql = "SELECT DISTINCT FECHA, HORA FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `SIGNOS_VITALES_EVALUACION`.`FECHA` DESC, `SIGNOS_VITALES_EVALUACION`.`HORA` DESC";
 
     $resultado = mysqli_query($conexion,$sql);
     $cantidadSignosVitales = mysqli_num_rows($resultado);
 
+    //echo $sql;
     if($cantidadSignosVitales > 2){
         echo 'maxSignosVitales';
         die();
@@ -636,10 +644,17 @@ function ingresarEmpresaYCargo(){
   $row = mysqli_fetch_assoc($resultado);
   $_SESSION['idEvaluacion'] = $row['ID_EVALUACION'];
   $idEvaluacion = $_SESSION['idEvaluacion'];
+  $idTrabajador = $_SESSION['idTrabajador'];
+
 
   $valido = false;
   $idEmpresa = $_POST['nombreEmpresa'];
   $cargoTrabajador = $_POST['cargoTrabajador'];
+  
+  
+  $sql = "INSERT IGNORE INTO TRABAJADOR_EMPRESA VALUES ('$idTrabajador','$idEmpresa')";
+  mysqli_query($conexion,$sql);
+  mysqli_free_result($resultado);
   
 
   $sql = "SELECT NOMBRE_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
@@ -653,7 +668,7 @@ function ingresarEmpresaYCargo(){
   mysqli_free_result($resultado);
 
   $sql = "UPDATE EVALUACION SET ID_EMPRESA='$idEmpresa',CARGO='$cargoTrabajador' WHERE ID_EVALUACION = '$idEvaluacion'";
-//echo $sql;
+  //echo $sql;
 
   if(mysqli_query($conexion,$sql)){
     echo 'true';
@@ -733,7 +748,7 @@ function ingresarIndiceDeFramingham(){
   $horaActual = obtenerHoraActual();
   $valorIndiceDeFramingham = $_POST['valorIndiceDeFramingham'];
   //$observaciones = 'Sin observaciones';
-  $estado = 'Sin evaluar';
+  $estado = '';
   
 
   $observaciones = $_POST['observaciones'];
@@ -775,7 +790,7 @@ function ingresarTestDeRuffier(){
     $valoracion = ($P1+$P2+$P3-200)/10;
     //$valoracion = $_POST['valoracion'];
     //$observaciones = 'Sin observaciones';
-    $estado = 'Sin evaluar';
+    $estado = '';
 
     $observaciones = $_POST['observaciones'];
     //$estado = $_POST['estado'];
@@ -1065,9 +1080,24 @@ function ingresarEncuestaDeLakeLouis(){
   $horaActual = obtenerHoraActual();
   //$valor = $_POST['valor'];
   //$estado = $_POST['estado'];
+  $dolorDeCabeza = $_POST['dolorDeCabeza'];
+  $disminucionDeApetito = $_POST['disminucionDeApetito'];
+  $fatigaDebilidad = $_POST['fatigaDebilidad'];
+  $mareoVertigo = $_POST['mareoVertigo'];
+  $dificultadParaDormir = $_POST['dificultadParaDormir'];
+  
+  $estado = '';
+
   $observaciones = $_POST['observaciones'];
   
-  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','59','$fechaActual','$horaActual','$observaciones')";
+  $sql = "INSERT INTO EVALUACION_PARAMETRO (ID_EVALUACION,ID_PARAMETRO,FECHA, HORA, VALOR_PARAMETRO) VALUES ('$idEvaluacion','139','$fechaActual','$horaActual','$dolorDeCabeza'), 
+  ('$idEvaluacion','140','$fechaActual','$horaActual','$disminucionDeApetito'),
+  ('$idEvaluacion','141','$fechaActual','$horaActual','$fatigaDebilidad'),
+  ('$idEvaluacion','142','$fechaActual','$horaActual','$mareoVertigo'),
+  ('$idEvaluacion','143','$fechaActual','$horaActual','$dificultadParaDormir'),
+  ('$idEvaluacion','144','$fechaActual','$horaActual','$observaciones'),
+  ('$idEvaluacion','145','$fechaActual','$horaActual','$estado');";
+
 
   //$sql .= "ON DUPLICATE KEY UPDATE VALOR_PARAMETRO = VALUES(VALOR_PARAMETRO)";
 

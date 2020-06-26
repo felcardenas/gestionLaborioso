@@ -12,6 +12,14 @@ $idEvaluacion = $_SESSION['idEvaluacion'];
 
 //echo $fecha ."-" .$hora;
 
+/* $fecha = '2020-05-20';
+$hora = '13:49:25';
+$idEvaluacion = '53'; */
+
+/* echo $fecha;
+echo $hora;
+echo $idEvaluacion; */
+
 $sql = "SELECT * FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha' AND HORA = '$hora'";
     //echo $sql;
     $resultado = mysqli_query($conexion,$sql);
@@ -40,7 +48,7 @@ $sql = "SELECT * FROM INFORMES WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA =
     $codigoDescargaEmpresa = $row['CODIGO_DESCARGA_EMPRESA'];
     $codigoDescargaTrabajador = $row['CODIGO_DESCARGA_TRABAJADOR'];
 
-//echo $cadenaExamenes;
+echo $cadenaExamenes;
 mysqli_free_result($resultado);
 
 $sql = "SELECT NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
@@ -53,115 +61,76 @@ $rutEmpresa = $row['RUT_EMPRESA'] . "-" . $row['DV_EMPRESA'];
 mysqli_free_result($resultado);
 
 
+$sql = "SELECT ID_CONCLUSION_MEDICA FROM CONCLUSION_MEDICA WHERE TEXTO_CONCLUSION_MEDICA = '$conclusionMedica'";
 
+// 2,4,5,6,7
+$resultado = mysqli_query($conexion,$sql);
+$row = mysqli_fetch_assoc($resultado);
+$idConclusionMedica = $row['ID_CONCLUSION_MEDICA'];
+$cantidadResultadosConclusionMedica = mysqli_num_rows($resultado);
 
-/* if(isset($_POST)){
-
-    $_SESSION['nombreEmpresa'] = $_POST['nombreEmpresa'];
-    $_SESSION['cargoTrabajador'] = $_POST['cargoTrabajador'];
-    $_SESSION['nombreMedico'] = $_POST['nombreMedico'];
-    //$idEvaluacion = $_SESSION['idEvaluacion'];
-
-    $nombreEmpresa =$_SESSION['nombreEmpresa'];
-    $cargoTrabajador = $_SESSION['cargoTrabajador'];
-    $nombreMedico = $_SESSION['nombreMedico'];
-    $idEvaluacion = $_SESSION['idEvaluacion'];
+if($idConclusionMedica == 1 || $idConclusionMedica == 3){
+    $mostrarFechaValidez = true;
 }else{
-    $nombreEmpresa = $_SESSION['nombreEmpresa'];
-    $cargoTrabajador = $_SESSION['cargoTrabajador'];
-    $nombreMedico = $_SESSION['nombreMedico'];
-    $idEvaluacion = $_SESSION['idEvaluacion'];
-} */
+    $mostrarFechaValidez = false;
+}
 
-/* $sql="SELECT RUT_EMPRESA, DV_EMPRESA FROM EMPRESA WHERE NOMBRE_EMPRESA = '$nombreEmpresa'";
 
-$resultado = mysqli_query($conexion,$sql);
-$row = mysqli_fetch_assoc($resultado);
-
-$rutEmpresa = $row['RUT_EMPRESA'];
-$dvEmpresa = $row['DV_EMPRESA'];
-$rutEmpresaCompleto = $rutEmpresa."-".$dvEmpresa;
-mysqli_free_result($resultado); */
+mysqli_free_result($resultado);
 
 
 
-//$idTrabajador = $_SESSION['idTrabajador'];
-//$idUsuario = $_SESSION['idUsuario'];
-/*$edad = $_SESSION['edadTrabajador'];
-$nombreCompletoTrabajador = utf8_encode($_SESSION['nombreCompletoTrabajador']);
-$rutTrabajador = $_SESSION['rutTrabajador'];
-$dvTrabajador = $_SESSION['dvTrabajador'];
-$rut = $rutTrabajador . "-" . $dvTrabajador; */
-    
 
-/* $sql = "SELECT PULSO, PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, IMC, EXAMEN_FISICO_GENERAL, CONCLUSION_MEDICA, RECOMENDACIONES FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'";
 
-$resultado = mysqli_query($conexion,$sql);
-$row = mysqli_fetch_assoc($resultado);
-
-$pulso = $row['PULSO'];
-$peso = $row['PESO'];
-$altura = $row['ALTURA'];
-$tensionDiastolica = $row['PRESION_DIASTOLICA'];
-$tensionSistolica = $row['PRESION_SISTOLICA'];
-$IMC = round($row['IMC'],1);
-$examenFisicoGeneral = utf8_encode($row['EXAMEN_FISICO_GENERAL']);
-$conclusionMedica = utf8_encode($row['CONCLUSION_MEDICA']);
-$conclusionMedica2 = explode("-",$conclusionMedica);
-$conclusionMedica3 = $conclusionMedica2[1];
-$recomendaciones = utf8_encode($row['RECOMENDACIONES']);
-
-mysqli_free_result($resultado); */
-
-/* $sql = "SELECT bateria_de_examenes.NOMBRE_BATERIA_DE_EXAMENES FROM bateria_de_examenes INNER JOIN evaluacion_bateria_de_examenes ON bateria_de_examenes.ID_BATERIA_DE_EXAMENES = evaluacion_bateria_de_examenes.ID_BATERIA_DE_EXAMENES INNER JOIN EVALUACION ON evaluacion_bateria_de_examenes.ID_EVALUACION = evaluacion.ID_EVALUACION WHERE evaluacion.ID_EVALUACION = '$idEvaluacion'";
-
-$cadenaBateriaDeExamenes = "";
-
-$resultado = mysqli_query($conexion,$sql);
-while($row = mysqli_fetch_assoc($resultado)){
-    $cadenaBateriaDeExamenes .= $row['NOMBRE_BATERIA_DE_EXAMENES']." / ";
-} */
-
-/* $cadenaBateriaDeExamenes = substr($cadenaBateriaDeExamenes,0,-2);
-mysqli_free_result($resultado); */
-
- 
 $fecha = date("d/m/Y",strtotime($fecha));
 $fechaValidez = date("d/m/Y",strtotime($fechaValidez));  
 
 
-//$fechaDMA = date("d-m-Y",strtotime($fecha));
+
 
 
 $html = "<table>
 
-<tr>
+<tr> 
     <td style='width:105'><img src='../../../img/logosinfondo.png' width='100' height='100'></td>
     <td style='width:340'><img src='../../../img/logoazul.png' width='250' height='80'></td>
     <td>
         <table>
             <tr>
                 <td style='font-family:arial; font-size:14;'>FECHA EMISIÓN: </td>
-                <td style='font-family:arial; font-size:14;'>$fecha</td>
+                <td style='font-family:arial; font-size:14;'>$fecha </td>
             </tr>
-            <tr>
+";
+
+if($mostrarFechaValidez){
+    $html .= "  <tr>
                 <td style='font-family:arial; font-size:14;'>VÁLIDO HASTA: </td>
                 <td style='font-family:arial; font-size:14;'>$fechaValidez</td>
-            </tr>
-            <tr>
-                <td style='font-family:arial; font-size:14;'>CÓDIGO TRABAJADOR: </td>
-                <td style='font-family:arial; font-size:14;'>$codigoDescargaTrabajador</td>
-            </tr>
-            <tr>
-                <td style='font-family:arial; font-size:14;'>CÓDIGO EMPRESA: </td>
-                <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
-            </tr>
+            </tr>";
+
+    
+};
+
+$html .= "  <tr>
+            <td style='font-family:arial; font-size:14;'>CÓDIGO TRABAJADOR: </td>
+            <td style='font-family:arial; font-size:14;'>$codigoDescargaTrabajador</td>
+        </tr>";
+        
+    $html .= "  <tr>
+            <td style='font-family:arial; font-size:14;'>CÓDIGO EMPRESA: </td>
+            <td style='font-family:arial; font-size:14;'>$codigoDescargaEmpresa</td>
+        </tr>";
+
+
+$html .= "
         </table>
     </td>
 </tr>
 
 
 </table>
+
+
 
 <h1 style='font-family:arial; text-align:center;'> INFORME EVALUACION PRE-OCUPACIONAL</h1>
 
@@ -308,6 +277,8 @@ mysqli_free_result($resultado); */
 $examenes = explode("~",$cadenaExamenes);
 $i = 0;
 
+
+
 foreach($examenes as $dato){
     
     $dato2 = explode("|",$dato);
@@ -317,8 +288,13 @@ foreach($examenes as $dato){
     $observaciones = $dato2[2];
     $estado = $dato2[3];
 
-     
+    if($examen == 'Encuesta de Lake Louis' || $examen == 'Test de Ruffier' || $examen == 'Indice de Framingham'){
+        //$html .= '<tr><td>hola</td></tr>';
+        $estado = ' ';
+    }
+
     $html .= "<tr>
+    
     <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$examen</td>
     <td style='border:1px solid; text-align:center; font-family:arial; font-size:16;'>$valor</td>
     <td style='border:1px solid; text-align:justify; font-family:arial; font-size:16;'>$observaciones</td>
@@ -331,14 +307,14 @@ foreach($examenes as $dato){
 $html .= "</table>"; 
 
 $html .= "
-
+<br><br><br>
 <table style='font-family:arial; width:700'> 
 <tr>
     <td style='text-align:center'>______________________________________ </th>
 </tr>
 
 <tr>
-    <td style='text-align:center'>Dr/dra $nombreMedico</td>
+    <td style='text-align:center'>NOMBRE Y TIMBRE DEL MÉDICO</td>
 </tr>
 </table>
 
@@ -350,7 +326,7 @@ $html .= "
 
 
 //$nombreSalida = $trabajador.".php";
-
+ob_clean();
 $mpdf = new \Mpdf\Mpdf();
 
 $mpdf->AddPage('', // L - landscape, P - portrait 

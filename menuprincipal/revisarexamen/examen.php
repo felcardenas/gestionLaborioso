@@ -3,12 +3,12 @@ include '../../global/conexion.php';
 session_start();
 
 
+
 /* $_SESSION['fechaExamen'] = $_POST['fechaExamen'];
 $_SESSION['horaExamen'] = $_POST['horaExamen'];
 $_SESSION['idEvaluacion'] = $_POST['idEvaluacion']; */
 $fechaExamen = $_SESSION['fechaExamen'];
 $horaExamen = $_SESSION['horaExamen']; 
-
 
 $idEvaluacion = $_SESSION['idEvaluacion'];
 
@@ -34,98 +34,148 @@ $altura = '';
 $imc = '';
 
 
+$sql = "SELECT DISTINCT FECHA, HORA FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' ORDER BY `SIGNOS_VITALES_EVALUACION`.`FECHA` DESC, `SIGNOS_VITALES_EVALUACION`.`HORA` DESC";
 
-/* $sql = "SELECT PESO, ALTURA, PRESION_DIASTOLICA, PRESION_SISTOLICA, PULSO,IMC FROM EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'"; */
+$resultado = mysqli_query($conexion,$sql);
+$cantidadSignosVitales = mysqli_num_rows($resultado);
 
-$sql = "SELECT ID_SIGNO_VITAL, VALOR_SIGNO_VITAL FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion'   
-ORDER BY `SIGNOS_VITALES_EVALUACION`.`FECHA` DESC, `SIGNOS_VITALES_EVALUACION`.`HORA` DESC, `SIGNOS_VITALES_EVALUACION`.`ID_SIGNO_VITAL` ASC LIMIT 6";
+$i = 0;
 
-
-
-
-if($resultado = mysqli_query($conexion,$sql)){;
-    while($row = mysqli_fetch_assoc($resultado)){
-       $idSignoVital = $row['ID_SIGNO_VITAL'];
-       
-       switch($idSignoVital){
-            case '1':
-                $_SESSION['PULSO'] = $row['VALOR_SIGNO_VITAL']; 
-                $pulso = $_SESSION['PULSO'];
-            break;
-
-            case '2': 
-                $_SESSION['TENSION_DIASTOLICA'] = $row['VALOR_SIGNO_VITAL']; 
-                $tensionDiastolica = $_SESSION['TENSION_DIASTOLICA'];
-            break;
-
-            case '3':
-                $_SESSION['TENSION_SISTOLICA'] = $row['VALOR_SIGNO_VITAL']; 
-                $tensionSistolica = $_SESSION['TENSION_SISTOLICA'];
-            break;
-
-            case '4': 
-                $_SESSION['PESO'] = $row['VALOR_SIGNO_VITAL']; 
-
-                $peso = $_SESSION['PESO'];
-            break;
-
-            case '5':
-                $_SESSION['ALTURA'] = $row['VALOR_SIGNO_VITAL']; 
-
-                $altura = $_SESSION['ALTURA'];
-            break;
-
-            case '6': 
-                $_SESSION['IMC'] = $row['VALOR_SIGNO_VITAL']; 
-
-                $imc = round($_SESSION['IMC'],1);
-            break;
-       }
-       
-    }
+while($row = mysqli_fetch_assoc($resultado)){
+    $fecha[$i] = $row['FECHA'];
+    $hora[$i] = $row['HORA'];
+    
+    $arraySql[$i] = "SELECT ID_SIGNO_VITAL, VALOR_SIGNO_VITAL FROM SIGNOS_VITALES_EVALUACION WHERE ID_EVALUACION = '$idEvaluacion' AND FECHA = '$fecha[$i]' AND HORA = '$hora[$i]'";
+    
+    $i++;
 }
+
 
 ?>
 
 
 <div class="container-fluid">
 
-    <div class="row fondo py-5">
-        <div class="col-12">
-            <h1 class="text-center titulo text-uppercase">EXAMEN DE <?= utf8_encode($_SESSION['nombreCompletoTrabajador']) ?></h1>
-            
-        </div>
+<div class="row py-3 fondo">
+        
+        <!-- <div class="col-3">HOLA</div> -->
+        <!-- <div class="col-3" style="background-color:white"><img style="height:100px; width:100px;" src="../../img/logosinfondo.png" alt=""></div> -->
+        <div class="col-12 py-5"><h1 class="text-uppercase text-center titulo">EVALUACIÓN de <?=utf8_encode($_SESSION['nombreCompletoTrabajador'])?></h1></div>
+        
+    </div>
+    
+    <div class="row separacion"></div>
+    
+
+    <div class="row justify-content-center py-3 fondo">
+        <div class="col-6"><?php include 'datostrabajador.php'?></div>
+        
+        <div class="col-6"><?php include 'riesgos.php' ?></div>
+        
     </div>
 
-    <div class="row separacion"></div>
+    <div class="row separacion"> </div>
 
-    <div class="row justify-content-center fondo">
-        <!-- <div class="col-3"></div> -->
-        <div class="col-4"><?php include 'datostrabajador.php'?></div>
-        <div class="col-8">
+    <div class="row py-3 fondo">
+
+        <div class="col-12">
+            <h3 class="text-center">SIGNOS VITALES</h3>
+        </div>
+
+        <div class="col-3">
+
+                <div class="row py-3 fondo justify-content-center">
+                
+                        
+                    <div class="col-6"><?= "FECHA: "?></div>
+                    <div class="col-6"><?= "HORA: " ?></div>  
+                
+                </div>
+
+               
+
+                    <div class="row py-3 fondo justify-content-center">
+                           <br>         
+                    <?php  
+                for ($i=0; $i < $cantidadSignosVitales; $i++) { 
+                ?>        
+                        <div class="col-6"><?= date("d-m-Y",strtotime($fecha[$i]))  ?></div>
+                        <div class="col-6"><?= $hora[$i] ?></div>  
+                        <?php } ?>         
+                    </div>
+                
+               
+                
+
+
+        </div>
+
+        <div class="col-9">
+            
+            
 
             <div class="row py-3 fondo justify-content-center">
         
+                
                 <div class="col-2"><?= "PULSO: "?></div>
-                <div class="col-2"><?= "TENSIÓN SISTÓLICA: " ?></div>
-                <div class="col-2"><?= "TENSIÓN DIASTÓLICA: "?></div>        
+                <div class="col-2"><?= "T. SISTÓLICA: " ?></div>     
+                <div class="col-2"><?= "T. DIASTÓLICA: "?></div>
                 <div class="col-2"><?= "PESO: "?></div>
                 <div class="col-2"><?= "ALTURA: "?></div>
                 <div class="col-2"><?= "IMC: "?></div>
             
             </div>
 
-            <div class="row fondo justify-content-center">
-                <div class="col-2"><?= $pulso." X'"?></div>
-                <div class="col-2"><?= $tensionSistolica ." mm/HG" ?></div>
-                <div class="col-2"><?= $tensionDiastolica." mm/HG" ?></div>        
-                <div class="col-2"><?= $peso . " kg" ?></div>
-                <div class="col-2"><?= $altura." cm" ?></div>
-                <div class="col-2"><?= $imc." %"?></div>
-            </div>
+            <div class="row py-3 fondo justify-content-center">
+            <?php
+                for ($i=0; $i < $cantidadSignosVitales; $i++) { 
 
+                    
+                    $resultado = mysqli_query($conexion,$arraySql[$i]); 
+                    while($row = mysqli_fetch_assoc($resultado)){
+                        $idSignoVital = $row['ID_SIGNO_VITAL'];
+                        $valor = $row['VALOR_SIGNO_VITAL'];
+                        //echo $valor;
+
+                        
+                        switch($idSignoVital){
+                            case '1':
+                                $valor .= " X'";
+                            break;
+
+                            case '2':
+                                $valor .= " mm/HG";
+                            break;
+
+                            case '3':
+                                $valor .= " mm/HG";
+                            break;
+
+                            case '4':
+                                $valor .= " kg";
+                            break;
+                            
+                            case '5':
+                                $valor .= " cm";
+                            break;
+                            
+                            case '6':
+                                $valor .= " %";
+                            break;
+                        }
+            ?>
+                        <div class="col-2"><?=$valor?></div>
+                        
+                <?php }
+                    mysqli_free_result($resultado);
+                }?> 
+            
+            </div>    
+            
+                    
         </div>
     </div>
+
 
     <div class="row separacion"></div>
 
@@ -134,6 +184,9 @@ if($resultado = mysqli_query($conexion,$sql)){;
 
     <div class="row justify-content-center">
         <div class="col-3 fondo">
+
+            <button onclick="mostrarSignosVitales2()" class="btn btn-primary" style="font-size:20px;" id="btnSignosVitales">Signos Vitales</button>
+            <br>    
 
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarAnamnesis()" class="btn btn-primary" style="font-size:20px;" id="btnAnamnesis">Anamnesis</button>

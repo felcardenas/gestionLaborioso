@@ -125,7 +125,7 @@ $html .= "<br>
 </tr>
 
 <tr>
-    <td style='text-align:center'>Dr/dra $nombreMedico</td>
+    <td style='text-align:center'>NOMBRE Y TIMBRE DEL MÉDICO</td>
 </tr>
 </table>
 
@@ -141,7 +141,7 @@ $html .= "<br>
 
 
 
-
+ob_clean();
 //$nombreSalida = $trabajador.".php";
 
 $mpdf = new \Mpdf\Mpdf();

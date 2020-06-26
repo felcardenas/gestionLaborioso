@@ -1,8 +1,6 @@
 <?php 
 session_start();
 
-
-
 if(!isset($_SESSION['control'])){
   echo 'Usted no tiene autorización para ver esta página';
   die();
@@ -26,6 +24,8 @@ $_SESSION['tensionSistolica'] = '';
 
 $_SESSION['cargoTrabajador'] = '';
 $_SESSION['nombreEmpresa'] = '';
+$_SESSION['idEmpresa'] = '';
+
 
 $_SESSION['fecha'] = '';
 $_SESSION['hora'] = '';
