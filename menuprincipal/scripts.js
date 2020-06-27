@@ -27,9 +27,9 @@ $(document).ready(function () {
         confirmar(nombre, pagina);
     });
 
-    $("#ingresarTrabajador").click(function () {
+    $("#btnMenuTrabajador").click(function () {
         nombre = "Ingresar Trabajador";
-        pagina = "ingresarTrabajador.php";
+        pagina = "menuTrabajador.php";
         confirmar(nombre, pagina);
     });
 
@@ -2587,6 +2587,53 @@ function obtenerDatosEmpresa(){
     });
 }
 
+function obtenerDatosTrabajador(){
+    var datos = $('#formEditarTrabajador').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/mostrarDatos.php",
+        data: datos,
+        success: function(r) {
+            //alert(r);
+           /* [{"NOMBRE_TRABAJADOR":"Nombrecito","APELLIDO_TRABAJADOR":"Apellidito","RUT_TRABAJADOR":"8419036","DV_TRABAJADOR":"5","FECHA_NACIMIENTO_TRABAJADOR":"1959-09-07","DIRECCION_TRABAJADOR":"Calle 1 casa 1","EMAIL_TRABAJADOR":"correo@correo.cl","TELEFONO_TRABAJADOR":"992062083"}] */
+            var js = JSON.parse(r);
+            
+            
+            var idSexo =js[0].ID_SEXO;
+            var nombreSexo = '';
+            
+            switch(idSexo){
+                case '1':
+                    nombreSexo = 'Femenino';
+                break;
+                
+                case '2':
+                    nombreSexo = 'Masculino';
+                break;
+
+                case '3':
+                    nombreSexo = 'No especifica';
+                break;
+
+                default:
+                    //nombreSexo = '';
+                break;
+            }
+            
+            document.getElementById("nombreTrabajador").value = js[0].NOMBRE_TRABAJADOR;
+            document.getElementById("apellidosTrabajador").value = js[0].APELLIDO_TRABAJADOR; ;
+            document.getElementById("rutTrabajador").value = js[0].RUT_TRABAJADOR;
+            document.getElementById("dvTrabajador").value = js[0].DV_TRABAJADOR; 
+            document.getElementById("fechaNacimientoTrabajador").value = js[0].FECHA_NACIMIENTO_TRABAJADOR;
+            document.getElementById("sexoTrabajador").value = nombreSexo;
+            document.getElementById("direccionTrabajador").value = js[0].DIRECCION_TRABAJADOR; 
+            document.getElementById("emailTrabajador").value = js[0].EMAIL_TRABAJADOR;
+            document.getElementById("telefonoTrabajador").value = js[0].TELEFONO_TRABAJADOR;
+             
+        }
+    });
+}
+
 
 function editarDatosEmpresa(){
     //var valido = false;
@@ -3817,6 +3864,16 @@ function mostrarEditarEmpresa(){
     $("#contenido").load("editarEmpresa.php");
     document.getElementById("selectNombreEmpresa").focus();
 }
+
+function mostrarIngresarTrabajador(){
+    $("#contenido").load("ingresarTrabajador.php");
+}
+
+function mostrarEditarTrabajador(){
+    $("#contenido").load("editarTrabajador.php");
+    document.getElementById("selectNombreTrabajador").focus();
+}
+
 
 function mostrarSignosVitales2(){
     $("#contenido").load("vistasexamenes/signosvitales.php");

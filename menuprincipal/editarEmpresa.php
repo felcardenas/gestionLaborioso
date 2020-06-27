@@ -35,7 +35,7 @@
                                         $dvEmpresa = $row['DV_EMPRESA'];
                                         $idEmpresa = $row['ID_EMPRESA'];
                                     ?>
-                                    <option value="<?=$idEmpresa?>"><?=$rutEmpresa."-".$dvEmpresa." - ".$nombreEmpresa?></option>
+                                    <option value="<?=$idEmpresa?>"><?=$rutEmpresa."-".$dvEmpresa." --- ".$nombreEmpresa?></option>
                                         <?php
                                     } 
                                     mysqli_free_result($resultado);
@@ -72,6 +72,7 @@
                                 title="El campo puede contener solo números" 
                                 onkeyup="limpiarNumero(this)"
                                 onchange="funcionesRutEmpresa(this)"
+                                onblur="funcionesRutEmpresa(this)"
                                 readonly="readonly"
                                 required
                                 >

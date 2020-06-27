@@ -81,7 +81,7 @@ $_SESSION['hora'] = '';
       
         <a href="#" class="list-group-item list-group-item-action bg-primary botonmenu" style="color:white" id="btnMenuEmpresa">Empresa</a>
         <a href="#" class="list-group-item list-group-item-action bg-primary botonmenu" 
-        style="color:white" id="ingresarTrabajador">Trabajador</a>
+        style="color:white" id="btnMenuTrabajador">Trabajador</a>
         <a href="#" class="list-group-item list-group-item-action bg-primary botonmenu" style="color:white" id="nuevoExamen">Nuevo exámen</a>
         
         <a href="#" class="list-group-item list-group-item-action bg-primary botonmenu" style="color:white" id="revisarExamen">Revisar exámenes</a>

@@ -190,6 +190,10 @@ if(isset($_POST['consulta'])){
     case 'editarEmpresa':
       editarEmpresa();
     break;
+
+    case 'editarTrabajador':
+      editarTrabajador();
+    break;
   }
 }
 
@@ -241,7 +245,7 @@ function enviar($idExamen,$limit){
 
 function editarEmpresa(){
   include '../global/conexion.php';
-    
+  mysqli_set_charset($conexion, "utf8");
   $valido = false;
   $idEmpresa = $_POST['idEmpresa'];
 
@@ -251,6 +255,31 @@ function editarEmpresa(){
   if ($resultado = mysqli_query($conexion, $sql)) {
     while ($fila = mysqli_fetch_assoc($resultado)) {
         $array[]= $fila;
+    } 
+  /* liberar el conjunto de resultados */
+  mysqli_free_result($resultado);
+  }   
+   echo json_encode($array); 
+  
+
+  mysqli_close($conexion);
+}
+
+function editarTrabajador(){
+  
+  include '../global/conexion.php';
+  mysqli_set_charset($conexion, "utf8");
+  //$valido = false;
+  $idTrabajador = $_POST['idTrabajador'];
+  
+  $sql = "SELECT NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR, RUT_TRABAJADOR, DV_TRABAJADOR, FECHA_NACIMIENTO_TRABAJADOR, ID_SEXO, DIRECCION_TRABAJADOR, EMAIL_TRABAJADOR, TELEFONO_TRABAJADOR FROM TRABAJADOR WHERE ID_TRABAJADOR = '$idTrabajador'";
+  //echo $sql;
+
+  
+  if ($resultado = mysqli_query($conexion, $sql)) {
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        $array[]= $fila;
+        
     } 
   /* liberar el conjunto de resultados */
   mysqli_free_result($resultado);

@@ -39,6 +39,7 @@
                                 title="El campo puede contener solo números" 
                                 onkeyup="limpiarNumero(this)"
                                 onchange="funcionesRutEmpresa(this)"
+                                onblur="funcionesRutEmpresa(this)"
                                 required
                                 >
                                 

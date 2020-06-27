@@ -1,14 +1,54 @@
+<?php include '../global/conexion.php';?>
+
 <div class="row justify-content-center">
-              <h1><div class="col-12 mt-5">Ingresar trabajador</div></h1>
+<h1><div class="col-12 mt-5">Editar Trabajador</div></h1>
 </div>
-<div class="row justify-content-center">
+
+
+
+                        <div class="row justify-content-center">
                             <div class="col-4">
                                 <h6> * TODOS LOS CAMPOS SON OBLIGATORIOS </h6>
                                 
                             </div>    
                         </div>
 
-                <form action="" method="post" class="form-group" id="formIngresarTrabajador">
+                        
+
+
+                        <form action="" method="post" class="form-group" id="formEditarTrabajador">
+                        
+                        
+                        <div class="row justify-content-center">
+
+
+                        <div class="col-8">
+                                <label for="">Seleccione trabajador</label>
+
+                                <select name="idTrabajador" id="idTrabajador" class="form-control selectpicker" data-live-search="true" onchange="obtenerDatosTrabajador()" autofocus="true">
+                                    
+                                    <?php
+                                    
+                                    $sql = "SELECT ID_TRABAJADOR, RUT_TRABAJADOR, DV_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR FROM trabajador";
+                                    
+                                    $resultado = mysqli_query($conexion,$sql);
+                                    while($row = mysqli_fetch_assoc($resultado)){
+                                        $nombreTrabajador = utf8_encode($row['NOMBRE_TRABAJADOR'])." ".utf8_encode($row['APELLIDO_TRABAJADOR']);
+                                        $rutTrabajador = $row['RUT_TRABAJADOR'];
+                                        $dvTrabajador = $row['DV_TRABAJADOR'];
+                                        $idTrabajador = $row['ID_TRABAJADOR'];
+                                    ?>
+                                    <option value="<?=$idTrabajador?>"><?=$rutTrabajador."-".$dvTrabajador." --- ".$nombreTrabajador?></option>
+                                        <?php
+                                    } 
+                                    mysqli_free_result($resultado);
+                                    ?>
+
+                                </select>
+                        </div>
+                    </div>
+                        
+                        
                         <!-- NOMBRE TRABAJADOR -->
                         <div class="row justify-content-center">
                             <div class="col-8">
@@ -32,7 +72,10 @@
                                 maxlength="9"
                                 onkeyup="limpiarNumero(this)"
                                 onchange="funcionesRutTrabajador(this)"
-                                onblur="funcionesRutTrabajador(this)">
+                                onblur="funcionesRutTrabajador(this)"
+                                readonly="readonly"
+                                >
+                                
                             </div>
 
                             <!-- DV TRABAJADOR -->
@@ -98,15 +141,22 @@
                             </div>
                         </div>
 
-                        <input type="text" name="consulta" id="consulta" value="ingresarTrabajador" hidden>
+                        <input type="text" name="consulta" id="consulta" value="editarTrabajador" hidden>
                         <input type="text" name="validarRut" id="validarRut" value="validarRutTrabajador" hidden>
 
                         <div class="row justify-content-center mt-5">
                             <div class="col-8">
-                                    <input type="button" name="btnIngresarTrabajador" id="btnIngresarTrabajador" class="form-control btn btn-primary" 
-                                    onclick="validarFormularioIngresarTrabajador()" 
-                                    value="Grabar trabajador">
+                                    <input type="button" name="btnEditarTrabajador" id="btnEditarTrabajador" class="form-control btn btn-primary" 
+                                    onclick="editarDatosTrabajador()" 
+                                    value="Editar trabajador">
                             </div>
                         </div>
                         
-                    </form>               
+                    </form>
+
+<script>
+$(document).ready(function(){
+    $('.selectpicker').selectpicker(); 
+});
+</script>
+

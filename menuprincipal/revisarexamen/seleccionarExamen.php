@@ -101,6 +101,7 @@ if ($resultado = mysqli_query($conexion, $sql)) {
 
     <div class="col-2">
         <form action="ingresarDatos.php" method="post">
+            <?php //echo $row['CARGO']; ?>
             <input type="text" name="horaExamen" id="horaExamen" value="<?=$horaCreacion?>" hidden>
             <input type="text" name="fechaExamen" id="fechaExamen" value="<?=$fechaCreacion?>" hidden>
             <input type="text" name="idEvaluacion" id="idEvaluacion" value="<?=$idEvaluacion?>" hidden>
