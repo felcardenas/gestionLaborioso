@@ -1721,10 +1721,7 @@ function guardarEncuestaDeLakeLouis(){
     var mareoVertigo = document.getElementById('mareoVertigo').value;
     var dificultadParaDormir = document.getElementById('dificultadParaDormir').value;
 
-    alert(dolorDeCabeza + disminucionDeApetito + fatigaDebilidad + mareoVertigo + dificultadParaDormir);
-    //dolorDeCabeza = 1;
-
-    return false;
+    
     if(dolorDeCabeza != 1 && dolorDeCabeza !=2 && dolorDeCabeza !=3){
         mensajeEnPantalla("No se puede ingresar","","error");    
         return false;
