@@ -26,7 +26,7 @@
 
     <!-- Sidebar -->
     <div class="bg-light inverse border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menú</div>
+      <div class="sidebar-heading botonmenu">Menú</div>
       <div class="list-group list-group-flush">
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarEmpresa">Ingresar empresa</a>
         <a href="#" class="list-group-item list-group-item-action bg-light botonmenu" id="ingresarTrabajador">Ingresar trabajador</a>

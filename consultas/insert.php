@@ -13,6 +13,10 @@ if(isset($_POST)){
             ingresoEmpresa();
     break;
 
+    case 'editarEmpresa':
+      editarEmpresa();
+    break;
+
     case 'ingresarTrabajador':
             ingresoTrabajador();
     break;
@@ -321,8 +325,50 @@ function ingresoEmpresa(){
 
     mysqli_close($conexion);
     
+
+
 }
+
+
+function editarEmpresa(){
+    include '../global/conexion.php';
+    
+    //$valido = false;
+    $idEmpresa = $_POST['idEmpresa'];
+    $nombreEmpresa = $_POST['nombreEmpresa'];
+    $rutEmpresa = $_POST['rutEmpresa'];
+    $dvEmpresa = $_POST['dvEmpresa'];
+    $nombreRepresentante = $_POST['nombreRepresentante'];
+    $rutRepresentante = $_POST['rutRepresentante'];
+    $dvRepresentante = $_POST['dvRepresentante'];
+    $direccionEmpresa = $_POST['direccionEmpresa'];
+    $emailEmpresa = $_POST['emailEmpresa'];
+    $telefonoEmpresa = $_POST['telefonoEmpresa'];
+    
+    $sql = "UPDATE `EMPRESA` SET 
+    `NOMBRE_EMPRESA`= '$nombreEmpresa',
+    `RUT_EMPRESA`= '$rutEmpresa',
+    `DV_EMPRESA`='$dvEmpresa',
+    `NOMBRE_REPRESENTANTE_EMPRESA`='$nombreRepresentante',
+    `RUT_REPRESENTANTE_EMPRESA`='$rutRepresentante',
+    `DV_REPRESENTANTE_EMPRESA`='$dvRepresentante',
+    `DIRECCION_EMPRESA`='$direccionEmpresa',
+    `EMAIL_EMPRESA`='$emailEmpresa',
+    `TELEFONO_EMPRESA`='$telefonoEmpresa'
+     WHERE `ID_EMPRESA` = '$idEmpresa'";
+
   
+    if(mysqli_query($conexion,utf8_decode($sql))){
+      echo 'true';
+    }else{
+      echo 'false';
+    }
+    
+    mysqli_close($conexion);
+    
+  
+}
+
 function ingresoTrabajador(){
 
     include '../global/conexion.php';

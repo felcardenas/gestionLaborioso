@@ -1,4 +1,8 @@
 
+$(document).ready(function() {
+    $('.selectpicker').selectpicker();
+ });
+
 //CERRAR MENÚ
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
@@ -17,9 +21,9 @@ $(document).ready(function () {
         confirmar(nombre, pagina);
     });
 
-    $("#ingresarEmpresa").click(function () {
+    $("#btnMenuEmpresa").click(function () {
         nombre = "Ingresar empresa";
-        pagina = "ingresarEmpresa.php";
+        pagina = "menuEmpresa.php";
         confirmar(nombre, pagina);
     });
 
@@ -58,6 +62,9 @@ $(document).ready(function () {
     
 
 });
+
+
+
 
 
 function nuevoExamen(){
@@ -1115,7 +1122,7 @@ function guardarPerfilLipidico() {
 
     //VALIDAR CAMPO
 
-     if (estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado') {
+     if (estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto') {
          mensajeEnPantalla("Error", "No modifiques el select!", "error");
          return valido;
      } 
@@ -1406,7 +1413,7 @@ function guardarElectrocardiograma(){
 
     
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1464,7 +1471,7 @@ function guardarGlicemia(){
         return false;
     }
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1527,7 +1534,7 @@ function guardarCreatinina(){
         return false;
     }
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1588,7 +1595,7 @@ function guardarHemoglobina(){
         return false;
     }
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1649,7 +1656,7 @@ function guardarRxTorax(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1721,7 +1728,7 @@ function guardarEncuestaDeLakeLouis(){
     var mareoVertigo = document.getElementById('mareoVertigo').value;
     var dificultadParaDormir = document.getElementById('dificultadParaDormir').value;
 
-    
+
     if(dolorDeCabeza != 1 && dolorDeCabeza !=2 && dolorDeCabeza !=3){
         mensajeEnPantalla("No se puede ingresar","","error");    
         return false;
@@ -1804,7 +1811,7 @@ function guardarCultivoNasal(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1865,7 +1872,7 @@ function guardarCultivoFaringeo(){
          return false;
      } */
  
-     if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+     if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
          mensajeEnPantalla("No se puede modificar","","error");
          return false;
      }
@@ -1926,7 +1933,7 @@ function guardarCultivoLechoUngueal(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -1987,7 +1994,7 @@ function guardarAltSgpt(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2038,67 +2045,6 @@ function guardarAltSgpt(){
     })
 }
 
-//function guardarAstSgot(){
-    //var valor = document.getElementById('valor').value;
-    //var estado = document.getElementById('estado').value;
-    //var observaciones = document.getElementById('observaciones').value;
-
-   /*  if(!isNumeric(valor)){
-        mensajeEnPantalla("Valor debe ser numérico","","error");
-        return false;
-    } **
-
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
-        mensajeEnPantalla("No se puede modificar","","error");
-        return false;
-    }
-
-    
-
-    Swal.fire({
-        title: "Confirmación",
-        text: "¿Desea ingresar los datos?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Avanzar',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.value) {
-    
-                var datos = $('#formIngresarAltSgot').serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: "../../consultas/insert.php",
-                        data: datos,
-                        success: function (r) {
-                            if (r == 'true'){
-                                mensajeEnPantalla("Se han ingresado los datos", "", "success");
-                                /* //document.getElementById("valor").setAttribute("disabled", true);
-                                document.getElementById("estado").setAttribute("disabled", true);
-                                document.getElementById("observaciones").setAttribute("disabled", true);
-                                //document.getElementById("btnMostrarTestDeRuffier").setAttribute("disabled", true);
-                                document.getElementById("btnGuardarAltSgot").setAttribute("disabled", true);
-                                document.getElementById("btnAltSgot").setAttribute("disabled", true); */
-                  /*               mostrarASTSGOT();
-                            }
-                            if (r == 'false') {
-                                mensajeEnPantalla("No se han ingresado los datos", "", "error");
-                                
-                            }
-                            
-                            
-                            
-                            
-                        }
-                    });
-        } else {
-            mensajeEnPantalla("No se han ingresado los datos", "", "error");
-        }
-    })
-}  */
-
 function guardarAstSgot(){
     
     
@@ -2111,7 +2057,7 @@ function guardarAstSgot(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2309,7 +2255,7 @@ function guardarAudiometria(){
 
     
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2364,7 +2310,7 @@ function guardarProtrombina(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2425,7 +2371,7 @@ function guardarTiempoDeProtrombina(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2487,7 +2433,7 @@ function guardarActividadDeAcetilcolinesterasa(){
         return false;
     } */
 
-    if(estado != 'Sin evaluar' && estado != 'Normal' && estado != 'Alterado'){
+    if(estado != 'Sin evaluar' && estado != 'Apto' && estado != 'No apto'){
         mensajeEnPantalla("No se puede modificar","","error");
         return false;
     }
@@ -2613,6 +2559,249 @@ function prueba(){
     //window.open('https://google.cl',"Informe","width=500,height=500,scrollbars=NO"); 
       //  return false;
 }
+
+
+function obtenerDatosEmpresa(){
+    var datos = $('#formEditarEmpresa').serialize();
+    $.ajax({
+        type: "POST",
+        url: "../consultas/mostrarDatos.php",
+        data: datos,
+        success: function(r) {
+           
+            
+            var js = JSON.parse(r);
+            //alert(js[0].RUT_EMPRESA)
+            
+            document.getElementById("nombreEmpresa").value = js[0].NOMBRE_EMPRESA;
+            document.getElementById("rutEmpresa").value = js[0].RUT_EMPRESA;
+            document.getElementById("dvEmpresa").value = js[0].DV_EMPRESA; 
+            document.getElementById("nombreRepresentante").value = js[0].NOMBRE_REPRESENTANTE_EMPRESA; 
+            document.getElementById("rutRepresentante").value = js[0].RUT_REPRESENTANTE_EMPRESA; 
+            document.getElementById("dvRepresentante").value = js[0].DV_REPRESENTANTE_EMPRESA; 
+            document.getElementById("direccionEmpresa").value = js[0].DIRECCION_EMPRESA; 
+            document.getElementById("emailEmpresa").value = js[0].EMAIL_EMPRESA;
+            document.getElementById("telefonoEmpresa").value = js[0].TELEFONO_EMPRESA;
+            
+        }
+    });
+}
+
+
+function editarDatosEmpresa(){
+    //var valido = false;
+    var rutEmpresa = document.getElementById("rutEmpresa").value;
+    var dvEmpresa = document.getElementById("dvEmpresa").value;
+    var rutRepresentante = document.getElementById("rutRepresentante").value;
+    var dvRepresentante = document.getElementById("dvRepresentante").value;
+    var nombreEmpresa = document.getElementById("nombreEmpresa").value;
+    var nombreRepresentante = document.getElementById("nombreRepresentante").value;
+    var direccionEmpresa = document.getElementById("direccionEmpresa").value;
+    var emailEmpresa = document.getElementById("emailEmpresa").value;
+    var telefonoEmpresa = document.getElementById("telefonoEmpresa").value;
+
+    
+    /*REGEX CAMPOS
+    
+    nombreEmpresa = ^[a-zA-ZáéíóúÁÉÍÓÚ0-9\s]*$ //El campo puede contener solo letras, números o espacios //
+    rutEmpresa = ^\d{7,9}$ //El campo debe contener solo números
+    nombreRepresentante = ^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$//El campo puede contener solo letras y espacios
+    rutRepresentante =  //^\d{7,9}$ //El campo puede contener solo números
+    dirección = ^[a-zA-ZáéíóúÁÉÍÓÚ0-9\s]*$ //El campo puede contener solo letras, números o espacios
+    correoElectronico = ^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$ //El campo debe tener formato de correo. Ej: "correo@correo.cl".
+    telefono = ^\d{9}$ // El campo debe contener solo números
+    
+    */
+
+
+
+    //VALIDACIONES NOMBRE EMPRESA
+    if (!validarBlanco(nombreEmpresa)) {
+        mensajeEnPantalla("Error", "Debe completar campo nombre empresa", "error");
+        return valido;
+    }
+
+    if (nombreEmpresa.length > 128) {
+        mensajeEnPantalla("Error", "Nombre empresa no puede tener más de 128 caracteres", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(nombreEmpresa, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo nombre empresa solo puede contener letras, números y/o espacios", "error");
+        return valido;
+    }
+
+
+
+    //VALIDACIONES RUT EMPRESA
+    if (!validarBlanco(rutEmpresa)) {
+        mensajeEnPantalla("Error", "Debe completar campo rut empresa", "error");
+        return valido;
+    }
+
+    if (rutEmpresa.length < 7 || rutEmpresa.length > 9) {
+        mensajeEnPantalla("Error", "RUT empresa debe tener entre 7 y 9 números", "error");
+        return valido;
+    }
+
+
+    if (!validarRegExp(rutEmpresa, /^\d{7,9}$/)) {
+        mensajeEnPantalla("Error", "El campo Rut Empresa solo puede contener números", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(dvEmpresa, /^[0-9K]{1}$/)) {
+        mensajeEnPantalla("Error", "El campo DV solo puede ser de 0 a 9 o K", "error");
+        return valido;
+    }
+
+    if (!formulaRut(rutEmpresa, dvEmpresa)) {
+        mensajeEnPantalla("Error", "Rut empresa inválido", "error");
+        return valido;
+    }
+
+
+
+
+
+
+    //VALIDACIONES NOMBRE REPRESENTANTE
+
+    if (!validarBlanco(nombreRepresentante)) {
+        mensajeEnPantalla("Error", "Debe completar campo nombre representante", "error");
+        return valido;
+    }
+
+    if (nombreRepresentante.length > 128) {
+        mensajeEnPantalla("Error", "Nombre representante no puede tener más de 128 caracteres", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(nombreRepresentante, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo nombre representante solo puede contener letras y/o espacios", "error");
+        return valido;
+    }
+
+
+
+
+
+
+    //VALIDACIONES RUT REPRESENTANTE
+
+    if (!validarBlanco(rutRepresentante)) {
+        mensajeEnPantalla("Error", "Debe completar campo rut representante", "error");
+        return valido;
+    }
+
+    if (rutRepresentante.length < 7 || rutRepresentante.length > 9) {
+        mensajeEnPantalla("Error", "RUT representante debe tener entre 7 y 9 números", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(rutRepresentante, /^\d{7,9}$/)) {
+        mensajeEnPantalla("Error", "El campo Rut Representante solo puede contener letras, números y/o espacios", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(dvRepresentante, /^[0-9K]{1}$/)) {
+        mensajeEnPantalla("Error", "El campo DV solo puede ser de 0 a 9 o K", "error");
+        return valido;
+    }
+
+    if (!formulaRut(rutRepresentante, dvRepresentante)) {
+        mensajeEnPantalla("Error", "Rut representante inválido", "error");
+        return valido;
+    }
+
+
+    //VALIDACIONES DIRECCION EMPRESA (PUEDE SER BLANCO, PERO SI ESTÁ LLENO DEBE HABER VALIDACIONES)
+    if(!validarBlanco(direccionEmpresa)) {
+        mensajeEnPantalla("Error", "Debe completar campo Dirección empresa", "error");
+        return valido;
+    }
+        
+    if (direccionEmpresa.length > 64) {
+            mensajeEnPantalla("Error", "Dirección empresa no puede tener más de 64 caracteres", "error");
+            return valido;
+    }
+
+    if (!validarRegExp(direccionEmpresa, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo Dirección empresa solo puede contener letras, números y espacios", "error");
+         return valido;
+    }
+    
+
+    //VALIDAR EMAIL-TELEFONO
+   
+
+        if (!validarBlanco(emailEmpresa)) {
+            mensajeEnPantalla("Error", "Debe completar campo Email empresa", "error");
+            return valido;
+        }
+            if (!validarRegExp(emailEmpresa, /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
+                mensajeEnPantalla("Error", "El campo Correo electrónico debe tener el formato 'correo@correo.cl'", "error");
+                return valido;
+            }
+            if (emailEmpresa.length > 64) {
+                mensajeEnPantalla("Error", "Email empresa no puede tener más de 64 caracteres", "error");
+                return valido;
+            }
+        
+
+        //VALIDACIONES TELEFONO EMPRESA
+
+        if (!validarBlanco(telefonoEmpresa)) {
+            mensajeEnPantalla("Error", "Debe completar campo teléfono", "error");
+            return valido;
+        }
+            if (!validarRegExp(telefonoEmpresa, /^\d{7,9}$/)) {
+                mensajeEnPantalla("Error", "El campo Teléfono empresa debe contenter solo números", "error");
+                return valido;
+            }
+
+            if (telefonoEmpresa.length != 9) {
+                mensajeEnPantalla("Error", "El campo telefono empresa debe tener 9 caracteres", "error");
+                return valido;
+            }
+    
+            
+            Swal.fire({
+                title: "Confirmación",
+                text: "¿Desea ingresar los datos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Avanzar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    
+                    var datos = $('#formEditarEmpresa').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            if (r == 'true') {
+                                mensajeEnPantalla("Se han modificado los datos", "", "success");
+                                
+                            } else if (r == 'false') {
+                                mensajeEnPantalla("No se han modificado los datos", "", "error");
+                            }
+                            //alert(r);
+                            
+                        }
+                    });
+                } else {
+                    mensajeEnPantalla("No se han modificado los datos", "", "error");
+                }
+            })
+        
+}
+
+
 
 
 function obtenerParametrosOptometria(){
@@ -2821,7 +3010,11 @@ function obtenerParametrosEspirometria(){
     });
 }
 
+
 function obtenerParametrosElectrocardiograma(){
+
+    document.getElementById("estado").disabled = false;
+
     var datos = $('#formIngresarElectrocardiograma').serialize();
     $.ajax({
         type: "POST",
@@ -2831,11 +3024,9 @@ function obtenerParametrosElectrocardiograma(){
 
             
             var js = JSON.parse(r);
-
             document.getElementById("observaciones").value = js[0].VALOR_PARAMETRO; 
-            document.getElementById("estado").value = js[1].VALOR_PARAMETRO;
-            
-            
+            document.getElementById("estado").value = js[1].VALOR_PARAMETRO; 
+            //document.getElementById("estado").disabled = true;
         }
         
     });
@@ -3615,6 +3806,16 @@ function obtenerIMC() {
         document.getElementById('imc').value = imc.toFixed(2);
     }
 
+}
+
+
+function mostrarIngresarEmpresa(){
+    $("#contenido").load("ingresarEmpresa.php");
+}
+
+function mostrarEditarEmpresa(){
+    $("#contenido").load("editarEmpresa.php");
+    document.getElementById("selectNombreEmpresa").focus();
 }
 
 function mostrarSignosVitales2(){

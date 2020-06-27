@@ -2,46 +2,59 @@
 $tipoUsuario =$_SESSION['tipoUsuario'];
 $mostrar = '';
 if($tipoUsuario == 'Estándar'){
-    $mostrar = 'hidden';
+    $mostrar = 'readonly="readonly"';
+    $mostrar = 'hidden'; 
 }
 ?>
 
 <div class="row justify-content-center mb-3">
         
-        <?php if($tipoUsuario != 'Estándar'){?>
+        
         <div class="col-1 mt-2">
             Estado
         </div>
-        <?php } ?>
+        
         
         <div class="col-4">
-            <select class="form-control" name="estado" id="estado" <?php echo $mostrar; ?> >
 
+            <select class="form-control" name="estado" id="estado">
 
-            <option value="Sin evaluar"                 
+            
+                <option value="Sin evaluar"                 
                 <?php 
-                    if($estado == "Sin evaluar" || $estado != 'Sin evaluar' && $estado != 'Normal' && $estado != 'Alterado'){
+                    if($estado == "Sin evaluar" || $estado != 'Sin evaluar' && $estado != 'Apto' && $estado != 'No apto'){
                         echo "selected";
+                    }else{
+                        echo $mostrar;
                     }
+
+                    
                 ?>
                 >Sin evaluar</option>
-                <option value="Normal"
+                <option value="Apto"
                 
                 <?php 
-                    if($estado == "Normal"){
+                    if($estado == "Apto"){
                         echo "selected";
+                    }else{
+                        if($tipoUsuario == 'Estándar'){
+                            echo $mostrar; 
+                        }
                     }
                 ?>
-                
-                >Normal</option>
-                <option value="Alterado"
+                >Apto</option>
+                <option value="No apto"
                 <?php 
-                    if($estado == "Alterado"){
+                    if($estado == "No apto"){
                         echo "selected";
+                    }else{
+                        if($tipoUsuario == 'Estándar'){
+                        echo $mostrar; 
                     }
+                }
                 ?>
-                >Alterado</option>
-
+                >No apto</option>
+                
                 
 
             </select>

@@ -27,9 +27,6 @@ while($row = mysqli_fetch_assoc($resultado)){
     
     switch($idParametro){
         
-
-       
-
         case '4':
             $valorParametro = $row['VALOR_PARAMETRO'];
             $observaciones = $valorParametro;

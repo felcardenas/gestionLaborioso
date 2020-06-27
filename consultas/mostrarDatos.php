@@ -1,7 +1,6 @@
 <?php
 
-if(isset($_POST)){
-
+if(isset($_POST['select'])){
    switch($_POST['select']){
 
     case 'selectOptometria':
@@ -178,11 +177,20 @@ if(isset($_POST)){
     
 
     default:
+      echo '';
     break;
 
   }
 
   
+}
+
+if(isset($_POST['consulta'])){
+  switch($_POST['consulta']){
+    case 'editarEmpresa':
+      editarEmpresa();
+    break;
+  }
 }
 
 function enviar($idExamen,$limit){
@@ -231,6 +239,27 @@ function enviar($idExamen,$limit){
 
 
 
+function editarEmpresa(){
+  include '../global/conexion.php';
+    
+  $valido = false;
+  $idEmpresa = $_POST['idEmpresa'];
+
+  
+  $sql = "SELECT NOMBRE_EMPRESA, RUT_EMPRESA, DV_EMPRESA, NOMBRE_REPRESENTANTE_EMPRESA, RUT_REPRESENTANTE_EMPRESA,DV_REPRESENTANTE_EMPRESA, DIRECCION_EMPRESA, EMAIL_EMPRESA, TELEFONO_EMPRESA FROM EMPRESA WHERE ID_EMPRESA = '$idEmpresa'";
+
+  if ($resultado = mysqli_query($conexion, $sql)) {
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        $array[]= $fila;
+    } 
+  /* liberar el conjunto de resultados */
+  mysqli_free_result($resultado);
+  }   
+   echo json_encode($array); 
+  
+
+  mysqli_close($conexion);
+}
 
 
 ?>
