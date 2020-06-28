@@ -269,6 +269,7 @@ function editarTrabajador(){
   
   include '../global/conexion.php';
   mysqli_set_charset($conexion, "utf8");
+
   //$valido = false;
   $idTrabajador = $_POST['idTrabajador'];
   

@@ -1,8 +1,14 @@
 <?php include '../plantillas/header.php';
 include '../../global/conexion.php';
 session_start();
+//echo $_SESSION['pendienteRevisionMedica'];
+$estadoEvaluacion = $_SESSION['estadoEvaluacion'];
 
-
+if($estadoEvaluacion == '2'){
+    $_SESSION['mostrar'] = 'disabled';
+}else{
+    $_SESSION['mostrar'] = '';
+}
 
 /* $_SESSION['fechaExamen'] = $_POST['fechaExamen'];
 $_SESSION['horaExamen'] = $_POST['horaExamen'];
@@ -187,7 +193,7 @@ while($row = mysqli_fetch_assoc($resultado)){
 
             <button onclick="mostrarSignosVitales2()" class="btn btn-primary" style="font-size:20px;" id="btnSignosVitales">Signos Vitales</button>
             <br>    
-
+            
             <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
             <button onclick="mostrarAnamnesis()" class="btn btn-primary" style="font-size:20px;" id="btnAnamnesis">Anamnesis</button>
             <br>
@@ -210,10 +216,10 @@ while($row = mysqli_fetch_assoc($resultado)){
 
             
             
-            <?php if($_SESSION['tipoUsuario'] != 'Estándar'){?> 
+            
             <button onclick="mostrarInterconsulta()" class="btn btn-primary" style="font-size:20px;" id="btnInterconsulta">Interconsulta</button>
             <br>
-            <?php } ?>
+            
 
             
             
@@ -244,11 +250,17 @@ while($row = mysqli_fetch_assoc($resultado)){
 
     <div class="row py-3">
     <div class="col-3"><button class="btn btn-primary btn-block" style="font-size:22px" onclick="volverAInicio()">VOLVER AL INICIO</button></div>
-    <div class="col-9">
-        <button class="btn btn-primary btn-block" style="font-size:22px" onclick="finalizarExamen()">FINALIZAR EXÁMEN</button>
-    </div>
-    
 
+    
+        <div class="col-9">
+            
+            <button class="btn btn-primary btn-block" style="font-size:22px" onclick="finalizar()" <?php $mostrar = $_SESSION['mostrar'];
+                                    echo $mostrar;?>>FINALIZAR EVALUACION</button>
+        </div>
+    
+    <form id="finalizarEvaluacion" name="finalizarEvaluacion" action="" method="post" >
+        <input id="examenFinalizado" name="examenFinalizado" value="examenFinalizado" type="text" hidden>
+    </form>
     <div class="row py-3">
     <div class="col-3"></div>
     <div class="col-9">

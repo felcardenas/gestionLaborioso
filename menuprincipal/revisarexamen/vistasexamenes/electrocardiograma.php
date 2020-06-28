@@ -70,11 +70,15 @@ while($row = mysqli_fetch_assoc($resultado)){
         <!-- <div class="col-4">
             <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarTestDeRuffier" name="btnMostrarTestDeRuffier>
         </div> -->
+        <?php
+        
+        $onclick = "guardarElectrocardiograma()";
+        $id = "btnGuardarElectrocardiograma";
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarElectrocardiograma()" id="btnGuardarElectrocardiograma" name="btnGuardarElectrocardiograma">
-        </div>
+        include 'guardar.php';
 
+        ?>
+        
         <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosElectrocardiograma()" name="fechaHora" id="fechaHora">
                <?php include 'selectDatosAnteriores.php' ?>

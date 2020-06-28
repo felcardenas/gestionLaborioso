@@ -71,10 +71,13 @@ while($row = mysqli_fetch_assoc($resultado)){
         <!-- <div class="col-4">
             <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarTestDeRuffier" name="btnMostrarTestDeRuffier>
         </div> -->
+        <?php
+            
+            $onclick = "guardarTiempoDeProtrombina()";
+            $id = "btnGuardarTiempoDeProtrombina";
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarTiempoDeProtrombina()" id="btnGuardarTiempoDeProtrombina" name="btnGuardarTiempoDeProtrombina">
-        </div>
+            include 'guardar.php';
+        ?>
 
         <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosTiempoDeProtrombina()" name="fechaHora" id="fechaHora">

@@ -142,7 +142,9 @@ $recomendacion7 = $array[7];
                                     id="siguiente" 
                                     class="form-control btn btn-primary" 
                                     value="GUARDAR"
-                                    onclick="validarRecomendaciones()">
+                                    onclick="validarRecomendaciones()"
+                                    <?php $mostrar = $_SESSION['mostrar'];
+                                    echo $mostrar;?>>
                             </div>
 
                             <div class="col-4">

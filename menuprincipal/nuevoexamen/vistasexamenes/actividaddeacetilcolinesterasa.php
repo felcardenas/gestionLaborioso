@@ -69,9 +69,16 @@ $resultado = mysqli_query($conexion, $sql);
             <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarTestDeRuffier" name="btnMostrarTestDeRuffier>
         </div> -->
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarActividadDeAcetilcolinesterasa()" id="btnGuardarActividadDeAcetilcolinesterasa" name="btnGuardarActividadDeAcetilcolinesterasa">
-        </div>
+        <?php
+        
+        $onclick = "guardarActividadDeAcetilcolinesterasa()";
+        $id = "btnGuardarActividadDeAcetilcolinesterasa";
+
+        include 'guardar.php';
+
+        ?>
+
+
 
         <div class="col-4">
             <select class="form-control" onchange="obtenerParametrosActividadDeAcetilcolinesterasa()" name="fechaHora" id="fechaHora">

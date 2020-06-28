@@ -13,12 +13,14 @@ if(isset($_POST)){
     $_SESSION['idEvaluacion'] = $_POST['idEvaluacion'];
     $idEvaluacion = $_SESSION['idEvaluacion'];
 
-    $sql = "SELECT ID_EMPRESA, CARGO FROM EVALUACION WHERE EVALUACION.ID_EVALUACION = '$idEvaluacion'";
+    $sql = "SELECT ID_EMPRESA, CARGO, PENDIENTE_REVISION_MEDICA FROM EVALUACION WHERE EVALUACION.ID_EVALUACION = '$idEvaluacion'";
 
     $resultado = mysqli_query($conexion,$sql);
     $row = mysqli_fetch_assoc($resultado);
     $_SESSION['cargoTrabajador'] = $row['CARGO'];
     $_SESSION['idEmpresa'] = $row['ID_EMPRESA'];
+    $_SESSION['estadoEvaluacion'] = $row['PENDIENTE_REVISION_MEDICA'];
+    
     $idEmpresa = $_SESSION['idEmpresa'];
     mysqli_free_result($resultado);
 
@@ -27,6 +29,8 @@ if(isset($_POST)){
     $row = mysqli_fetch_assoc($resultado);
     $_SESSION['nombreEmpresa'] = $row['NOMBRE_EMPRESA'];
     mysqli_free_result($resultado);
+
+    
 
     header('Location: examen.php');
 }

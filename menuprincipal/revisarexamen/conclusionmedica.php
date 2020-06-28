@@ -94,7 +94,10 @@ $cadenaConclusionMedica = substr($conclusionMedica,0,2);
                                     id="siguiente" 
                                     class="form-control btn btn-primary" 
                                     value="GUARDAR"
-                                    onclick="validarConclusionMedica()">
+                                    onclick="validarConclusionMedica()"
+                                    <?php $mostrar = $_SESSION['mostrar'];
+                                    echo $mostrar;?>
+                                    >
                             </div>
 
                             <div class="col-4">

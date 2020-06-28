@@ -117,6 +117,9 @@ if($resultado = mysqli_query($conexion,$sql)){;
                             value="GENERAR NUEVO INFORME"
                             onclick="ingresarDatosInformes()"
                             style="height:100px; width:600px;"
+                            <?php 
+                                    if($_SESSION['tipoUsuario'] == 'Estándar' || $_SESSION['mostrar'] == 'disabled'){
+                                    echo "disabled";}?>
                             >
                 </div>
             </div>

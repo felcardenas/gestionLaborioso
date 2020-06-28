@@ -237,9 +237,14 @@ $puntaje = $dolorDeCabeza + $disminucionDeApetito + $fatigaDebilidad + $mareoVer
             <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarTestDeRuffier" name="btnMostrarTestDeRuffier>
         </div> -->
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarEncuestaDeLakeLouis()" id="btnGuardarEncuestaDeLakeLouis" name="btnGuardarEncuestaDeLakeLouis">
-        </div>
+        <?php
+        
+        $onclick = "guardarEncuestaDeLakeLouis()";
+        $id = "btnGuardarEncuestaDeLakeLouis";
+
+        include 'guardar.php';
+
+        ?>
 
         <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosEncuestaDeLakeLouis()" name="fechaHora" id="fechaHora">

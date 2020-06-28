@@ -53,6 +53,8 @@ if($row = mysqli_fetch_assoc($resultado)){
                                     value="GUARDAR"
                                     onclick="validarAnamnesis()" 
                                     maxlength="1000"
+                                    <?php $mostrar = $_SESSION['mostrar'];
+                                    echo $mostrar;?>
                                    >
                             </div>
 

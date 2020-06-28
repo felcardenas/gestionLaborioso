@@ -5,7 +5,8 @@ $idEvaluacion = $_SESSION["idEvaluacion"];
 $idExamen = '4';
 $limit = '9';
 
-//$observaciones = '';
+    
+    //$observaciones = '';
 
 
 $sql = "SELECT PARAMETRO.ID_PARAMETRO, EVALUACION_PARAMETRO.VALOR_PARAMETRO 
@@ -292,9 +293,15 @@ $estado = $_POST['estado']; */
 
         <div class="row justify-content-center mb-3">
 
-            <div class="col-4">
-                <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarEspirometriaBasal()" id="btnGuardarEspirometriaBasal">
-            </div>
+        <?php
+        
+        $onclick = "guardarEspirometriaBasal()";
+        $id = "btnGuardarEspirometriaBasal";
+
+        include 'guardar.php';
+
+        ?>
+           
             <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosEspirometria()" name="fechaHora" id="fechaHora">
                 <?php include 'selectDatosAnteriores.php' ?>

@@ -202,10 +202,14 @@ if(mysqli_num_rows($resultado) > 0){
         <!-- <div class="col-4">
             <input class="btn btn-primary" type="button" value="Recuperar info. anterior" onclick="mostrarPerfilLipidico()" id="btnMostrarTestDeRuffier" name="btnMostrarTestDeRuffier>
         </div> -->
+        <?php
+            
+            $onclick = "guardarTestDeRuffier()";
+            $id = "btnGuardarTestDeRuffier";
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarTestDeRuffier()" id="btnGuardarTestDeRuffier" name="btnGuardarTestDeRuffier">
-        </div>
+            include 'guardar.php';
+        ?>
+     
 
         <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosTestDeRuffier()" name="fechaHora" id="fechaHora">

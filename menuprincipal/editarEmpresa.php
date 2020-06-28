@@ -30,6 +30,7 @@
                                     
                                     $resultado = mysqli_query($conexion,$sql);
                                     while($row = mysqli_fetch_assoc($resultado)){
+                                        //$nombreEmpresa = utf8_encode($row['NOMBRE_EMPRESA']);
                                         $nombreEmpresa = utf8_encode($row['NOMBRE_EMPRESA']);
                                         $rutEmpresa = $row['RUT_EMPRESA'];
                                         $dvEmpresa = $row['DV_EMPRESA'];

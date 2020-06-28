@@ -21,6 +21,10 @@ if(isset($_POST)){
             ingresoTrabajador();
     break;
 
+    case 'editarTrabajador':
+      editarTrabajador();
+    break;
+
     case 'nuevoExamen':
             nuevoExamen();
     break;
@@ -445,6 +449,68 @@ function ingresoTrabajador(){
 
 }
 
+function editarTrabajador(){
+  
+  include '../global/conexion.php';
+  //mysqli_set_charset($conexion, "utf8");
+
+  $valido = false;
+  //$idTrabajador = $_POST['idEmpresa'];
+  $nombreTrabajador = $_POST['nombreTrabajador'];
+  $nombreTrabajador = ucwords(strtolower($nombreTrabajador));
+  $apellidosTrabajador = $_POST['apellidosTrabajador'];
+  $apellidosTrabajador = ucwords(strtolower($apellidosTrabajador));
+  $rutTrabajador = $_POST['rutTrabajador'];
+  $dvTrabajador = $_POST['dvTrabajador'];
+  $fechaNacimientoTrabajador = $_POST['fechaNacimientoTrabajador'];
+  $sexoTrabajador = $_POST['sexoTrabajador'];
+  $direccionTrabajador = $_POST['direccionTrabajador'];
+  $direccionTrabajador = ucwords(strtolower($direccionTrabajador));
+  $emailTrabajador = strtolower($_POST['emailTrabajador']);
+  $telefonoTrabajador = $_POST['telefonoTrabajador'];
+  
+  switch($sexoTrabajador){
+    case 'Femenino':
+      $sexoTrabajador = '1';
+    break;
+
+    case 'Masculino':
+      $sexoTrabajador = '2';
+    break;
+
+    case 'No especifica':
+      $sexoTrabajador = '3';
+    break;
+  }
+
+
+  $sql = "UPDATE TRABAJADOR SET 
+  `ID_SEXO`='$sexoTrabajador', 
+  `RUT_TRABAJADOR`='$rutTrabajador', 
+  `DV_TRABAJADOR`='$dvTrabajador', 
+  `NOMBRE_TRABAJADOR`='$nombreTrabajador', 
+  `APELLIDO_TRABAJADOR`='$apellidosTrabajador', 
+  `FECHA_NACIMIENTO_TRABAJADOR`='$fechaNacimientoTrabajador', 
+  `DIRECCION_TRABAJADOR`='$direccionTrabajador', 
+  `EMAIL_TRABAJADOR`='$emailTrabajador', 
+  `TELEFONO_TRABAJADOR`='$telefonoTrabajador' 
+   WHERE RUT_TRABAJADOR = '$rutTrabajador'";
+
+  //echo $sql;
+  
+   if(mysqli_query($conexion,utf8_decode($sql))){
+    echo 'true';
+  }else{
+    echo 'false';
+  } 
+  
+
+
+  mysqli_close($conexion);
+
+}
+
+
 function nuevoExamen(){
 
     include '../global/conexion.php';
@@ -525,7 +591,7 @@ function nuevoExamen(){
 
 function revisarExamen(){
 
-  include '../global/conexion.php';
+    include '../global/conexion.php';
    
     $valido = false;
 

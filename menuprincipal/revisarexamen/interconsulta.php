@@ -4,6 +4,10 @@ session_start();
 $idTrabajador = $_SESSION['idTrabajador'];
 $idEvaluacion = $_SESSION['idEvaluacion'];
 
+ if($_SESSION['tipoUsuario'] != 'Estándar'){
+     $mostrar = 'disabled'; 
+ } 
+
 $fecha = "";
 $hora = "";
 $nombreUltimaEspecialidad = "";
@@ -81,7 +85,13 @@ $resultado = mysqli_query($conexion, $sql);
                                     class="form-control btn btn-primary btn-lg" 
                                     value="GENERAR NUEVO INFORME DE INTERCONSULTA"
                                     onclick="validarInterconsulta()"
-                                    style="height:100px; width:600px;">
+                                    style="height:100px; width:600px;"
+                                    <?php 
+                                    if($_SESSION['tipoUsuario'] == 'Estándar' || $_SESSION['mostrar'] == 'disabled'){
+                                    
+                                    
+                                    echo "disabled";}?>
+                                    >
                             </div>
                         </div>
 </form>

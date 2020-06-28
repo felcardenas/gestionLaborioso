@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-              <h1><div class="col-12 mt-5">Nuevo Exámen</div></h1>
+              <h1><div class="col-12 mt-5">Nueva evaluación</div></h1>
 </div>
 
 <form id="formNuevoExamen" action="" method="post" class="form-group">

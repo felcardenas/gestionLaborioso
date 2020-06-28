@@ -13,9 +13,6 @@
                             </div>    
                         </div>
 
-                        
-
-
                         <form action="" method="post" class="form-group" id="formEditarTrabajador">
                         
                         

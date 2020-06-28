@@ -536,10 +536,15 @@ $estado = trim($estado);
     
 
     <div class="row justify-content-center mb-3">
+        <?php
+        
+        $onclick = "guardarOptometria()";
+        $id = "btnGuardarOptometria";
 
-        <div class="col-4">
-            <input class="btn btn-primary btn-lg btn-block" type="button" value="GUARDAR" onclick="guardarOptometria()" id="btnGuardarOptometria" name="btnGuardarOptometria">
-        </div>
+        include 'guardar.php';
+
+        ?>
+
 
         <div class="col-4">
                 <select class="form-control" onchange="obtenerParametrosOptometria()" name="fechaHora" id="fechaHora">

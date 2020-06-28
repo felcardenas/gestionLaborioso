@@ -505,7 +505,7 @@ if(isset($_POST)){
                                 $valor = $row['VALOR_PARAMETRO'];
                             break;
 
-                            case '59':
+                            case '144':
                                 $observaciones = $row['VALOR_PARAMETRO'];
                             break;
 
@@ -514,6 +514,7 @@ if(isset($_POST)){
                             break;
                         }
                     }
+                    
                     $estado = '';
                 break;
 

@@ -5,8 +5,7 @@ $idEvaluacion = $_SESSION["idEvaluacion"];
 $idExamen = '4';
 $limit = '9';
 
-    
-    //$observaciones = '';
+//$observaciones = '';
 
 
 $sql = "SELECT PARAMETRO.ID_PARAMETRO, EVALUACION_PARAMETRO.VALOR_PARAMETRO 

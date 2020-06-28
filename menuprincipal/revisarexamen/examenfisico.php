@@ -135,7 +135,9 @@ if($row = mysqli_fetch_assoc($resultado)){
                                     id="siguiente" 
                                     class="form-control btn btn-primary" 
                                     value="GUARDAR"
-                                    onclick="validarExamenFisico()">
+                                    onclick="validarExamenFisico()"
+                                    <?php $mostrar = $_SESSION['mostrar'];
+                                    echo $mostrar;?>>
                             </div>
 
                             <div class="col-4">

@@ -2849,6 +2849,204 @@ function editarDatosEmpresa(){
 }
 
 
+function editarDatosTrabajador() {
+    var valido = false;
+    var nombreTrabajador = document.getElementById("nombreTrabajador").value;
+    var apellidosTrabajador = document.getElementById("apellidosTrabajador").value;
+    var rutTrabajador = document.getElementById("rutTrabajador").value;
+    var dvTrabajador = document.getElementById("dvTrabajador").value;
+    var fechaNacimientoTrabajador = document.getElementById("fechaNacimientoTrabajador").value;
+    var sexoTrabajador = document.getElementById("sexoTrabajador").value
+    var direccionTrabajador = document.getElementById("direccionTrabajador").value;
+    var emailTrabajador = document.getElementById("emailTrabajador").value;
+    var telefonoTrabajador = document.getElementById("telefonoTrabajador").value;
+    var fechaFormateadaNacimientoTrabajador = new Date(fechaNacimientoTrabajador);
+    var fechaMinima = new Date("1940-01-01");
+    var fechaMaxima = new Date("2002-12-31");
+    var fecha = new Date();
+
+    //VALIDAR CAMPO NOMBRE TRABAJADOR
+    if (!validarBlanco(nombreTrabajador)) {
+        mensajeEnPantalla("Error", "Debe completar el campo nombre trabajador", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(nombreTrabajador, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo nombre trabajador solo puede contener letras y/o espacios", "error");
+        return valido;
+    }
+
+    if (nombreTrabajador.length > 40) {
+        mensajeEnPantalla("Error", "Nombre empresa no puede tener más de 40 caracteres", "error");
+        return valido;
+    }
+
+    //VALIDAR CAMPO APELLIDOS TRABAJADOR
+    if (!validarBlanco(apellidosTrabajador)) {
+        mensajeEnPantalla("Error", "Debe completar el campo apellidos trabajador", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(apellidosTrabajador, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/)) {
+        mensajeEnPantalla("Error", "El campo apellidos trabajador solo puede contener letras y/o espacios", "error");
+        return valido;
+    }
+
+    if (apellidosTrabajador.length > 64) {
+        mensajeEnPantalla("Error", "Apellidos trabajador no puede tener más de 64 caracteres", "error");
+        return valido;
+    }
+
+
+    //VALIDAR CAMPO RUT
+    if (!validarBlanco(rutTrabajador)) {
+        mensajeEnPantalla("Error", "Debe completar campo RUT trabajador", "error");
+        return valido;
+    }
+
+    if (rutTrabajador.length < 7 || rutTrabajador.length > 9) {
+        mensajeEnPantalla("Error", "RUT trabajador debe tener entre 7 y 9 números", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(rutTrabajador, /^\d{7,9}$/)) {
+        mensajeEnPantalla("Error", "El campo RUT trabajador puede números", "error");
+        return valido;
+    }
+
+    if (!validarRegExp(dvTrabajador, /^[0-9K]{1}$/)) {
+        mensajeEnPantalla("Error", "El campo DV solo puede ser de 0 a 9 o K", "error");
+        return valido;
+    }
+
+    if (!formulaRut(rutTrabajador, dvTrabajador)) {
+        mensajeEnPantalla("Error", "Rut trabajador inválido", "error");
+        return valido;
+    }
+
+    //VALIDAR FECHA
+    if (existeFecha(fechaNacimientoTrabajador)) {
+        mensajeEnPantalla("Error", "Fecha no existe o no es válida", "error");
+        return valido;
+    }
+
+    if (fechaFormateadaNacimientoTrabajador < fechaMinima || fechaFormateadaNacimientoTrabajador > fechaMaxima) {
+        mensajeEnPantalla("Error", "Ingrese una fecha entre 1940-01-01 y 2002-12-31", "error");
+        return valido;
+    }
+
+
+
+    //VALIDAR CAMPO SEXO
+    if (sexoTrabajador != "Femenino") {
+        if (sexoTrabajador != "Masculino") {
+            if (sexoTrabajador != "No especifica") {
+                mensajeEnPantalla("Error", "No me trates de engañar", "error");
+                return valido;
+            } else {
+                sexoTrabajador = "3";
+            }
+        } else {
+            sexoTrabajador = "2";
+        }
+    } else {
+        sexoTrabajador = "1";
+    }
+
+    //VALIDACIONES DIRECCION TRABAJADOR (PUEDE SER BLANCO, PERO SI ESTÁ LLENO DEBE HABER VALIDACIONES)
+    if (!validarBlanco(direccionTrabajador)){
+        mensajeEnPantalla("Error", "Debe completar campo Dirección trabajador ", "error");
+        return valido;
+    }
+        if (direccionTrabajador.length > 64) {
+            mensajeEnPantalla("Error", "Dirección trabajador no puede tener más de 64 caracteres", "error");
+            return valido;
+        }
+
+        if (!validarRegExp(direccionTrabajador, /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]*$/)) {
+            mensajeEnPantalla("Error", "El campo Dirección empresa solo puede contener letras, números y espacios", "error");
+            return valido;
+        }
+    
+
+    
+
+
+
+    //VALIDAR EMAIL-TELEFONO
+    
+        if (!validarBlanco(emailTrabajador)) {
+            mensajeEnPantalla("Error", "Debe completar campo Email trabajador ", "error");
+            return valido;
+        }
+            //VALIDACIONES EMAIL EMPRESA
+            if (!validarRegExp(emailTrabajador, /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)) {
+                mensajeEnPantalla("Error", "El campo Correo electrónico debe tener el formato 'correo@correo.cl'", "error");
+                return valido;
+            }
+            if (emailTrabajador.length > 64) {
+                mensajeEnPantalla("Error", "Email trabajador no puede tener más de 64 caracteres", "error");
+                return valido;
+            }
+        
+
+        //VALIDACIONES TELEFONO EMPRESA
+
+        if(!validarBlanco(telefonoTrabajador)) {
+            mensajeEnPantalla("Error", "Debe completar campo Teléfono trabajador ", "error");
+            return valido;
+        }
+            if (!validarRegExp(telefonoTrabajador, /^\d*$/)) {
+                mensajeEnPantalla("Error", "El campo Teléfono empresa debe contener solo números", "error");
+                return valido;
+            }
+
+            if (telefonoTrabajador.length != 9) {
+                mensajeEnPantalla("Error", "El campo telefono empresa debe tener 9 caracteres", "error");
+                return valido;
+            }
+        
+    
+
+
+            Swal.fire({
+                title: "Confirmación",
+                text: "¿Desea modificar los datos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Avanzar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    
+                    var datos = $('#formEditarTrabajador').serialize();
+                    $.ajax({
+                        type: "POST",
+                        url: "../consultas/insert.php",
+                        data: datos,
+                        success: function (r) {
+                            //alert(r);
+                            
+                            if (r == 'true') {
+                                mensajeEnPantalla("Se han modificado los datos", "", "success");
+                                
+                            } else if (r == 'false') {
+                                mensajeEnPantalla("No se han modificado los datos", "", "error");
+                            }
+                            //alert(r);
+                            
+                        }
+                    });
+                } else {
+                    mensajeEnPantalla("No se han modificado los datos", "", "error");
+                }
+            })
+
+    return valido;
+}
+
 
 
 function obtenerParametrosOptometria(){
@@ -4483,7 +4681,7 @@ function ingresarDatosInformes(){
         url: "../../consultas/insertarInformes.php",
         data: datos,
         success: function (r) {
-            alert(r);
+            //alert(r);
             if (r == 'true') {
 
                 mensajeEnPantalla("Se ingresaron los datos","","success");
@@ -4497,6 +4695,51 @@ function ingresarDatosInformes(){
     }); 
 
 }
+
+
+function finalizar(){
+
+    Swal.fire({
+        title: "¿Desea finalizar esta evaluacion? No podrá modificarla posteriormente",
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Avanzar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.value) {
+            
+            var datos = $('#finalizarEvaluacion').serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "../../consultas/finalizarEvaluacion.php",
+                    data: datos,
+                    success: function (r) {
+                        //alert(r);
+                        if (r == 'true'){
+                            window.location.replace('../index.php');
+                            //mostrarInformes();
+                        } else if (r == 'false') {
+                            mensajeEnPantalla("No se han ingresado los datos", "", "error");
+                        }
+                        //alert(r);
+                    
+                    }
+                }); 
+        } else {
+            //mensajeEnPantalla("No se han modificado los datos", "", "error");
+        }
+    })
+
+
+    
+}
+/* function finalizarEvaluacion(){
+    alert("HOLA");
+    
+} */
 
 
 function isNumeric(n) {
