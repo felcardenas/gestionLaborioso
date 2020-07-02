@@ -1,5 +1,11 @@
 <?php include '../global/conexion.php';?>
 
+<script>
+$(document).ready(function(){
+    $('.selectEmpresa').selectpicker(); 
+});
+</script>
+
 <div class="row justify-content-center">
 <h1><div class="col-12 mt-5">Editar Empresa</div></h1>
 </div>
@@ -22,7 +28,7 @@
                         <div class="col-8">
                                 <label for="">Seleccione empresa</label>
 
-                                <select name="idEmpresa" id="idEmpresa" class="form-control selectpicker" data-live-search="true" onchange="obtenerDatosEmpresa()" autofocus="true">
+                                <select name="idEmpresa" id="idEmpresa" class="form-control selectpicker selectEmpresa" data-live-search="true" onchange="obtenerDatosEmpresa()" autofocus="true">
                                     
                                     <?php
                                     
@@ -196,9 +202,5 @@
                         
                     </form>
 
-<script>
-$(document).ready(function(){
-    $('.selectpicker').selectpicker(); 
-});
-</script>
+
 

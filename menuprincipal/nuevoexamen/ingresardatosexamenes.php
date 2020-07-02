@@ -26,7 +26,7 @@ $valor = 0;
 ?>
 
 
-<div class="container-fluid">
+<div class="container">
     
 
 
@@ -98,27 +98,26 @@ if(isset($_POST['submit'])) {
     
     ?>
 
-<div class="row py-3 fondo">
+<div class="row py-3 fondo borderedondeado10 separacion10">
         
-        <!-- <div class="col-3">HOLA</div> -->
-        <!-- <div class="col-3" style="background-color:white"><img style="height:100px; width:100px;" src="../../img/logosinfondo.png" alt=""></div> -->
-        <div class="col-12 py-5"><h1 class="text-uppercase text-center titulo">EVALUACIÓN de <?=utf8_encode($_SESSION['nombreCompletoTrabajador'])?></h1></div>
+        <div class="col-3" style="padding-left:100px"><img src="../../img/iconosinfondo.png" alt="" height="200" width="200"></div>
+        <div class="col-9 pt-5"><h1 class="text-uppercase text-center titulo">EVALUACIÓN DE <?=utf8_encode($_SESSION['nombreCompletoTrabajador'])?></h1></div>
         
     </div>
     
-    <div class="row separacion"></div>
+    
     
 
-    <div class="row py-3 fondo">
+    <div class="row py-3 fondo borderedondeado10 separacion10">
         <div class="col-6"><?php include 'datostrabajador.php'?></div>
         <div class="col-6"><?php include 'riesgos.php' ?></div>
         
         
     </div>
 
-    <div class="row separacion"> </div>
+    
 
-    <div class="row py-3 fondo">
+    <div class="row py-3 fondo borderedondeado10 separacion10">
 
         <div class="col-12">
             <h3 class="text-center">SIGNOS VITALES</h3>
@@ -221,7 +220,7 @@ if(isset($_POST['submit'])) {
 
     
 
-    <div class="row separacion"></div>
+    
 
 
 
@@ -244,7 +243,7 @@ if(isset($_POST['submit'])) {
             ?>
                 
                 <div class="row justify-content-center">
-                    <div class="col-3 fondo">
+                    <div class="col-3 fondo borderedondeado10 separacion10">
 
                         <br><button onclick="mostrarSignosVitales()" class="btn btn-primary" style="font-size:20px;" id="btnSignosVitales">Signos vitales</button>
                 

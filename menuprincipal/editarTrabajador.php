@@ -1,5 +1,11 @@
 <?php include '../global/conexion.php';?>
 
+<script>
+$(document).ready(function(){
+    $('.selectpicker').selectpicker(); 
+});
+</script>
+
 <div class="row justify-content-center">
 <h1><div class="col-12 mt-5">Editar Trabajador</div></h1>
 </div>
@@ -26,7 +32,7 @@
                                     
                                     <?php
                                     
-                                    $sql = "SELECT ID_TRABAJADOR, RUT_TRABAJADOR, DV_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR FROM trabajador";
+                                    $sql = "SELECT ID_TRABAJADOR, RUT_TRABAJADOR, DV_TRABAJADOR, NOMBRE_TRABAJADOR, APELLIDO_TRABAJADOR FROM TRABAJADOR";
                                     
                                     $resultado = mysqli_query($conexion,$sql);
                                     while($row = mysqli_fetch_assoc($resultado)){

@@ -47,10 +47,21 @@
         exit();
     }
 
+    $password = '123';
+
+    $hash = password_hash($password,PASSWORD_DEFAULT,['cost' => 10]);
+
+    echo $password."<br/>";
+    echo $hash."<br/>";
+
+    echo strlen($hash)."<br/>";
+
+    
+
     mysqli_select_db($conexion,BDD) or die("No se encuentra la tabla");
     mysqli_set_charset($conexion,"utf8");
 
-    $sql ="select PASSWORD, ID_USUARIO, NOMBRE_USUARIO, APELLIDO_USUARIO, TIPO_DE_USUARIO.NOMBRE_TIPO_USUARIO 
+    $sql ="SELECT PASSWORD, ID_USUARIO, NOMBRE_USUARIO, APELLIDO_USUARIO, TIPO_DE_USUARIO.NOMBRE_TIPO_USUARIO 
     from USUARIO 
     inner join TIPO_DE_USUARIO
     ON TIPO_DE_USUARIO.ID_TIPO_USUARIO = USUARIO.ID_TIPO_USUARIO 
@@ -64,10 +75,7 @@
         mysqli_stmt_bind_result($sentencia, $contraseñaBDD, $idUsuario, $nombreUsuario, $apellidoUsuario, $tipoUsuario);
         mysqli_stmt_fetch($sentencia);
 
-        if($contraseñaBDD == $contraseñaLogin){
-            //echo $contraseñaBDD."<br>";
-            //echo "Correcto";
-            
+        if(password_verify($contraseñaLogin,$contraseñaBDD)){
             session_start();
             $_SESSION['usuarioNombreCompleto']=$nombreUsuario." ".$apellidoUsuario;
             $_SESSION['nombreUsuario'] = $nombreUsuario;
@@ -78,7 +86,23 @@
             
             
             header('Location:../menuprincipal/index.php');
-        }else{
+            
+        }
+        /* if($contraseñaBDD == $contraseñaLogin){
+            //echo $contraseñaBDD."<br>";
+            //echo "Correcto";
+            
+            session_start();
+            $_SESSION['usuarioNombreCompleto']=$nombreUsuario." ".$apellidoUsuario;
+            $_SESSION['nombreUsuario'] = $nombreUsuario;
+            $_SESSION['apellidoUsuario'] = $apellidoUsuario;
+            $_SESSION['tipoUsuario'] = $tipoUsuario;s
+            $_SESSION['idUsuario'] = $idUsuario;
+            $_SESSION['control'] = true;
+            
+            
+            header('Location:../menuprincipal/index.php');
+        } */else{
             ?>
 
             <form action="../index.php" method="post" id="form">

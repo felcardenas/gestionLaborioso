@@ -64,9 +64,6 @@ $(document).ready(function () {
 });
 
 
-
-
-
 function nuevoExamen(){
         $("#contenido").load("nuevoExamen.php");
 }
@@ -4060,7 +4057,7 @@ function mostrarIngresarEmpresa(){
 
 function mostrarEditarEmpresa(){
     $("#contenido").load("editarEmpresa.php");
-    document.getElementById("selectNombreEmpresa").focus();
+    document.getElementById("selectNombreEmpresa").onfocus;
 }
 
 function mostrarIngresarTrabajador(){

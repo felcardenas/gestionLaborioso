@@ -42,6 +42,6 @@
   
   
 </head>
+<body class="fondoBg">
 
 
-<div class="container-fluid">

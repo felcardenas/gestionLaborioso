@@ -50,6 +50,7 @@ $_SESSION['hora'] = '';
 
   <!-- Custom styles for this template -->
   
+  <link href="css/estilos.css" rel="stylesheet">
   <link href="css/simple-sidebar.css" rel="stylesheet">
   <link rel="stylesheet" href="../plugins/sweetalert/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="../bootstrap/css/bootstrap-select.min.css">
@@ -67,7 +68,7 @@ $_SESSION['hora'] = '';
 
 
 
-<body>
+<body class="fondoBg">
 
 
   
@@ -76,7 +77,7 @@ $_SESSION['hora'] = '';
 
     <!-- Sidebar -->
     <div class="bg-primary inverse border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">MENU</div>
+      <div class="sidebar-heading text-center"><img src="../img/iconosinfondo.png" alt="" height="100" width="100"></div>
       <div class="list-group list-group-flush">
       
         <a href="#" class="list-group-item list-group-item-action bg-primary botonmenu" style="color:white" id="btnMenuEmpresa">Empresa</a>
@@ -106,10 +107,10 @@ $_SESSION['hora'] = '';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-              <a class="nav-link botonmenu" href="#" id="inicio">Inicio<span class="sr-only">(current)</span></a>
+              <a class="nav-link botonmenu" href="#" id="inicio" style="color:white">Inicio<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
                 <?= $_SESSION['nombreUsuario']." ".$_SESSION['apellidoUsuario']." (".$_SESSION['tipoUsuario'].")" ?>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

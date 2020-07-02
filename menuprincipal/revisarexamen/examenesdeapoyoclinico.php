@@ -42,7 +42,7 @@ $resultado = mysqli_query($conexion,$sql);
 ?>
 
 
-<div class="container-fluid">
+<div class="container-fluid ">
 
     <div class="row py-5">
         <div class="col-12">
@@ -50,7 +50,7 @@ $resultado = mysqli_query($conexion,$sql);
         </div>
     </div>
 
-    <div class="row separacion"></div>
+    
 
     <div class="row justify-content-center fondo">
         <!-- <div class="col-3"></div> -->
@@ -59,13 +59,13 @@ $resultado = mysqli_query($conexion,$sql);
         </div>
     </div>
 
-    <div class="row separacion"></div>
+
 
 
 
 
     <div class="row justify-content-center">
-        <div class="col-12 fondo py-2">
+        <div class="col-12 fondo py-2 borderedondeado10">
             
 
 

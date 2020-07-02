@@ -6,29 +6,30 @@ $cargo = '';
 ?>
 
 <script>$('.selectEmpresa').selectpicker();</script>
+
 <div class="container">
 
     
 
-<div class="row fondo py-5">
-    <div class="col-12">
-        <h1 class="text-center titulo">INGRESAR EMPRESA Y CARGO</h1>
+    <div class="row fondo py-5 borderedondeado10 separacion10">
+        <div class="col-12">
+            <h1 class="text-center titulo">INGRESAR EMPRESA Y CARGO</h1>
+        </div>
     </div>
-</div>
 
-<div class="row separacion"></div>
 
-<div class="row justify-content-center fondo">
-    
-    <div class="col-8">                     
-        <?php include 'datostrabajador.php' ?>
+
+    <div class="row justify-content-center py-2 fondo borderedondeado10 separacion10">
+        
+        <div class="col-8">                     
+            <?php include 'datostrabajador.php' ?>
+        </div>
     </div>
-</div>
-
-<div class="row separacion"></div>
 
 
-<div class="row justify-content-center fondo py-5">
+
+
+<div class="row justify-content-center fondo py-5 borderedondeado10 separacion10">
  <div class="col-12">
     <form action="signosvitales.php" name="formEmpresaYCargo" id="formEmpresaYCargo" method="post" class="form-group">
 
@@ -41,6 +42,7 @@ $cargo = '';
                             <label for="">Seleccione empresa</label>
 
                             <select name="nombreEmpresa" id="nombreEmpresa" class="form-control selectEmpresa selectpicker" data-live-search="true">
+                            <option disabled selected>Seleccione una empresa</option>
                     <?php
                     
                         $sql = "SELECT ID_EMPRESA,RUT_EMPRESA, DV_EMPRESA, NOMBRE_EMPRESA FROM EMPRESA";

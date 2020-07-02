@@ -101,8 +101,12 @@ include '../../../global/conexion.php';
 
 <div class="row justify-content-center my-5">
         <div class="col-8">
-            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="examenSignosVitales()" <?php $mostrar = $_SESSION['mostrar'];
-                                    echo $mostrar;?>>CONTINUAR</button>
+            <button type="button" name="siguiente" id="siguiente" class="form-control btn btn-primary btn-block" onclick="examenSignosVitales()" <?php 
+            if(isset($_SESSION['mostrar'])){
+                $mostrar = $_SESSION['mostrar'];
+                echo $mostrar;
+            }else{echo "";}
+                ?>>CONTINUAR</button>
             
         </div>
 

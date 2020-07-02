@@ -8,25 +8,25 @@ session_start();
 
     
 
-<div class="row fondo py-5">
+<div class="row fondo py-5 borderedondeado10 separacion10">
     <div class="col-12">
         <h1 class="text-center titulo">INGRESAR SIGNOS VITALES</h1>
     </div>
 </div>
 
-<div class="row separacion"></div>
 
-<div class="row justify-content-center fondo">
+
+<div class="row justify-content-center fondo borderedondeado10 separacion10">
     <!-- <div class="col-4"></div> -->
     <div class="col-12">                     
         <?php include 'datostrabajador.php' ?>
     </div>
 </div>
 
-<div class="row separacion"></div>
 
 
-<div class="row justify-content-center fondo py-5">
+
+<div class="row justify-content-center fondo py-5 borderedondeado10 separacion10">
  <div class="col-12">
     <form action="seleccionexamenes.php" id="formSignosVitales" class="" method="post" class="form-group">
 

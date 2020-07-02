@@ -88,8 +88,6 @@ $resultado = mysqli_query($conexion, $sql);
                                     style="height:100px; width:600px;"
                                     <?php 
                                     if($_SESSION['tipoUsuario'] == 'Estándar' || $_SESSION['mostrar'] == 'disabled'){
-                                    
-                                    
                                     echo "disabled";}?>
                                     >
                             </div>
